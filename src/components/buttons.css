@@ -1,0 +1,61 @@
+.buttons{
+    font-family: 'Outfit';
+
+    font-size: 20px;
+    display: flex;
+    width: 180px;
+    height: 120px;
+    margin-right: 60px ;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    font-weight: 600;
+  color: white;
+    border-radius: 15px;
+    border: none;
+
+
+
+
+}
+
+.basics-container{
+    display: flex;
+
+}
+
+.intermediate-container{
+    display: flex;
+    align-self: flex-start;
+    margin-left: 130px;
+    color: white;
+
+
+}
+
+.buttons-container{
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.header{
+    display: flex;
+    align-self: flex-start;
+    margin-left: 130px;
+    margin-top: 100px;
+    font-family: 'Outfit';font-size: 22px;
+    font-weight: 600;
+    color: black;
+
+}
+.background-inter{
+    background-image: url("images/gradient-inter.png");
+}
+
+.background-basics{
+    background-image: url("images/background-basics.png");
+}
