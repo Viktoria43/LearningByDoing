@@ -1,6 +1,5 @@
 .buttons{
-    font-family: 'Outfit';
-
+    font-family: 'Verdana';
     font-size: 20px;
     display: flex;
     width: 180px;
@@ -11,13 +10,15 @@
     align-items: flex-start;
     justify-content: flex-start;
     font-weight: 600;
-  color: white;
+    color: white;
     border-radius: 15px;
     border: none;
+    transition: box-shadow 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+}
 
-
-
-
+.buttons:hover {
+    box-shadow: 0 0 10px 3px #7f7f7f;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 
 .basics-container{
