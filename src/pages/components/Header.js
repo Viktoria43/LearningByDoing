@@ -1,6 +1,6 @@
-// Todo: font family, size changes, check on non-monitor and phone devices
 
 // Menu.js
+import {Link} from 'react-router-dom';
 import React from 'react';
 import styled from 'styled-components';
 
@@ -17,52 +17,61 @@ const StyledMenu = styled.div`
 `;
 
 // Styled component for individual menu items
-const MenuItem = styled.div`
-  // background-color: grey;
+const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: white
+  margin-top: 10px;
   cursor: pointer;
   margin-left: 5px; /* Add spacing between menu items */
   &:hover {
-    text-decoration: underline;
+    text-decoration: none;
   }
 `;
 
 //push the items except Logo in a corner
 const MenuContainer = styled.div`
   display: flex;
-  gap: 245px; // Adjust the gap between the right items as needed
+  gap: 2em; // Adjust the gap between the right items as needed
 `;
 
 //Logo (change name?)
-const BrandName = styled.div`
+const BrandName = styled(Link)`
+  text-decoration: none;
   color: black;
+  cursor: pointer;
   font-weight: bold;
   font-size: 1.4em;
   margin-right: 70px;
+  &:hover {
+    text-decoration: none;
+  }
 `;
 
-const LoginButton = styled.div`
+const LoginButton = styled(Link)`
+  text-decoration: none;
   background-color: black;
-  color: grey;
-  padding: 8px 16px;
+  color: white;
+  padding: 10px;
   border: none;
-  border-radius: 5px;
+  border-radius: 10px;
   cursor: pointer;
   &:hover {
     background-color: #555;
   }
 `;
 
-const Menu = () => {
+const Header = () => {
     return (
         <StyledMenu>
-            <BrandName>LearnByDoing</BrandName>
+            <BrandName to="/">LearnByDoing</BrandName>
             <MenuContainer>
-        <MenuItem>About Us</MenuItem>
-        <MenuItem>Contact</MenuItem>
-        <LoginButton>LOGIN</LoginButton>
-      </MenuContainer>
+              <StyledLink to="/About">About Us</StyledLink>
+              <StyledLink to="/Contact">Contact</StyledLink>
+              <LoginButton to="/">Login</LoginButton>
+              
+            </MenuContainer>
         </StyledMenu>
     );
 };
 
-export default Menu;
+export default Header;

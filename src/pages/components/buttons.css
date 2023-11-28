@@ -2,8 +2,8 @@
     font-family: 'Verdana';
     font-size: 20px;
     display: flex;
-    width: 12em;
-    height: 8em;
+    width: 9em;
+    height: 6em;
     margin-right: 3em;
     flex-direction: column;
     align-items: flex-start;
@@ -28,12 +28,12 @@
     align-items: flex-start;
 }
 
-
-
-
-
 .basics-container {
     display: flex;
+}
+
+Link button{
+    text-decoration: none;
 }
 
 .intermediate-container {
@@ -49,9 +49,8 @@
 }
 
 
-
 .background-inter {
-    background-image: url("gradient-inter.png");
+    background-image: url("images/gradient-inter.png");
 }
 
 .background-basics {
