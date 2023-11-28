@@ -1,61 +1,89 @@
-.buttons{
+.buttons {
     font-family: 'Outfit';
-
     font-size: 20px;
     display: flex;
-    width: 180px;
-    height: 120px;
-    margin-right: 60px ;
-    display: flex;
+    width: 12em;
+    height: 8em;
+    margin-right: 3em;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
     font-weight: 600;
-  color: white;
+    color: white;
     border-radius: 15px;
     border: none;
-
-
-
-
 }
-
-.basics-container{
+.header {
     display: flex;
-
+    font-size: 22px;
+    font-weight: 600;
+    color: black;
+    justify-content: flex-start;
+    align-items: flex-start;
 }
 
-.intermediate-container{
+
+
+
+
+.basics-container {
     display: flex;
-    align-self: flex-start;
-    margin-left: 130px;
-    color: white;
-
-
 }
 
-.buttons-container{
+.intermediate-container {
+    display: flex;
+}
+
+.buttons-container {
     display: flex;
     flex: 1;
-    justify-content: center;
-    align-items: center;
+    justify-content:flex-end;
+    align-items:flex-end;
     flex-direction: column;
 }
 
-.header{
-    display: flex;
-    align-self: flex-start;
-    margin-left: 130px;
-    margin-top: 100px;
-    font-family: 'Outfit';font-size: 22px;
-    font-weight: 600;
-    color: black;
 
-}
-.background-inter{
+
+.background-inter {
     background-image: url("gradient-inter.png");
 }
 
-.background-basics{
+.background-basics {
     background-image: url("images/background-basics.png");
+}
+
+@media screen and(max-width: 480px) {
+    .buttons {
+        width: 4em;
+        height: 2em;
+        margin-right: 1em;
+    }
+    .header {
+        font-size: 13px;
+    }
+}
+
+
+@media screen  and (max-width: 768px) {
+    .buttons {
+        width: 6em;
+        height: 4em;
+        margin-right: 1.5em;
+    }
+    .header {
+        font-size: 15px;
+    }
+}
+
+
+
+@media screen and (max-width: 1400px) {
+    .buttons {
+        width: 8em;
+        height: 6em;
+        margin-right: 2em;
+    }
+    .header {
+        font-size: 18px;
+    }
 }

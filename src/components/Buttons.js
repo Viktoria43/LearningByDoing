@@ -21,12 +21,12 @@ export default function Buttons(){
         </div>
             <h3 className="header">Data structures & visualizers:</h3>
             <div className="intermediate-container">
-
                 <button className='buttons background-inter'>Sorting</button>
                 <button className='buttons background-inter'>Lists</button>
                 <button className='buttons background-inter'>Binary Tree</button>
                 <button className='buttons background-inter'>Loops</button>
                 <button className='buttons background-inter'>OOP</button>
+                <button className='buttons background-inter'>Queues</button>
             </div>
         </div>
 
