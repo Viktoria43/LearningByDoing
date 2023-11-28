@@ -1,5 +1,5 @@
-.buttons {
-    font-family: 'Outfit';
+.buttons{
+    font-family: 'Verdana';
     font-size: 20px;
     display: flex;
     width: 12em;
@@ -12,6 +12,12 @@
     color: white;
     border-radius: 15px;
     border: none;
+    transition: box-shadow 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+}
+
+.buttons:hover {
+    box-shadow: 0 0 10px 3px #7f7f7f;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 .header {
     display: flex;
