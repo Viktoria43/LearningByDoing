@@ -13,28 +13,32 @@
     border-radius: 15px;
     border: none;
     transition: box-shadow 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+    cursor: pointer;
 }
+
+.link {
+    text-decoration: none;
+  }
 
 .buttons:hover {
     box-shadow: 0 0 10px 3px #7f7f7f;
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
 }
 .header {
+    font-family: 'Futura', 'Trebuchet MS', sans-serif;
     display: flex;
     font-size: 22px;
-    font-weight: 600;
-    color: black;
+    font-weight: 100;
+    color: white;
     justify-content: flex-start;
     align-items: flex-start;
 }
 
 .basics-container {
     display: flex;
-}
-
-Link button{
     text-decoration: none;
 }
+
 
 .intermediate-container {
     display: flex;
@@ -71,6 +75,7 @@ Link button{
 
 @media screen  and (max-width: 768px) {
     .buttons {
+        text-decoration: none;
         width: 6em;
         height: 4em;
         margin-right: 1.5em;
@@ -84,6 +89,7 @@ Link button{
 
 @media screen and (max-width: 1400px) {
     .buttons {
+        text-decoration: none;
         width: 8em;
         height: 6em;
         margin-right: 2em;

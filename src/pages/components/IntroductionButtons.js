@@ -17,9 +17,10 @@ export default function IntroductionButtons() {
       <h3 className="header">Introduction:</h3>
       <div className="basics-container">
         {buttonLabels.map((label, index) => (
-          <Link to={'/Introduction/'+label}><button key={index} className="buttons background-basics">
-            {label}
-          </button>
+          <Link to={'/Introduction/'+label} className="link">
+            <button key={index} className="buttons background-basics">
+              {label}
+            </button>
           </Link>
         ))}
       </div>

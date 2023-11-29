@@ -1,9 +1,12 @@
 import Menu from "../components/Header";
+import Footer from "../components/Footer";
 function DataTypes(){
     return (
-        <div>
+        <div className = "page"> 
+            <div className = "content">
             <Menu />
-            <h1>This is the DataTypes Page.</h1>
+            </div>
+            <Footer />
         </div>
     )
 }

@@ -1,9 +1,12 @@
 import Menu from "../components/Header";
+import Footer from "../components/Footer";
 function Sorting(){
     return (
-        <div>
+        <div className = "page"> 
+            <div className = "content">
             <Menu />
-            <h1>This is the Sorting Page.</h1>
+            </div>
+            <Footer />
         </div>
     )
 }

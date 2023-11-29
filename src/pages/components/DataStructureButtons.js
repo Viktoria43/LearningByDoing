@@ -18,7 +18,8 @@ export default function DataStructureButtons() {
       <h3 className="header">Data structures & visualizers:</h3>
       <div className="intermediate-container">
         {buttonLabels.map((label, index) => (
-          <Link to={'/DataStructures/'+label}><button key={index} className="buttons background-inter">
+          <Link to={'/DataStructures/'+label} className="link">
+            <button key={index} className="buttons background-inter">
             {label}
           </button>
           </Link>

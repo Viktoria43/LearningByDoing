@@ -6,7 +6,8 @@ import styled from 'styled-components';
 
 // Styled component for the menu bar
 const StyledMenu = styled.div`
-  background-color: transparent;
+  background-color: rgba(255, 0, 100, 0.3);
+  box-shadow: 0 0 5px 3px #440000;
   font-family:'sans-serif',Verdana;
   font-size: 25px;
   color: grey;
@@ -19,9 +20,11 @@ const StyledMenu = styled.div`
 // Styled component for individual menu items
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: white
-  margin-top: 10px;
+  color: white;
+  margin-top: 3%;
+  font-size: 0.6em;
   cursor: pointer;
+  font-family: 'Futura', 'Trebuchet MS', sans-serif;
   margin-left: 5px; /* Add spacing between menu items */
   &:hover {
     text-decoration: none;
@@ -37,10 +40,11 @@ const MenuContainer = styled.div`
 //Logo (change name?)
 const BrandName = styled(Link)`
   text-decoration: none;
-  color: black;
+  color: #aaddff;
   cursor: pointer;
   font-weight: bold;
-  font-size: 1.4em;
+  font-size: 1.2em;
+  font-family: 'Futura', 'Trebuchet MS', sans-serif;
   margin-right: 70px;
   &:hover {
     text-decoration: none;
@@ -51,12 +55,14 @@ const LoginButton = styled(Link)`
   text-decoration: none;
   background-color: black;
   color: white;
-  padding: 10px;
+  font-size: 0.6em;
+  font-family: 'Futura', 'Trebuchet MS', sans-serif;
+  padding: 8px;
   border: none;
-  border-radius: 10px;
+  border-radius: 7px;
   cursor: pointer;
   &:hover {
-    background-color: #555;
+    background-color: #559;
   }
 `;
 
