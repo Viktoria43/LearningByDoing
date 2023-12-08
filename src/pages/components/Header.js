@@ -73,7 +73,7 @@ const Header = () => {
             <MenuContainer>
               <StyledLink to="/About">About Us</StyledLink>
               <StyledLink to="/Contact">Contact</StyledLink>
-              <LoginButton to="/">Login</LoginButton>
+              <LoginButton to="/Login">Login</LoginButton>
               
             </MenuContainer>
         </StyledMenu>

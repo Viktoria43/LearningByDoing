@@ -3,6 +3,7 @@ import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
+import Login from "./pages/Login";
 
 import * as DataStructures from './pages/data_structures';
 import * as Introduction from './pages/introduction';
@@ -55,6 +56,7 @@ function App() {
             <Route exact path="/" element = {<Home />}/>
             <Route exact path="/About" element = {<About />}/>
             <Route exact path="/Contact" element = {<Contact />}/>
+                <Route exact path="/Login" element = {<Login />}/>
             {dataStructureRoutes}
             {introducionRoutes}
             </Routes>
