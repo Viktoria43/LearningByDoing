@@ -1,6 +1,8 @@
 import Header from "./components/Header";
 import React from 'react';
 import styled from 'styled-components';
+import axios from "axios";
+import {useNavigate, Link} from "react-router-dom";
 
 const CenteredContainer = styled.div`
   display: flex;
@@ -27,7 +29,20 @@ const InputField = styled.input`
 
 
 const Button = styled.button`
-   // Adjust the margin as needed
+  text-decoration: none;
+  background-color: black;
+  width: 150px; /* Adjust the width as needed */
+  padding: 8px;
+  color: white;
+  font-size: 1em;
+  font-family: 'Futura', 'Trebuchet MS', sans-serif;
+  padding: 8px;
+  border: none;
+  border-radius: 7px;
+  cursor: pointer;
+  margin-bottom: 40px;
+  &:hover {
+    background-color: #559;
 `;
 
 export default function Login() {
@@ -42,10 +57,12 @@ export default function Login() {
 
 
             {loginLabels.map((label) => (
+                <form action="POST">
                 <InputContainer key={label}>
                     <label>{label}:</label>
                     <InputField type={label === 'Password' ? 'password' : 'text'} />
                 </InputContainer>
+                </form>
             ))}
             <Button>Login</Button>
 
