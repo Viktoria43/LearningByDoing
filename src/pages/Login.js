@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import axios from "axios";
 import {useNavigate, Link} from "react-router-dom";
 
+
 const CenteredContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -53,8 +54,6 @@ export default function Login() {
         <div>
             <Header />
         <CenteredContainer>
-
-
 
             {loginLabels.map((label) => (
                 <form action="POST">
