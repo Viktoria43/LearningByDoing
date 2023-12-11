@@ -1,7 +1,7 @@
 // data_structures/index.js
-export { default as BinaryTree } from './BinaryTree';
-export { default as Lists } from './Lists';
-export { default as OOP } from './OOP';
-export { default as Queues } from './Queues';
-export { default as Sorting } from './Sorting';
-export { default as Loops } from './Loops';
+export { default as BinaryTree } from './binarytree/BinaryTree';
+export { default as Lists } from './lists/Lists';
+export { default as OOP } from './oop/OOP';
+export { default as Queues } from './queues/Queues';
+export { default as Sorting } from './sorting/Sorting';
+export { default as Loops } from './loops/Loops';
