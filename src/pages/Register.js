@@ -4,6 +4,7 @@ import Header from "./components/Header";
 import axios from "axios";
 
 
+
 const CenteredContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -54,7 +55,6 @@ export default function Register() {
                 })
                 .catch(error => {
                     console.error('Error making axios request:', error);
-
                 })
 
     }

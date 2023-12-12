@@ -2,11 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const path = require('path');
 const morgan = require("morgan");
+const Schema = mongoose.Schema;
+require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
 
 const app = express();
 const PORT = 4000;
 
-require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
@@ -27,7 +29,28 @@ app.get("/login", (req, res) => {
 
 });
 
-// Start the server
+app.post('/register', (req,res)=>{
+    const newUser = new userData({
+    });
+    newUser.save()
+        .then((res)=>{
+            res.redirect('/')
+        })
+})
+
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
+
+const userData = new Schema({
+    username: {
+        type: String,
+    },
+    password:{
+        type:String
+    }
+})
+const Register = mongoose.model('Register', userData);
+module.exports= Register;
+
+
