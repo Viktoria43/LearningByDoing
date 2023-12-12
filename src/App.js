@@ -9,6 +9,7 @@ import * as DataStructures from './pages/data_structures';
 import * as Introduction from './pages/introduction';
 import axios from "axios";
 import {useEffect} from "react";
+import Register from "./pages/Register";
 
 // Assuming you have an array of paths
 const dataStructurePaths = ['/BinaryTree', '/Lists', '/Loops', '/OOP', '/Queues', '/Sorting'];
@@ -41,7 +42,6 @@ const introducionRoutes = introductionPaths.map((path) => {
 
     return (
         <Route
-
             key={path}
             exact
             path={`/Introduction${path}`}
@@ -52,16 +52,7 @@ const introducionRoutes = introductionPaths.map((path) => {
 
 
 function App() {
-    useEffect(() => {
-        axios.get('http://localhost:4000/login')
-            .then(response => {
-                console.log('Response from server:', response.data);
-            })
-            .catch(error => {
-                console.error('Error making axios request:', error);
 
-            })
-    }, []);
 
     return (
 
@@ -73,6 +64,7 @@ function App() {
                     <Route exact path="/About" element = {<About />}/>
                     <Route exact path="/Contact" element = {<Contact />}/>
                     <Route exact path="/Login" element = {<Login />}/>
+                    <Route exact path="/Register" element={<Register />} />
                     {dataStructureRoutes}
                     {introducionRoutes}
                 </Routes>

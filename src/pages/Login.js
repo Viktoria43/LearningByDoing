@@ -1,8 +1,9 @@
 import Header from "./components/Header";
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import axios from "axios";
 import {useNavigate, Link} from "react-router-dom";
+
 
 
 const CenteredContainer = styled.div`
@@ -48,11 +49,14 @@ const Button = styled.button`
 
 export default function Login() {
     const loginLabels = ['Username', 'Password'];
-    const registerLabels = ['Choose Username', 'Choose a Password'];
+
+
+
 
     return (
         <div>
             <Header />
+
         <CenteredContainer>
 
             {loginLabels.map((label) => (
@@ -63,15 +67,9 @@ export default function Login() {
                 </InputContainer>
                 </form>
             ))}
-            <Button>Login</Button>
+            <Button >Login</Button>
 
-            {registerLabels.map((label) => (
-                <InputContainer key={label}>
-                    <label>{label}:</label>
-                    <InputField type={label === 'Password' ? 'password' : 'text'} />
-                </InputContainer>
-            ))}
-            <Button>Register</Button>
+            <Link to="/Register">Don't have an account? Sign up!</Link>
         </CenteredContainer>
         </div>
 
