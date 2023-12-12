@@ -48,10 +48,13 @@ export default function Register() {
     const registerLabels = ['Choose Username', 'Choose a Password'];
     const [username, setUserName] = useState('');
     const [password, setPass] = useState('');
+    const [regSuccess, setReg]=useState(false);
+    const [usernameBusy, setBusy]=useState(false);
 
     const handleReg = ()=>{
         axios.post('http://localhost:4000/register',{username: username, password:password})
-        window.location.reload()
+        setReg(true);
+
 
     }
 
@@ -74,6 +77,9 @@ export default function Register() {
                     </form>
                 ))}
                 <Button onClick={handleReg}>Register</Button>
+                {regSuccess && (
+                    <p style={{ color: 'green' }}>Registration successful! You can now proceed to the login page.</p>
+                )}
             </CenteredContainer>
         </div>
     );
