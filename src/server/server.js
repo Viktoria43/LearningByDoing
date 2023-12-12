@@ -28,15 +28,26 @@ app.get("/login", (req, res) => {
 
 
 });
+app.post('/register', (req, res) => {
+    const { username, password } = req.body;
 
-app.post('/register', (req,res)=>{
+
     const newUser = new userData({
+        username: username,
+        password: password,
     });
+
+
     newUser.save()
-        .then((res)=>{
-            res.redirect('/')
+        .then(savedUser => {
+            console.log('User registered successfully:', savedUser);
+            res.redirect('/');
         })
-})
+        .catch(error => {
+            console.error('Error registering user:', error);
+            res.status(500).send('Internal Server Error');
+        });
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
