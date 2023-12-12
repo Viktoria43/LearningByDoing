@@ -49,21 +49,14 @@ export default function Register() {
     const [username, setUserName] = useState('');
     const [password, setPass] = useState('');
 
-    const handleReg=()=>{
-
-          /*  axios.get('http://localhost:4000/register')
-                .then(response => {
-                    console.log('Response from server:', response.data);
-                })
-                .catch(error => {
-                    console.error('Error making axios request:', error);
-                })*/
+    const handleReg = ()=>{
         axios.post('http://localhost:4000/register',{username: username, password:password})
-
-
-
+        window.location.reload()
 
     }
+
+
+
 
     return (
         <div>
