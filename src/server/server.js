@@ -1,5 +1,6 @@
 const express = require("express");
 const mongoose = require("mongoose");
+const cors = require('cors');
 const path = require('path');
 const morgan = require("morgan");
 const Schema = mongoose.Schema;
@@ -8,7 +9,7 @@ require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
 const app = express();
 const PORT = 4000;
 
-
+app.use(cors())
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(morgan("dev"));
@@ -28,11 +29,28 @@ app.get("/login", (req, res) => {
 
 
 });
+
+app.get("/register", (req, res) => {
+
+
+});
+const userData = new Schema({
+    username: {
+        type: String,
+    },
+    password:{
+        type:String
+    }
+})
+const Register = mongoose.model('Register', userData);
+module.exports= Register;
+
+
 app.post('/register', (req, res) => {
     const { username, password } = req.body;
 
-
-    const newUser = new userData({
+console.log('test');
+    const newUser = new Register({
         username: username,
         password: password,
     });
@@ -41,7 +59,7 @@ app.post('/register', (req, res) => {
     newUser.save()
         .then(savedUser => {
             console.log('User registered successfully:', savedUser);
-            res.redirect('/');
+
         })
         .catch(error => {
             console.error('Error registering user:', error);
@@ -53,15 +71,5 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-const userData = new Schema({
-    username: {
-        type: String,
-    },
-    password:{
-        type:String
-    }
-})
-const Register = mongoose.model('Register', userData);
-module.exports= Register;
 
 

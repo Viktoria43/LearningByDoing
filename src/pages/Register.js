@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import styled from "styled-components";
 import Header from "./components/Header";
 import axios from "axios";
@@ -18,12 +18,12 @@ const InputContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 15px;
-  margin-top: 15px; // Adjust the margin as needed
+  margin-top: 15px; 
 `;
 const Button = styled.button`
   text-decoration: none;
   background-color: black;
-  width: 150px; /* Adjust the width as needed */
+  width: 150px; 
   padding: 8px;
   color: white;
   font-size: 1em;
@@ -39,41 +39,49 @@ const Button = styled.button`
 `;
 
 const InputField = styled.input`
-  width: 300px; /* Adjust the width as needed */
-  padding: 8px; /* Adjust the padding as needed */
-  margin-top: 5px; /* Adjust the margin as needed */
+  width: 300px; 
+  padding: 8px; 
+  margin-top: 5px; 
 `;
 
 export default function Register() {
     const registerLabels = ['Choose Username', 'Choose a Password'];
+    const [username, setUserName] = useState('');
+    const [password, setPass] = useState('');
 
     const handleReg=()=>{
 
-            axios.get('http://localhost:4000/login')
+          /*  axios.get('http://localhost:4000/register')
                 .then(response => {
                     console.log('Response from server:', response.data);
                 })
                 .catch(error => {
                     console.error('Error making axios request:', error);
-                })
+                })*/
+        axios.post('http://localhost:4000/register',{username: username, password:password})
+
+
+
 
     }
 
     return (
         <div>
-            <Header/>
-<CenteredContainer>
-            {registerLabels.map((label) => (
-                <form action="POST">
-                    <InputContainer key={label}>
-                        <label>{label}:</label>
-                        <InputField type={label === 'Password' ? 'password' : 'text'} />
-                    </InputContainer>
-                </form>
-            ))}
+            <Header />
+            <CenteredContainer>
+                {registerLabels.map((label, index) => (
+                    <form key={index} action="POST">
+                        <InputContainer>
+                            <label>{label}:</label>
+                            <InputField
+                                type={label === 'Choose a Password' ? 'password' : 'text'}
+                                onChange={e => label === 'Choose Username' ? setUserName(e.target.value) : setPass(e.target.value)}
+                            />
+                        </InputContainer>
+                    </form>
+                ))}
                 <Button onClick={handleReg}>Register</Button>
-</CenteredContainer>
-
+            </CenteredContainer>
         </div>
     );
 }
