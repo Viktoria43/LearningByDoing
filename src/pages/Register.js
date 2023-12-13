@@ -44,18 +44,42 @@ const InputField = styled.input`
   margin-top: 5px; 
 `;
 
+const labelSt = styled.label`
+color: white
+`;
+
 export default function Register() {
     const registerLabels = ['Choose Username', 'Choose a Password'];
     const [username, setUserName] = useState('');
     const [password, setPass] = useState('');
     const [regSuccess, setReg]=useState(false);
+    const [invalidReg, setInvalid]=useState(false);
     const [usernameBusy, setBusy]=useState(false);
 
-    const handleReg = ()=>{
-        axios.post('http://localhost:4000/register',{username: username, password:password})
-        setReg(true);
+    const handleReg = ()=> {
+        if (username.length > 8 && password.length > 8) {
+            axios.post('http://localhost:4000/register', {username, password})
+                .then(() => {
+                    setReg(true);
+                })
+                .catch(error => {
+                    console.error('Error registering user:', error);
+                });
 
 
+        }
+        else if (username.length < 8 && password.length < 8){
+            setInvalid('true');
+        }
+    }
+    const cleanInput = ()=>{
+        setUserName('');
+        setPass('');
+    }
+
+    const Register =()=>{
+        handleReg();
+        cleanInput();
     }
 
 
@@ -71,14 +95,18 @@ export default function Register() {
                             <label>{label}:</label>
                             <InputField
                                 type={label === 'Choose a Password' ? 'password' : 'text'}
+                                value={label === 'Choose a Password' ? password : username}
                                 onChange={e => label === 'Choose Username' ? setUserName(e.target.value) : setPass(e.target.value)}
                             />
                         </InputContainer>
                     </form>
                 ))}
-                <Button onClick={handleReg}>Register</Button>
+                <Button onClick={Register}>Register</Button>
                 {regSuccess && (
                     <p style={{ color: 'green' }}>Registration successful! You can now proceed to the login page.</p>
+                )}
+                {invalidReg && (
+                    <p style={{ color: 'red' }}>Registration unsuccessful! Please choose a Username and a Password with minimum 8 characters</p>
                 )}
             </CenteredContainer>
         </div>
