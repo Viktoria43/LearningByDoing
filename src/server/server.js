@@ -101,18 +101,19 @@ app.post('/register', (req, res) => {
     });
 
 
+    const oldName = Register.findOne({ username: username })
+   if (oldName != username){newUser.save()
+       .then(savedUser => {
+           //data transfer, view mod
+           res.json(savedUser)
+           console.log('User registered successfully:', savedUser);
 
-    newUser.save()
-        .then(savedUser => {
-            //data transfer, view mod
-            res.json(savedUser)
-            console.log('User registered successfully:', savedUser);
+       })
+       .catch(error => {
+           console.error('Error registering user:', error);
+           res.status(500).send('Internal Server Error');
+       });}
 
-        })
-        .catch(error => {
-            console.error('Error registering user:', error);
-            res.status(500).send('Internal Server Error');
-        });
 });
 
 app.post('/login', (req, res) => {

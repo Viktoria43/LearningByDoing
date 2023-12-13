@@ -55,21 +55,23 @@ export default function Register() {
     const [invalidReg, setInvalid] = useState(false);
     const [usernameBusy, setBusy] = useState(false);
 
-    const handleReg = () => {
+    const handleReg = ()=> {
         if (username.length >= 8 && password.length >= 8) {
             axios.post('http://localhost:4000/register', {username, password})
+
                 .then(() => {
-                    console.log("54325")
-                    setReg(true);
+setReg(true);
+setInvalid(false);
                 })
                 .catch(error => {
                     console.error('Error registering user:', error);
 
                 });
-        } else if (username.length < 8 && password.length < 8) {
-            setInvalid(true);
         }
-
+        else if (username.length < 8 && password.length < 8){
+            setInvalid(true);
+            setReg(false);
+        }
     }
     const cleanInput = () => {
         setUserName('');

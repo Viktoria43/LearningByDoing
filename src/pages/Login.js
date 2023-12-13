@@ -52,6 +52,7 @@ export default function Login() {
 const [username, setUserName] = useState('');
 const [password,setPass]= useState('');
 const [loginSuccess, setloginSuccess] = useState(true);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
     const navigate = useNavigate();
 
     const handleLogin = async () => {
@@ -60,6 +61,7 @@ const [loginSuccess, setloginSuccess] = useState(true);
             const { success } = response.data;
 
             if (success) {
+                setIsLoggedIn(true);
                 navigate('/');
             } else {
                 setloginSuccess(false);
