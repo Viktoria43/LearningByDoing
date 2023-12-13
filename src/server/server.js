@@ -22,6 +22,7 @@ mongoose.connect(db, { useUnifiedTopology: true, useNewUrlParser: true })
     })
     .catch((err) => {
         console.error("Error connecting to MongoDB:", err);
+        console.log(err)
     });
 
 // Define your routes
@@ -64,6 +65,23 @@ console.log('test');
         .catch(error => {
             console.error('Error registering user:', error);
             res.status(500).send('Internal Server Error');
+        });
+});
+
+app.post('/login', (req, res) => {
+    const { username, password } = req.body;
+
+    Register.findOne({ username: username })
+        .then(user => {
+            if (user && user.password === password) {
+                res.json({ success: true });
+            } else {
+                res.json({ success: false, message: 'Invalid username or password' });
+            }
+        })
+        .catch(error => {
+            console.error('Error during login:', error);
+            res.status(500).json({ success: false, error: 'Internal Server Error' });
         });
 });
 

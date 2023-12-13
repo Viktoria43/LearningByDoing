@@ -57,33 +57,32 @@ export default function Register() {
     const [usernameBusy, setBusy]=useState(false);
 
     const handleReg = ()=> {
-        if (username.length > 8 && password.length > 8) {
+        if (username.length >= 8 && password.length >= 8) {
             axios.post('http://localhost:4000/register', {username, password})
+
                 .then(() => {
-                    setReg(true);
+
                 })
                 .catch(error => {
                     console.error('Error registering user:', error);
+
                 });
-
-
         }
         else if (username.length < 8 && password.length < 8){
-            setInvalid('true');
+            setInvalid(true);
         }
     }
     const cleanInput = ()=>{
         setUserName('');
         setPass('');
+        setReg(true);
     }
 
     const Register =()=>{
         handleReg();
         cleanInput();
+
     }
-
-
-
 
     return (
         <div>
@@ -105,11 +104,10 @@ export default function Register() {
                 {regSuccess && (
                     <p style={{ color: 'green' }}>Registration successful! You can now proceed to the login page.</p>
                 )}
-                {invalidReg && (
-                    <p style={{ color: 'red' }}>Registration unsuccessful! Please choose a Username and a Password with minimum 8 characters</p>
+                {invalidReg===true && (
+                    <p style={{ color: 'red' }}>Registration unsuccessful! Please choose a Username and a Password with a minimum of 8 characters.</p>
                 )}
             </CenteredContainer>
         </div>
     );
 }
-
