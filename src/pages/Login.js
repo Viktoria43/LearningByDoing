@@ -51,6 +51,8 @@ export default function Login() {
     const loginLabels = ['Username', 'Password'];
 const [username, setUserName] = useState('');
 const [password,setPass]= useState('');
+const [loginSuccess, setloginSuccess] = useState(true);
+    const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
@@ -58,14 +60,13 @@ const [password,setPass]= useState('');
             const { success } = response.data;
 
             if (success) {
-                // Handle successful login, e.g., redirect to another page
-                console.log('Login successful');
+                navigate('/');
             } else {
-                // Handle unsuccessful login, e.g., show an error message
+                setloginSuccess(false);
                 console.log('Login failed');
             }
         } catch (error) {
-            // Handle any error that occurred during the request
+
             console.error('Error during login:', error);
         }
     };
@@ -91,7 +92,9 @@ const [password,setPass]= useState('');
                 </form>
             ))}
             <Button onClick={handleLogin}>Login</Button>
-
+            {loginSuccess===false&& (
+                <p style={{ color: 'red' }}>Wrong Credentials. Invalid username or password.</p>
+            )}
             <Link to="/Register">Don't have an account? Sign up!</Link>
         </CenteredContainer>
         </div>
