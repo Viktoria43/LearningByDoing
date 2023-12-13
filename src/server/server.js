@@ -41,7 +41,51 @@ const userData = new Schema({
     },
     password:{
         type:String
-    }
+    },
+    datatypes:{
+        type:Boolean,
+        default:false,
+    },
+    conditionals:{
+        type:Boolean,
+        default:false,
+    },
+   operations:{
+        type:Boolean,
+        default:false,
+    },
+    loops:{
+        type:Boolean,
+        default:false,
+    },
+    functions:{
+        type:Boolean,
+        default:false,
+    },
+    arrays:{
+        type:Boolean,
+        default:false,
+    },
+    sorting:{
+        type:Boolean,
+        default:false,
+    },
+    lists:{
+        type:Boolean,
+        default:false,
+    },
+    binarytree:{
+        type:Boolean,
+        default:false,
+    },
+    oop:{
+        type:Boolean,
+        default:false,
+    },
+   queues:{
+        type:Boolean,
+        default:false,
+    },
 })
 const Register = mongoose.model('Register', userData);
 module.exports= Register;
@@ -50,15 +94,18 @@ module.exports= Register;
 app.post('/register', (req, res) => {
     const { username, password } = req.body;
 
-console.log('test');
+
     const newUser = new Register({
         username: username,
         password: password,
     });
 
 
+
     newUser.save()
         .then(savedUser => {
+            //data transfer, view mod
+            res.json(savedUser)
             console.log('User registered successfully:', savedUser);
 
         })

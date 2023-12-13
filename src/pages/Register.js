@@ -1,8 +1,7 @@
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 import Header from "./components/Header";
 import axios from "axios";
-
 
 
 const CenteredContainer = styled.div`
@@ -10,7 +9,7 @@ const CenteredContainer = styled.div`
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; 
+  height: 100vh;
 `;
 const InputContainer = styled.div`
   display: flex;
@@ -18,12 +17,12 @@ const InputContainer = styled.div`
   align-items: center;
   justify-content: center;
   margin-bottom: 15px;
-  margin-top: 15px; 
+  margin-top: 15px;
 `;
 const Button = styled.button`
   text-decoration: none;
   background-color: black;
-  width: 150px; 
+  width: 150px;
   padding: 8px;
   color: white;
   font-size: 1em;
@@ -39,46 +38,46 @@ const Button = styled.button`
 `;
 
 const InputField = styled.input`
-  width: 300px; 
-  padding: 8px; 
-  margin-top: 5px; 
+  width: 300px;
+  padding: 8px;
+  margin-top: 5px;
 `;
 
 const labelSt = styled.label`
-color: white
+  color: white
 `;
 
 export default function Register() {
     const registerLabels = ['Choose Username', 'Choose a Password'];
     const [username, setUserName] = useState('');
     const [password, setPass] = useState('');
-    const [regSuccess, setReg]=useState(false);
-    const [invalidReg, setInvalid]=useState(false);
-    const [usernameBusy, setBusy]=useState(false);
+    const [regSuccess, setReg] = useState(false);
+    const [invalidReg, setInvalid] = useState(false);
+    const [usernameBusy, setBusy] = useState(false);
 
-    const handleReg = ()=> {
+    const handleReg = () => {
         if (username.length >= 8 && password.length >= 8) {
             axios.post('http://localhost:4000/register', {username, password})
-
                 .then(() => {
-
+                    console.log("54325")
+                    setReg(true);
                 })
                 .catch(error => {
                     console.error('Error registering user:', error);
 
                 });
-        }
-        else if (username.length < 8 && password.length < 8){
+        } else if (username.length < 8 && password.length < 8) {
             setInvalid(true);
         }
+
     }
-    const cleanInput = ()=>{
+    const cleanInput = () => {
         setUserName('');
         setPass('');
-        setReg(true);
+
     }
 
-    const Register =()=>{
+    const Register = () => {
         handleReg();
         cleanInput();
 
@@ -86,7 +85,7 @@ export default function Register() {
 
     return (
         <div>
-            <Header />
+            <Header/>
             <CenteredContainer>
                 {registerLabels.map((label, index) => (
                     <form key={index} action="POST">
@@ -102,10 +101,11 @@ export default function Register() {
                 ))}
                 <Button onClick={Register}>Register</Button>
                 {regSuccess && (
-                    <p style={{ color: 'green' }}>Registration successful! You can now proceed to the login page.</p>
+                    <p style={{color: 'green'}}>Registration successful! You can now proceed to the login page.</p>
                 )}
-                {invalidReg===true && (
-                    <p style={{ color: 'red' }}>Registration unsuccessful! Please choose a Username and a Password with a minimum of 8 characters.</p>
+                {invalidReg && (
+                    <p style={{color: 'red'}}>Registration unsuccessful! Please choose a Username and a Password with a
+                        minimum of 8 characters.</p>
                 )}
             </CenteredContainer>
         </div>
