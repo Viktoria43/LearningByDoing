@@ -41,6 +41,7 @@ const InputField = styled.input`
   width: 300px;
   padding: 8px;
   margin-top: 5px;
+  border-radius: 7px;
 `;
 
 const labelSt = styled.label`
@@ -55,24 +56,32 @@ export default function Register() {
     const [invalidReg, setInvalid] = useState(false);
     const [usernameBusy, setBusy] = useState(false);
 
-    const handleReg = ()=> {
-        if (username.length >= 8 && password.length >= 8) {
-            axios.post('http://localhost:4000/register', {username, password})
+    const handleReg = async () => {
 
-                .then(() => {
-setReg(true);
-setInvalid(false);
-                })
-                .catch(error => {
-                    console.error('Error registering user:', error);
+        try {
+            const response = await axios.post('http://localhost:4000/register', {username, password})
+            const {success} = response.data;
 
-                });
+            if (username.length >= 8 && password.length >= 8 && success) {
+                setReg(true);
+                setInvalid(false);
+
+            } else if (username.length < 8 && password.length < 8) {
+                setReg(false);
+                setInvalid(true);
+
+            } else if (!success) {
+                console.log('busy');
+                setReg(false);
+                setInvalid(false);
+                setBusy(true);
+            }
+        } catch (error) {
+
+            console.error('Error during login:', error);
         }
-        else if (username.length < 8 && password.length < 8){
-            setInvalid(true);
-            setReg(false);
-        }
-    }
+    };
+
     const cleanInput = () => {
         setUserName('');
         setPass('');
@@ -108,6 +117,9 @@ setInvalid(false);
                 {invalidReg && (
                     <p style={{color: 'red'}}>Registration unsuccessful! Please choose a Username and a Password with a
                         minimum of 8 characters.</p>
+                )}
+                {usernameBusy && (
+                    <p style={{color: 'red'}}>Credentials are already in use! Please choose another username!</p>
                 )}
             </CenteredContainer>
         </div>

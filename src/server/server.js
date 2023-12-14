@@ -3,6 +3,7 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 const path = require('path');
 const morgan = require("morgan");
+const {models} = require("mongoose");
 const Schema = mongoose.Schema;
 require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
 
@@ -94,27 +95,35 @@ module.exports= Register;
 app.post('/register', (req, res) => {
     const { username, password } = req.body;
 
-
     const newUser = new Register({
         username: username,
         password: password,
     });
 
-
-    const oldName = Register.findOne({ username: username })
-   if (oldName != username){newUser.save()
-       .then(savedUser => {
-           //data transfer, view mod
-           res.json(savedUser)
-           console.log('User registered successfully:', savedUser);
-
-       })
-       .catch(error => {
-           console.error('Error registering user:', error);
-           res.status(500).send('Internal Server Error');
-       });}
-
+    Register.findOne({ username: username })
+        .then(oldName => {
+            if (!oldName) {
+                newUser.save()
+                    .then(savedUser => {
+                        res.json({ success: true });
+                        res.json(savedUser);
+                        console.log('User registered successfully:', savedUser);
+                    })
+                    .catch(error => {
+                        console.error('Error registering user:', error);
+                        res.status(500).send('Internal Server Error');
+                    });
+            } else {
+                console.log("BUSY")
+                res.json({ success: false });
+            }
+        })
+        .catch(error => {
+            console.error('Error checking existing user:', error);
+            res.status(500).send('Internal Server Error');
+        });
 });
+
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;

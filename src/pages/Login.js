@@ -24,9 +24,10 @@ const InputContainer = styled.div`
 `;
 
 const InputField = styled.input`
-  width: 300px; /* Adjust the width as needed */
-  padding: 8px; /* Adjust the padding as needed */
-  margin-top: 5px; /* Adjust the margin as needed */
+  width: 300px; 
+  padding: 8px; 
+  margin-top: 5px;
+  border-radius: 7px;
 `;
 
 
