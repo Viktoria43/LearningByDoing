@@ -65,10 +65,12 @@ export default function Register() {
             if (username.length >= 8 && password.length >= 8 && success) {
                 setReg(true);
                 setInvalid(false);
+                setBusy(false);
 
             } else if (username.length < 8 && password.length < 8) {
                 setReg(false);
                 setInvalid(true);
+                setBusy(false);
 
             } else if (!success) {
                 console.log('busy');
