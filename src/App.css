@@ -1,22 +1,11 @@
 body {
   display: flex;
   min-height: 100vh;
-  background: linear-gradient(45deg, #1100ff, #977997, #290829, #3e4d66);
+  background-color: blueviolet;
   background-size: 400% 400%;
-  animation: gradientAnimation 15s ease infinite;
 }
 
-@keyframes gradientAnimation {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
+
 
 .page {
   display: flex;
