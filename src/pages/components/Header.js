@@ -1,7 +1,7 @@
 
 // Menu.js
 import {Link} from 'react-router-dom';
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
 // Styled component for the menu bar
@@ -67,14 +67,19 @@ const LoginButton = styled(Link)`
 `;
 
 const Header = () => {
+    const [isLoggedIn] = useState(window.localStorage.getItem('accessToken') ? true:false);
+    console.log(isLoggedIn, "s");
     return (
         <StyledMenu>
             <BrandName to="/">LearnByDoing</BrandName>
             <MenuContainer>
               <StyledLink to="/About">About Us</StyledLink>
               <StyledLink to="/Contact">Contact</StyledLink>
-              <LoginButton to="/Login">Login</LoginButton>
-              
+
+                <LoginButton to="/Login">
+                    {isLoggedIn ? "Logout" : "Login"}
+                </LoginButton>
+
             </MenuContainer>
         </StyledMenu>
     );

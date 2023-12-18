@@ -53,7 +53,7 @@ export default function Login() {
 const [username, setUserName] = useState('');
 const [password,setPass]= useState('');
 const [loginSuccess, setloginSuccess] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(window.localStorage.getItem('accessToken') ? true:false);
     const navigate = useNavigate();
 
     const handleLogin = async () => {
@@ -63,6 +63,8 @@ const [loginSuccess, setloginSuccess] = useState(true);
 
             if (success) {
                 setIsLoggedIn(true);
+                console.log("success")
+                window.localStorage.setItem('accessToken',1)
                 navigate('/');
             } else {
                 setloginSuccess(false);
@@ -77,7 +79,7 @@ const [loginSuccess, setloginSuccess] = useState(true);
 
     return (
         <div>
-            <Header />
+            <Header isLoggedIn={isLoggedIn} />
 
         <CenteredContainer>
 
@@ -99,7 +101,9 @@ const [loginSuccess, setloginSuccess] = useState(true);
                 <p style={{ color: 'red' }}>Wrong Credentials. Invalid username or password.</p>
             )}
             <Link to="/Register">Don't have an account? Sign up!</Link>
+
         </CenteredContainer>
+
         </div>
 
     );
