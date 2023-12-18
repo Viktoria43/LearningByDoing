@@ -51,7 +51,7 @@ const BrandName = styled(Link)`
   }
 `;
 
-const LoginButton = styled(Link)`
+const LoginLogoutButton = styled(Link)`
   text-decoration: none;
   background-color: black;
   color: white;
@@ -68,7 +68,7 @@ const LoginButton = styled(Link)`
 
 const Header = () => {
     const [isLoggedIn] = useState(window.localStorage.getItem('accessToken') ? true:false);
-    console.log(isLoggedIn, "s");
+    console.log(isLoggedIn)
     return (
         <StyledMenu>
             <BrandName to="/">LearnByDoing</BrandName>
@@ -76,9 +76,13 @@ const Header = () => {
               <StyledLink to="/About">About Us</StyledLink>
               <StyledLink to="/Contact">Contact</StyledLink>
 
-                <LoginButton to="/Login">
-                    {isLoggedIn ? "Logout" : "Login"}
-                </LoginButton>
+
+                {isLoggedIn ? (
+                    <LoginLogoutButton onClick={()=>{window.localStorage.clear()}} to="/Login">Logout</LoginLogoutButton>
+                ) : (
+                    <LoginLogoutButton to="/Login">Login</LoginLogoutButton>
+                )}
+
 
             </MenuContainer>
         </StyledMenu>
