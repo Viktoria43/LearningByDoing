@@ -1,8 +1,7 @@
 import Menu from "../../components/Header";
 import Footer from "../../components/Footer";
-import ThreePages from "../../components/ThreePages";
 import Content from "./Content";
-import Visualisation from "./Visualisation";
+import TwoPages from "../../components/TwoPages";
 import Quiz from "./Quiz";
 
 function Operations(){
@@ -10,9 +9,8 @@ function Operations(){
         <div className = "page"> 
             <div className = "content">
             <Menu />
-            <ThreePages 
+            <TwoPages 
                 contentComponent={<Content />}
-                visualisationComponent={<Visualisation />}
                 quizComponent={<Quiz />}/>
             </div>
             <Footer />
