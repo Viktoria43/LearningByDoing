@@ -11,7 +11,7 @@ const FullWidthDiv = styled.div`
 `;
 
 export default function DataStructureButtons() {
-  const buttonLabels = ['Sorting', 'Lists', 'BinaryTree', 'Loops', 'OOP', 'Queues'];
+  const buttonLabels = ['OOP', 'Lists', 'BinaryTree', 'InsertionSort', 'MergeSort', 'QuickSort'];
 
   return (
     <FullWidthDiv>
