@@ -5,7 +5,7 @@ import Content from "./Content";
 import Visualisation from "./Visualisation";
 import Quiz from "./Quiz";
 
-function OOP(){
+function QuickSort(){
     return (
         <div className = "page"> 
             <div className = "content">
@@ -19,4 +19,4 @@ function OOP(){
         </div>
     );
 }
-export default OOP;
+export default QuickSort;

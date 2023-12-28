@@ -5,7 +5,7 @@ import Content from "./Content";
 import Visualisation from "./Visualisation";
 import Quiz from "./Quiz";
 
-function Loops(){
+function InsertionSort(){
     return (
         <div className = "page"> 
             <div className = "content">
@@ -19,4 +19,4 @@ function Loops(){
         </div>
     );
 }
-export default Loops;
+export default InsertionSort;

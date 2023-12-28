@@ -12,7 +12,7 @@ import {useEffect} from "react";
 import Register from "./pages/Register";
 
 // Assuming you have an array of paths
-const dataStructurePaths = ['/BinaryTree', '/Lists', '/Loops', '/OOP', '/Queues', '/Sorting'];
+const dataStructurePaths = ['/BinaryTree', '/Lists', '/InsertionSort', '/QuickSort', '/OOP','/MergeSort'];
 const introductionPaths = ['/Arrays', '/Conditionals', '/DataTypes', '/Functions', '/Loops', '/Operations'];
 
 // Dynamically generate routes

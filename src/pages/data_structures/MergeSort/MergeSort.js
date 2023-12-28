@@ -5,7 +5,7 @@ import Content from "./Content";
 import Visualisation from "./Visualisation";
 import Quiz from "./Quiz";
 
-function Queues(){
+function MergeSort(){
     return (
         <div className = "page"> 
             <div className = "content">
@@ -19,4 +19,4 @@ function Queues(){
         </div>
     );
 }
-export default Queues;
+export default MergeSort;

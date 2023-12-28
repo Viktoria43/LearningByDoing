@@ -5,7 +5,7 @@ import Content from "./Content";
 import Visualisation from "./Visualisation";
 import Quiz from "./Quiz";
 
-function Sorting(){
+function oop(){
     return (
         <div className = "page"> 
             <div className = "content">
@@ -19,4 +19,4 @@ function Sorting(){
         </div>
     );
 }
-export default Sorting;
+export default oop;
