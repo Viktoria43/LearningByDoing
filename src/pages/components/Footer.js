@@ -5,10 +5,10 @@ const Footer = () => {
       backgroundColor: 'rgba(30, 10, 20, 0.9)',
       padding: '10px',
       textAlign: 'center',
-      position: 'relative',
+      position: 'fixed',
       bottom: '0',
       width: '100%',
-      height: '10em',
+      height: '4em',
       flex: 1,
     };
   
