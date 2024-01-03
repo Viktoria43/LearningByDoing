@@ -5,74 +5,8 @@ import Content from "./Content";
 import Visualisation from "./Visualisation";
 import Quiz from "./Quiz";
 
-
-class Node {
-    constructor(data) {
-      this.data = data;
-      this.left = null;
-      this.right = null;
-      this.depth = 0;
-    }
-  }
-  
-  class BinarySearchTree {
-    constructor() {
-      this.root = null;
-      this.depth = 0;
-    }
-  
-    insert(data) {
-      const newNode = new Node(data);
-  
-      if (!this.root) {
-        this.root = newNode;
-        this.depth = 1;
-        newNode.depth = 1;
-      } else {
-        this.insertNode(this.root, newNode);
-      }
-    }
-  
-    insertNode(node, newNode) {
-      if (newNode.data < node.data) {
-        if (!node.left) {
-          node.left = newNode;
-          newNode.depth = node.depth+1;
-        } else {
-          this.insertNode(node.left, newNode);
-        }
-      } else {
-        if (!node.right) {
-          node.right = newNode;
-          newNode.depth = node.depth+1;
-        } else {
-          this.insertNode(node.right, newNode);
-        }
-      }
-      if(newNode.depth>this.depth){
-        this.depth = newNode.depth;
-      }
-    }
-
-    getDepth(){
-        return this.depth;
-    }
-  
-    // In-order traversal
-    inOrderTraversal(node = this.root) {
-        var result = [];  
-        if (node) {
-            result = this.inOrderTraversal(node.left);
-            result.push(node.data);
-            result = [...result, ...this.inOrderTraversal(node.right)];
-        }
-        return result;
-    }
-  }
-  
-
-
 function BinaryTree(){
+
     const level =9;
     // Example usage:
   const tree = new BinarySearchTree();
@@ -91,6 +25,7 @@ const result = tree.inOrderTraversal();
 
   console.log(result); // Output: [3, 5, 7, 10, 15]
   console.log(tree.getDepth());
+
     return (
         <div className = "page"> 
             <div className = "content">
@@ -99,10 +34,16 @@ const result = tree.inOrderTraversal();
                 contentComponent={<Content />}
                 visualisationComponent={<Visualisation />}
                 quizComponent={<Quiz />}
-                level={level}/>
+
+                level={level}
+            />
+
+
+
             </div>
             <Footer />
         </div>
     );
 }
+
 export default BinaryTree;

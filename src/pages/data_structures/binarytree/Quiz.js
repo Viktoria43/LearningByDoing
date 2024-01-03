@@ -1,4 +1,6 @@
 import React from "react";
+import QuizComponent from "../../QuizApp/QuizComponent";
+import quizData from "../../QuizApp/quizData";
 
 const quizStyle = {
     backgroundColor: '#3344dd',
@@ -8,7 +10,7 @@ const quizStyle = {
 const Quiz = () => {
     return (
         <div style={quizStyle}>
-            / -------- Quiz goes here --------- /
+            <QuizComponent concept="Concept 1" questions={quizData.concept1} />
         </div>
     );
 }

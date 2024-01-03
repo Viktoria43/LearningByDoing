@@ -16,7 +16,7 @@ const TwoPages = ({contentComponent, quizComponent,level}) =>{
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-        <ProgressBar step={step} onChangeStep={handleStepChange} level={level} token={token} />
+        <ProgressBar step={step} onChangeStep={handleStepChange} level={level} token={token}k />
       </div>
 
       {step === 1 && contentComponent}
