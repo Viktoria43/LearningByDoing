@@ -76,9 +76,9 @@ const userData = new Schema({
         type:Boolean,
         default:false,
     },
-    11:{
+    7:{
         type:Boolean,
-        default:false,
+        default:true,
     },
     8:{
         type:Boolean,
@@ -88,14 +88,16 @@ const userData = new Schema({
         type:Boolean,
         default:false,
     },
-    7:{
-        type:Boolean,
-        default:true,
-    },
-   10:{
+
+    10:{
         type:Boolean,
         default:false,
     },
+    11:{
+        type:Boolean,
+        default:false,
+    },
+
   12:{
         type:Boolean,
         default:false,
@@ -195,7 +197,7 @@ app.post('/update-level', (req, res) => {
             .then(updatedUser => {
                 if (updatedUser) {
                     console.log(`User ${updatedUser._id} updated to level ${newLevel}`);
-                    res.json({ success: true });
+                    res.json({ success: true, newLevel:newLevel });
                 } else {
                     res.status(404).json({ success: false, message: 'User not found' });
                 }
@@ -206,8 +208,80 @@ app.post('/update-level', (req, res) => {
             });
     });
 });
+app.post('/get-level-intro', async (req, res) => {
+    const token = req.body.token;
 
+    jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
+        if (err) {
+            console.error('Error verifying token:', err);
+            return res.status(401).json({ success: false, error: 'Unauthorized' });
+        }
 
+        const userId = decoded.id;
+
+        const findLastTrueKey = (user) => {
+            const keys = Object.keys(user)
+                .filter(key => key !== 'password' && /^[1-6]$/.test(key))
+                .reverse();
+
+            return keys.find(key => user[key]);
+        };
+
+   Register.findOne({ _id: userId })
+            .select('-_id -password')
+            .lean()
+            .then(user => {
+                if (user) {
+                    const lastLevel = findLastTrueKey(user);
+
+                    res.json({ success: true, lastLevel:lastLevel });
+                } else {
+                    res.status(404).json({ success: false, message: 'User not found' });
+                }
+            })
+            .catch(error => {
+                console.error('Error retrieving user data:', error);
+                res.status(500).json({ success: false, error: 'Internal Server Error' });
+            });
+    });
+});
+app.post('/get-level-data', async (req, res) => {
+    const token = req.body.token;
+
+    jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
+        if (err) {
+            console.error('Error verifying token:', err);
+            return res.status(401).json({ success: false, error: 'Unauthorized' });
+        }
+
+        const userId = decoded.id;
+
+        const findLastTrueKey = (user) => {
+            const keys = Object.keys(user)
+                .filter(key => key !== 'password' && /^(?:[7-9]|1[0-2])$/.test(key))
+                .reverse();
+
+            return keys.find(key => user[key]);
+        };
+
+        Register.findOne({ _id: userId })
+            .select('-_id -password')
+            .lean()
+            .then(user => {
+                if (user) {
+                    const lastLevel2 = findLastTrueKey(user);
+
+                    res.json({ success: true, lastLevel2:lastLevel2 });
+                } else {
+                    res.status(404).json({ success: false, message: 'User not found' });
+                }
+            })
+            .catch(error => {
+                console.error('Error retrieving user data:', error);
+                res.status(500).json({ success: false, error: 'Internal Server Error' });
+            });
+    });
+});
 
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);

@@ -9,22 +9,22 @@ function BinaryTree(){
 
     const level =9;
     // Example usage:
-  const tree = new BinarySearchTree();
-  tree.insert(10);
-  tree.insert(5);
-  tree.insert(15);
-  tree.insert(3);
-  tree.insert(7);
-  
+ // const tree = new BinarySearchTree();
+ //  tree.insert(10);
+ //  tree.insert(5);
+ //  tree.insert(15);
+ //  tree.insert(3);
+ //  tree.insert(7);
+ //
   // Print the sorted values using in-order traversal
   // Define a callback function
 
 // Call inOrderTraversal with the callback
 
-const result = tree.inOrderTraversal();
-
-  console.log(result); // Output: [3, 5, 7, 10, 15]
-  console.log(tree.getDepth());
+// const result = tree.inOrderTraversal();
+//
+//   console.log(result); // Output: [3, 5, 7, 10, 15]
+//   console.log(tree.getDepth());
 
     return (
         <div className = "page"> 

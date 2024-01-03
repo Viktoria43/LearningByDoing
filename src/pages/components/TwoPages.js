@@ -32,7 +32,6 @@ const ProgressBar = ({ step, onChangeStep,level, token }) => {
   const navigate = useNavigate();
   const handleLevels=async () =>{
 
-    console.log(token);
 
 
 
