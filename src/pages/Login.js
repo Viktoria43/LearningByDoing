@@ -48,23 +48,25 @@ const Button = styled.button`
     background-color: #559;
 `;
 
-export default function Login() {
-    const loginLabels = ['Username', 'Password'];
+export default function Login()
+{const loginLabels = ['Username', 'Password'];
 const [username, setUserName] = useState('');
 const [password,setPass]= useState('');
 const [loginSuccess, setloginSuccess] = useState(true);
-    const [isLoggedIn, setIsLoggedIn] = useState(window.localStorage.getItem('accessToken') ? true:false);
+   const [isLoggedIn, setIsLoggedIn] = useState(window.localStorage.getItem('accessToken') ? true:false);
     const navigate = useNavigate();
 
     const handleLogin = async () => {
         try {
             const response = await axios.post('http://localhost:4000/login', { username, password });
-            const { success } = response.data;
+            const { success,token } = response.data;
+console.log('bxijs')
 
             if (success) {
                 setIsLoggedIn(true);
                 console.log("success")
-                window.localStorage.setItem('accessToken',1)
+                window.localStorage.setItem('accessToken',token)
+                console.log(window.localStorage.getItem('accessToken'))
                 navigate('/');
             } else {
                 setloginSuccess(false);

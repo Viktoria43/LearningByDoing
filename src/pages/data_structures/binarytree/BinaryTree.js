@@ -73,6 +73,7 @@ class Node {
 
 
 function BinaryTree(){
+    const level =9;
     // Example usage:
   const tree = new BinarySearchTree();
   tree.insert(10);
@@ -87,6 +88,7 @@ function BinaryTree(){
 // Call inOrderTraversal with the callback
 
 const result = tree.inOrderTraversal();
+
   console.log(result); // Output: [3, 5, 7, 10, 15]
   console.log(tree.getDepth());
     return (
@@ -96,7 +98,8 @@ const result = tree.inOrderTraversal();
             <ThreePages 
                 contentComponent={<Content />}
                 visualisationComponent={<Visualisation />}
-                quizComponent={<Quiz />}/>
+                quizComponent={<Quiz />}
+                level={level}/>
             </div>
             <Footer />
         </div>

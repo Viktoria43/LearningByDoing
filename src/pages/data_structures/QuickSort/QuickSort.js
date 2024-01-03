@@ -6,6 +6,7 @@ import Visualisation from "./Visualisation";
 import Quiz from "./Quiz";
 
 function QuickSort(){
+    const level = 12;
     return (
         <div className = "page"> 
             <div className = "content">
@@ -13,7 +14,8 @@ function QuickSort(){
             <ThreePages 
                 contentComponent={<Content />}
                 visualisationComponent={<Visualisation />}
-                quizComponent={<Quiz />}/>
+                quizComponent={<Quiz />}
+                level={level}/>
             </div>
             <Footer />
         </div>

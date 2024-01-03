@@ -1,16 +1,28 @@
 import React, { useState } from 'react';
+import {useNavigate, Link} from "react-router-dom";
+import axios from "axios";
 
-const ThreePages = ({contentComponent, visualisationComponent, quizComponent}) =>{
+
+
+const ThreePages = ({contentComponent, visualisationComponent, quizComponent,level}) =>{
+
   const [step, setStep] = useState(1);
+  const [levelPassed, setLevel] = useState(false);
+  const [token, setToken] = useState(() => window.localStorage.getItem('accessToken'));
+
+
+
+
 
   const handleStepChange = (newStep) => {
     setStep(newStep);
   };
 
+
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-        <ProgressBar step={step} onChangeStep={handleStepChange} />
+        <ProgressBar step={step} onChangeStep={handleStepChange} level={level} token={token} />
       </div>
 
       {step === 1 && contentComponent}
@@ -20,10 +32,38 @@ const ThreePages = ({contentComponent, visualisationComponent, quizComponent}) =
   );
 };
 
-const ProgressBar = ({ step, onChangeStep }) => {
+const ProgressBar = ({ step, onChangeStep, level, token}) => {
+
   const handleStepClick = (newStep) => {
     onChangeStep(newStep);
+
   };
+  const navigate = useNavigate();
+  const handleLevels=async () =>{
+
+    console.log(token);
+
+
+
+    try {
+
+      const response = await axios.post('http://localhost:4000/update-level', {token: token, newLevel: level});
+
+      const { success } = response.data;
+
+      if (success) {
+        console.log(`User's level updated successfully to ${level}`);
+        navigate('/');
+      } else {
+
+      }
+    } catch (error) {
+
+     console.error('Error updating level:', error);
+
+   }
+  };
+
 
   const containerStyle = {
     width: '100%',
@@ -99,7 +139,8 @@ const ProgressBar = ({ step, onChangeStep }) => {
       ))}
       
     </div>
-    <button style={nextButtonStyle} onClick={()=>handleStepClick(step===3?3:step+1)}>{">"}</button>
+      <button style={nextButtonStyle} onClick={() => {handleStepClick(step === 3 ? 3 : step + 1); if (step===3){handleLevels();}}}>{">"}</button>
+
     </div>
   );
 };

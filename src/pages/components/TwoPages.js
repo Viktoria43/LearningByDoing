@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
 
-const TwoPages = ({contentComponent, quizComponent}) =>{
+
+const TwoPages = ({contentComponent, quizComponent,level}) =>{
   const [step, setStep] = useState(1);
+  const [token, setToken] = useState(() => window.localStorage.getItem('accessToken'));
 
   const handleStepChange = (newStep) => {
     setStep(newStep);
   };
+  const [Intro, setLevelI] = useState(1);
+  const [DataStructures, setLevelD] = useState(1);
 
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-        <ProgressBar step={step} onChangeStep={handleStepChange} />
+        <ProgressBar step={step} onChangeStep={handleStepChange} level={level} token={token} />
       </div>
 
       {step === 1 && contentComponent}
@@ -19,10 +25,36 @@ const TwoPages = ({contentComponent, quizComponent}) =>{
   );
 };
 
-const ProgressBar = ({ step, onChangeStep }) => {
+const ProgressBar = ({ step, onChangeStep,level, token }) => {
   const handleStepClick = (newStep) => {
     onChangeStep(newStep);
   };
+  const navigate = useNavigate();
+  const handleLevels=async () =>{
+
+    console.log(token);
+
+
+
+    try {
+
+      const response = await axios.post('http://localhost:4000/update-level', {token: token, newLevel: level});
+
+      const { success } = response.data;
+
+      if (success) {
+        console.log(`User's level updated successfully to ${level}`);
+        navigate('/');
+      } else {
+
+      }
+    } catch (error) {
+
+      console.error('Error updating level:', error);
+
+    }
+  };
+
 
   const containerStyle = {
     width: '100%',
@@ -98,7 +130,7 @@ const ProgressBar = ({ step, onChangeStep }) => {
       ))}
       
     </div>
-    <button style={nextButtonStyle} onClick={()=>handleStepClick(2)}>{">"}</button>
+      <button style={nextButtonStyle} onClick={() => {handleStepClick(2);if (step === 2) {handleLevels();}}}>{">"}</button>
     </div>
   );
 };
