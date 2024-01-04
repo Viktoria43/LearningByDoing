@@ -1,6 +1,6 @@
 // DataStructureButtons.js
 import React, {useEffect, useState} from 'react';
-import './buttons.css';
+//import './buttons.css';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
 import axios from "axios";
@@ -8,8 +8,47 @@ import axios from "axios";
 const FullWidthDiv = styled.div`
   width: 95%;
   margin: auto;
-  /* Add other styles as needed */
 `;
+const Button = styled.button`
+  font-family: 'Verdana';
+  font-size: 20px;
+  display: flex;
+  width: 9em;
+  height: 6em;
+  margin-right: 3em;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-weight: 600;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  transition: box-shadow 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 10px 3px #7f7f7f;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  }
+
+  &.passed {
+    background-color: green;
+  }
+
+  &.not-passed {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+  &.not-passed {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
+
+` ;
+
+
+
+
 
 export default function DataStructureButtons() {
   const buttonLabels = ['OOP', 'Lists', 'BinaryTree', 'InsertionSort', 'MergeSort', 'QuickSort'];
@@ -42,17 +81,16 @@ export default function DataStructureButtons() {
 
   return (
     <FullWidthDiv>
-      <h3 className="header">Data structures & visualizers:</h3>
+      <h3 className="header">Data structures & visualisers:</h3>
       <div className="intermediate-container">
         {buttonLabels.map((label, index) => (
           <Link to={'/DataStructures/'+label} className="link">
-              <button
-                  key={index}
-                  className={`buttons background-inter ${index+7 <= userLevel ? '' : 'disabled'}`}
-                  disabled={index+6 > userLevel}
+              <Button
+                  className={`buttons background-inter ${index + 7 <= userLevel ? '' : ''} ${index + 6 <= userLevel ? 'passed' : 'not-passed'}`}
+                  disabled={index + 6 > userLevel}
               >
                   {label}
-              </button>
+              </Button>
           </Link>
         ))}
       </div>

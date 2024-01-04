@@ -10,6 +10,44 @@ const FullWidthDiv = styled.div`
   margin: auto;
  
 `;
+const Button = styled.button`
+  font-family: 'Verdana';
+  font-size: 20px;
+  display: flex;
+  width: 9em;
+  height: 6em;
+  margin-right: 3em;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-weight: 600;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  transition: box-shadow 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 10px 3px #7f7f7f;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  }
+  &.passed {
+    background-color: green;
+  }
+
+  &.not-passed {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+
+
 export default function IntroductionButtons() {
   const buttonLabels = ['Datatypes', 'Conditionals', 'Operations', 'Loops', 'Functions', 'Arrays'];
     const [userLevel, setUserLevel] = useState(1);
@@ -47,12 +85,12 @@ export default function IntroductionButtons() {
       <div className="basics-container">
         {buttonLabels.map((label, index) => (
           <Link to={'/Introduction/'+label} className="link">
-              <button
+              <Button
                   className={`buttons background-basics ${index <= userLevel ? '' : 'disabled'}`}
-                  disabled={index  > userLevel}
+                  disabled={index > userLevel}
               >
                   {label}
-              </button>
+              </Button>
           </Link>
         ))}
       </div>
