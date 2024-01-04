@@ -39,10 +39,7 @@ const Button = styled.button`
     opacity: 0.7;
     cursor: not-allowed;
   }
-  &.not-passed {
-    opacity: 0.7;
-    cursor: not-allowed;
-  }
+
 
 ` ;
 
@@ -54,6 +51,7 @@ export default function DataStructureButtons() {
   const buttonLabels = ['OOP', 'Lists', 'BinaryTree', 'InsertionSort', 'MergeSort', 'QuickSort'];
     const [userLevel, setUserLevel] = useState(1);
     const [token, setToken] = useState(() => window.localStorage.getItem('accessToken'));
+    console.log(token)
     useEffect(() => {
         const fetchUserLevel = async () => {
             try {
@@ -90,7 +88,8 @@ export default function DataStructureButtons() {
                   disabled={index + 6 > userLevel}
               >
                   {label}
-              </Button>
+
+          </Button>
           </Link>
         ))}
       </div>

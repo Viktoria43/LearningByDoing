@@ -63,7 +63,7 @@ export default function IntroductionButtons() {
 
                 if (success) {
                     setUserLevel(lastLevel);
-                    console.log(lastLevel);
+                    console.log(lastLevel-1);
                 } else {
                     console.error('Failed to fetch user level');
 
@@ -87,10 +87,12 @@ export default function IntroductionButtons() {
           <Link to={'/Introduction/'+label} className="link">
               <Button
                   className={`buttons background-basics ${index <= userLevel ? '' : 'disabled'}`}
+                  disabled={index  > userLevel}
                   disabled={index > userLevel}
               >
                   {label}
-              </Button>
+
+          </Button>
           </Link>
         ))}
       </div>
