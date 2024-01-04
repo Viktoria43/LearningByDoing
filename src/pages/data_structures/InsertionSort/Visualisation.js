@@ -18,10 +18,10 @@ const InputField = styled.input`
 const Button = styled.button`
   text-decoration: none;
   background-color: black;
-  width: 50px; 
+  width: auto; 
   padding: 5px;
   color: white;
-  font-size: 1em;
+  font-size: 0.9em;
   font-family: 'Futura', 'Trebuchet MS', sans-serif;
   border: none;
   border-radius: 7px;
@@ -29,6 +29,29 @@ const Button = styled.button`
   margin-left: 10px;
   &:hover {
     background-color: #559;
+`;
+const Rectangle = styled.div`
+  display: inline-block;
+  width: 30px;
+  height: ${(props) => (props.value >= 0 ? props.value * 2.5 : 0)}px;
+  max-height: 400px;
+  background-color: ${(props) => (props.compare ? 'red' : 'black')};
+  margin: 5px;
+  text-align: center;
+  line-height: 30px;
+  color: white;
+  border-radius: 5px;
+`;
+
+const SortingComponent = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 15px;
+  margin-top: 150px;
+
+
 `;
 
 
@@ -39,24 +62,78 @@ const visualisationStyle = {
 };
 
 const Visualisation = () => {
+
     const [inputArray, setInputArray] = useState([]);
     const [resultArray, setResultArray] = useState([]);
 
-    const insertionSort = (arr) => {
-        const sortedArray = [...arr];
+    const insertionSort = async (arr) => {
+        const sortedArray = [...arr.map(Number)];
+
         for (let i = 1; i < sortedArray.length; i++) {
             let currentValue = sortedArray[i];
             let j;
+
             for (j = i - 1; j >= 0 && sortedArray[j] > currentValue; j--) {
-                sortedArray[j + 1] = sortedArray[j];
+
+                const temp = sortedArray[j];
+                sortedArray[j] = sortedArray[j + 1];
+                sortedArray[j + 1] = temp;
+
+
+               setResultArray([...sortedArray]);
+
+                await new Promise((resolve) => setTimeout(resolve, 1200));
             }
-            sortedArray[j + 1] = currentValue;
+
+
+            setResultArray([...sortedArray]);
         }
+
         return sortedArray;
     };
 
-    const handleButtonClick = () => {
-        const sortedResult = insertionSort(inputArray);
+    const insertionSortWithoutDelay = async (arr) => {
+        const sortedArray = [...arr.map(Number)];
+
+        for (let i = 1; i < sortedArray.length; i++) {
+            let currentValue = sortedArray[i];
+            let j;
+
+            for (j = i - 1; j >= 0 && sortedArray[j] > currentValue; j--) {
+
+                const temp = sortedArray[j];
+                sortedArray[j] = sortedArray[j + 1];
+                sortedArray[j + 1] = temp;
+
+
+                setResultArray([...sortedArray]);
+
+
+            }
+
+
+            setResultArray([...sortedArray]);
+        }
+
+        return sortedArray;
+    };
+
+
+    const handleButtonClick = async () => {
+        const sortedResult = await insertionSort(inputArray);
+        setResultArray(sortedResult);
+    };
+    const handleRandomArray = async ()=>{
+        const randomArr = [];
+
+        for (let i = 0; i < 5; i++) {
+            randomArr.push(Math.floor(Math.random() * 100) + 1);
+        }
+        const sortedResult = await insertionSort(randomArr);
+        setResultArray(sortedResult);
+    }
+    const handleDirectButtonClick = async () => {
+        const sortedResult = await insertionSortWithoutDelay(inputArray);
         setResultArray(sortedResult);
     };
 
@@ -68,11 +145,21 @@ const Visualisation = () => {
                     onChange={(e) => setInputArray(e.target.value.split(","))}
                 />
                 <Button onClick={handleButtonClick}>Go</Button>
+                <Button onClick={handleRandomArray}>Generate</Button>
+                <Button onClick={handleDirectButtonClick}>Sort Directly</Button>
             </InputContainer>
-            <p>Original Array: {inputArray.join(", ")}</p>
-            <p>Sorted Array: {resultArray.join(", ")}</p>
+
+            <SortingComponent>
+            <div style={{ display: 'flex' }}>
+                {resultArray.map((num, index) => (
+                    <Rectangle key={index}  value={num}>
+                        {num}
+                    </Rectangle>
+                ))}
+            </div>
+            </SortingComponent>
         </div>
     );
 };
-export default Visualisation;
 
+export default Visualisation;
