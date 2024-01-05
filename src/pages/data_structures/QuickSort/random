@@ -92,21 +92,14 @@ const Visualisation = () => {
         const sortedLeft = await QuickSort(left);
         const sortedRight = await QuickSort(right);
 
-        for (let i = 0; i < sortedLeft.length; i++) {
-            const stepArray = [...sortedLeft.slice(0, i), pivot, ...sortedLeft.slice(i), ...sortedRight];
-            setSwapping(true);
-            setJ(i);
-            setPivot(pivot);
-            setResultArray([...stepArray]);
-            await new Promise((resolve) => setTimeout(resolve, 1000));
-        }
-
+        const sortedResult = [...sortedLeft, pivot, ...sortedRight];
+        setResultArray((prevResultArray) => [...prevResultArray, sortedArray,sortedResult]);
         setSwapping(false);
 
-        return [...sortedLeft, pivot, ...sortedRight];
+        //  setResultArray((prevResultArray) => [...prevResultArray, sortedResult]);
+
+        return sortedResult;
     };
-
-
     const QuickSortWithoutDelay = async (arr) => {
         const sortedArray = [...arr.map(Number)];
 
