@@ -107,27 +107,45 @@ const Visualisation = () => {
     };
 
 
-    const QuickSortWithoutDelay = async (arr) => {
+    const QuickSortWithoutDelay = (arr) => {
         const sortedArray = [...arr.map(Number)];
 
-        for (let i = 1; i < sortedArray.length; i++) {
-            let currentValue = sortedArray[i];
-            let j;
-
-            for (j = i - 1; j >= 0 && sortedArray[j] > currentValue; j--) {
-                const temp = sortedArray[j];
-                sortedArray[j] = sortedArray[j + 1];
-                sortedArray[j + 1] = temp;
-
-                setResultArray([...sortedArray]);
-            }
-
-            setResultArray([...sortedArray]);
+        if (sortedArray.length <= 1) {
+            return arr;
         }
 
-        return sortedArray;
-    };
+        const pivot = sortedArray[0];
+        const left = [];
+        const right = [];
 
+        setSwapping(true);
+        setResultArray(sortedArray);
+
+        for (let i = 1; i < sortedArray.length; i++) {
+            if (sortedArray[i] < pivot) {
+                left.push(sortedArray[i]);
+                setResultArray([...sortedArray]);
+            } else {
+                right.push(sortedArray[i]);
+                setResultArray([...sortedArray]);
+            }
+        }
+
+        const sortedLeft = QuickSortWithoutDelay(left);
+        const sortedRight = QuickSortWithoutDelay(right);
+
+        for (let i = 0; i < sortedLeft.length; i++) {
+            const stepArray = [...sortedLeft.slice(0, i), pivot, ...sortedLeft.slice(i), ...sortedRight];
+            setSwapping(true);
+            setJ(i);
+            setPivot(pivot);
+            setResultArray([...stepArray]);
+        }
+
+        setSwapping(false);
+
+        return [...sortedLeft, pivot, ...sortedRight];
+    };
     const handleButtonClick = async () => {
 
         const sortedResult=  await QuickSort(inputArray);
@@ -139,7 +157,7 @@ const Visualisation = () => {
         const randomArr = [];
 
         for (let i = 0; i < 5; i++) {
-            randomArr.push(Math.floor(Math.random() * 100) + 1);
+            randomArr.push(Math.floor(Math.random() * 20) + 1);
         }
 
         const sortedResult = await QuickSort(randomArr);
@@ -147,7 +165,7 @@ const Visualisation = () => {
     };
 
     const handleDirectButtonClick = async () => {
-        const sortedResult = await QuickSort(inputArray);
+        const sortedResult = await QuickSortWithoutDelay(inputArray);
         setResultArray(sortedResult);
     };
 
