@@ -33,7 +33,7 @@ function Contact(){
 
     return (
 
-      <form onSubmit={handleSubmit} style = {formStyle}>
+      <form onSubmit={handleSubmit}>
       <div>
       <Header />
       
@@ -69,7 +69,7 @@ function Contact(){
           required
         ></textarea>
       </div>
-      <button type="submit" style= {buttonStyle}>Submit</button>
+      <button type="submit" >Submit</button>
     </form>
     );
 }
