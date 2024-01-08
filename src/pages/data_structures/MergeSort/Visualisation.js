@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
 const InputContainer = styled.div`
@@ -40,7 +40,7 @@ const Rectangle = styled.div`
   height: ${(props) => (props.value >= 0 ? props.value * 2.5 : 0)}px;
   max-height: 400px;
   background-color: ${(props) =>
-          props.swapping ? 'blue' : props.compare ? 'red' : 'black'};
+          props.swapping ? '#87CEEB' : props.compare ? 'red' : 'black'};
   margin: 5px;
   text-align: center;
   line-height: 30px;
@@ -61,9 +61,8 @@ const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 const Visualisation = () => {
     const [inputArray, setInputArray] = useState([]);
-    const [resultArray, setResultArray] = useState([]);
+    const [displayArray, setDisplayArray] = useState([]);
     const [swapping, setSwapping] = useState(false);
-    const [j, setJ] = useState(0);
 
     const mergeSort = async (arr) => {
         if (arr.length <= 1) {
@@ -74,101 +73,51 @@ const Visualisation = () => {
         const left = arr.slice(0, middle);
         const right = arr.slice(middle);
 
-
-
         const sortedLeft = await mergeSort(left);
         const sortedRight = await mergeSort(right);
 
-        return merge(sortedLeft, sortedRight);
+        return merge(sortedLeft, sortedRight, arr);
     };
 
-    const merge = async (left, right) => {
+    const merge = async (left, right, originalArray) => {
         let leftIndex = 0;
         let rightIndex = 0;
         const sortedArray = [];
 
         while (leftIndex < left.length && rightIndex < right.length) {
             if (left[leftIndex] < right[rightIndex]) {
+
                 sortedArray.push(left[leftIndex]);
                 leftIndex++;
-                setResultArray([...sortedArray, ...left.slice(leftIndex), ...right.slice(rightIndex)]);
-
             } else {
+
                 sortedArray.push(right[rightIndex]);
                 rightIndex++;
-                setResultArray([...sortedArray, ...left.slice(leftIndex), ...right.slice(rightIndex)]);
             }
 
-           setResultArray([...sortedArray, ...left.slice(leftIndex), ...right.slice(rightIndex)]);
+            setDisplayArray([...sortedArray, ...left.slice(leftIndex), ...right.slice(rightIndex)]);
             setSwapping(true);
-
-
             await delay(1000);
         }
 
-
         const remaining = [...sortedArray, ...left.slice(leftIndex), ...right.slice(rightIndex)];
-      //  setResultArray(remaining);
-        setSwapping(false);
 
+        setDisplayArray([...remaining]);
+        setSwapping(false);
         await delay(1000);
 
+        // Return the fully sorted array
         return remaining;
     };
 
-    useEffect(() => {
-        const mergeSort = async () => {
-            setSwapping(true);
-            await mergeSort(inputArray);
-            setSwapping(false);
-        };
-
-
-    }, []);
-
-    // const insertionSortWithoutDelay = async (arr) => {
-    //     const sortedArray = [...arr.map(Number)];
-    //
-    //     for (let i = 1; i < sortedArray.length; i++) {
-    //         let currentValue = sortedArray[i];
-    //         let j;
-    //
-    //         for (j = i - 1; j >= 0 && sortedArray[j] > currentValue; j--) {
-    //             const temp = sortedArray[j];
-    //             sortedArray[j] = sortedArray[j + 1];
-    //             sortedArray[j + 1] = temp;
-    //
-    //             setResultArray([...sortedArray]);
-    //         }
-    //
-    //         setResultArray([...sortedArray]);
-    //     }
-    //
-    //     return sortedArray;
-    // };
-
     const handleButtonClick = async () => {
-
         const sortedResult = await mergeSort(inputArray);
-
-        setResultArray(sortedResult);
+        setDisplayArray(sortedResult);
     };
 
-    // const handleRandomArray = async () => {
-    //     const randomArr = [];
-    //
-    //     for (let i = 0; i < 5; i++) {
-    //         randomArr.push(Math.floor(Math.random() * 100) + 1);
-    //     }
-    //
-    //     const sortedResult = await insertionSort(randomArr);
-    //     setResultArray(sortedResult);
-    // };
-
-    // const handleDirectButtonClick = async () => {
-    //     const sortedResult = await insertionSortWithoutDelay(inputArray);
-    //     setResultArray(sortedResult);
-    // };
+    useEffect(() => {
+        // Do nothing on initial render
+    }, []);
 
     return (
         <div>
@@ -178,17 +127,15 @@ const Visualisation = () => {
                     onChange={(e) => setInputArray(e.target.value.split(","))}
                 />
                 <Button onClick={handleButtonClick}>Go</Button>
-                <Button onClick={handleButtonClick}>Generate</Button>
-                <Button onClick={handleButtonClick}>Sort Directly</Button>
             </InputContainer>
 
             <SortingComponent>
                 <div style={{ display: 'flex' }}>
-                    {resultArray.map((num, index) => (
+                    {displayArray.map((num, index) => (
                         <Rectangle
                             key={index}
                             value={num}
-                            swapping={swapping && index >= resultArray.length - 2}
+                            swapping={swapping && index >= displayArray.length - 2}
                         >
                             {num}
                         </Rectangle>

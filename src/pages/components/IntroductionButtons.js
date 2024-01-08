@@ -86,13 +86,19 @@ export default function IntroductionButtons() {
         {buttonLabels.map((label, index) => (
           <Link to={'/Introduction/'+label} className="link">
               <Button
-                  className={`buttons background-basics ${index <= userLevel ? '' : 'disabled'}`}
-                  disabled={index  > userLevel}
-                  disabled={index > userLevel}
+                  className={`buttons background-basics ${
+                      index === 0
+                          ? index < userLevel
+                              ? ''
+                              : 'disabled'
+                          : index <= userLevel
+                              ? ''
+                              : 'disabled'
+                  }`}
+                  disabled={index === 0 ? index  >= userLevel+1 : index > userLevel}
               >
                   {label}
-
-          </Button>
+              </Button>
           </Link>
         ))}
       </div>
