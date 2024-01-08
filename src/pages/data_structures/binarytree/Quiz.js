@@ -10,7 +10,7 @@ const quizStyle = {
 const Quiz = () => {
     return (
         <div style={quizStyle}>
-            <QuizComponent concept="Concept 1" questions={quizData.concept1} />
+            No quiz here.
         </div>
     );
 }
