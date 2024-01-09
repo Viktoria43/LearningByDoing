@@ -10,7 +10,7 @@ const quizStyle = {
 const Quiz = () => {
     return (
         <div style={quizStyle}>
-            <QuizComponent concept="Datatypes" questions={quizData.loops} />
+            <QuizComponent concept="Loops" questions={quizData.loops} />
         </div>
     );
 }

@@ -1,4 +1,5 @@
 // quizData.js
+
 const quizData = {
     variables: [
         {
@@ -460,7 +461,209 @@ const quizData = {
         },
 
 
-],
+    ],
+    mergesort: [
+                {
+            question: "Merge Sort is an example of which type of algorithmic paradigm?",
+            options: ["Divide and Conquer", "Dynamic Programming", "Greedy Algorithms", "Backtracking"],
+            answer: "Divide and Conquer",
+        },
+        {
+            question: "True or False: Merge Sort is not an in-place sorting algorithm.",
+            options: ["True", "False"],
+            answer: "True",
+        },
+        {
+            question: "Order the following sorting algorithms based on their average-case time complexity, from most efficient to least efficient:",
+            options: ["A) Quick Sort", "B) Merge Sort", "C) Insertion Sort", "D) Bubble Sort", "E) Selection Sort"],
+            answer: "III) B, A, C, D, E",
+        },
+        {
+            question: "You have a large dataset that is nearly sorted, with only a few elements out of place. Which sorting algorithm would you choose for this task?",
+            options: ["I) A and C", "II) B and D", "III) C and D", "IV) A and B"],
+            answer: "I) A and C",
+        },
+        {
+            question: "You need to sort a small array of integers as quickly as possible. Which sorting algorithm would you choose for this task?",
+            options: ["I) A and C", "II) B and D", "III) D and A", "IV) B and C"],
+            answer: "II) B and D",
+        },
+    ],
+    insertionsort : [
+                {
+            question: "In which case does Insertion Sort perform exceptionally well?",
+            options: ["When the input list is already sorted", "When the input list is in reverse order", "When the input list is random", "None of the above"],
+            answer: "When the input list is already sorted",
+        },
+        {
+            question: "True or False: Insertion Sort is a stable sorting algorithm.",
+            options: ["True", "False"],
+            answer: "True",
+        },
+        {
+            question: "Order the following sorting algorithms based on their average-case time complexity, from most efficient to least efficient:",
+            options: ["A) Quick Sort", "B) Merge Sort", "C) Insertion Sort", "D) Bubble Sort", "E) Selection Sort"],
+            answer: "III) B, A, C, D, E",
+        },
+        {
+            question: "You have a large dataset that is nearly sorted, with only a few elements out of place. Which sorting algorithm would you choose for this task?",
+            options: ["I) A and C", "II) B and D", "III) C and D", "IV) A and B"],
+            answer: "I) A and C",
+        },
+        {
+            question: "You need to sort a small array of integers as quickly as possible. Which sorting algorithm would you choose for this task?",
+            options: ["I) A and C", "II) B and D", "III) D and A", "IV) B and C"],
+            answer: "II) B and D",
+        },
+    ],
+    quicksort: [
+        {
+            question: "What is the worst-case time complexity of Quick Sort?",
+            options: ["O(n)", "O(n log n)", "O(n^2)", "O(1)"],
+            answer: "O(n^2)",
+        },
+        {
+            question: "True or False: Quick Sort is an unstable sorting algorithm.",
+            options: ["True", "False"],
+            answer: "False",
+        },
+        {
+            question: "Order the following sorting algorithms based on their average-case time complexity, from most efficient to least efficient:",
+            options: ["A) Quick Sort", "B) Merge Sort", "C) Insertion Sort", "D) Bubble Sort", "E) Selection Sort"],
+            answer: "III) B, A, C, D, E",
+        },
+        {
+            question: "You have a large dataset that is nearly sorted, with only a few elements out of place. Which sorting algorithm would you choose for this task?",
+            options: ["I) A and C", "II) B and D", "III) C and D", "IV) A and B"],
+            answer: "I) A and C",
+        },
+        {
+            question: "You need to sort a small array of integers as quickly as possible. Which sorting algorithm would you choose for this task?",
+            options: ["I) A and C", "II) B and D", "III) D and A", "IV) B and C"],
+            answer: "II) B and D",
+        },
+    ],
+    lists: [
+        {
+            question: "What is the time complexity of get() operation in ArrayList?",
+            options: ["O(1)", "O(n)", "O(n log n)", "O(n^2)"],
+            answer: "O(1)",
+        },
+        {
+            question: "True or False: ArrayList allows duplicate elements.",
+            options: ["True", "False"],
+            answer: "True",
+        },
+        {
+            question: "What is the main difference between LinkedList and ArrayList in Java?",
+            options: ["The way they store elements", "The number of elements they can store", "The type of elements they can store", "The way they access elements"],
+            answer: "The way they store elements",
+        },
+        {
+            question: "True or False: LinkedList performs faster add() and remove() operations compared to ArrayList.",
+            options: ["True", "False"],
+            answer: "True",
+        },
+        {
+            question: "Which of the following is not a way to iterate over a List in Java?",
+            options: ["For-each loop", "Iterator", "While loop", "ListIterator"],
+            answer: "While loop",
+        },
+        {
+            question: "True or False: ListIterator allows traversing the list in both directions.",
+            options: ["True", "False"],
+            answer: "True",
+        },
+        {
+            question: "What does the list.toArray() method do in Java?",
+            options: ["Converts the list to an array", "Checks if the list is an array", "Returns the size of the list", "Removes all elements from the list"],
+            answer: "Converts the list to an array",
+        },
+        {
+            question: "True or False: The list.clear() method removes all elements from the list.",
+            options: ["True", "False"],
+            answer: "True",
+        },
+        {
+            question: "You need to frequently access elements in a large list. Which List implementation would you choose for this task?",
+            options: ["ArrayList", "LinkedList", "Vector", "Stack"],
+            answer: "ArrayList",
+        },
+        {
+            question: "What is the main difference between a singly linked list and a doubly linked list?",
+            options: ["The way they store elements", "The number of next pointers in each node", "The type of elements they can store", "The way they access elements"],
+            answer: "The number of next pointers in each node",
+        },
+        {
+            question: "True or False: In a doubly linked list, navigation is possible in both directions.",
+            options: ["True", "False"],
+            answer: "True",
+        },
+        {
+            question: "You need to implement a playlist where the user can skip to the next or previous song. Which type of linked list would you choose for this task?",
+            options: ["Singly Linked List", "Doubly Linked List", "Either would work", "Neither would work"],
+            answer: "Doubly Linked List",
+        },
+    ],
+    binarytree: [
+        {
+            question: "What is the maximum number of nodes at level l in a binary tree?",
+            options: ["l", "2^l", "2^(l-1)", "l^2"],
+            answer: "2^l",
+        },
+        {
+            question: "True or False: In a binary tree, the number of leaf nodes is always one more than nodes with two children.",
+            options: ["True", "False"],
+            answer: "True",
+        },
+        {
+            question: "What is the property of a Binary Search Tree (BST)?",
+            options: [
+                "The left subtree of a node contains only nodes with keys less than the node’s key.",
+                "The right subtree of a node contains only nodes with keys greater than the node’s key.",
+                "Both A and B",
+                "Neither A nor B",
+            ],
+            answer: "Both A and B",
+        },
+        {
+            question: "True or False: In a BST, in-order traversal of nodes results in ascending order of their keys.",
+            options: ["True", "False"],
+            answer: "True",
+        },
+        {
+            question: "Which of the following sequences can represent a Preorder traversal sequence of a binary tree?",
+            options: ["A, B, C, D, E", "E, D, C, B, A", "A, B, D, E, C", "C, B, A, D, E"],
+            answer: "A, B, D, E, C",
+        },
+        {
+            question: "True or False: Post-order traversal sequence of a binary tree can be uniquely reconstructed from its In-order and Pre-order traversal sequences.",
+            options: ["True", "False"],
+            answer: "True",
+        },
+        {
+            question: "What is a balanced binary tree?",
+            options: [
+                "A binary tree where the difference of left and right subtree heights for every node is not more than 1.",
+                "A binary tree where the difference of left and right subtree heights for every node is not more than 2.",
+                "A binary tree where the difference of left and right subtree heights for every node is not more than 3.",
+                "A binary tree where the difference of left and right subtree heights for every node is not more than 4.",
+            ],
+            answer: "A binary tree where the difference of left and right subtree heights for every node is not more than 1.",
+        },
+        {
+            question: "True or False: AVL tree is a type of balanced binary tree.",
+            options: ["True", "False"],
+            answer: "True",
+        },
+        {
+            question: "You need to implement a dictionary that allows fast insertion, deletion, and search operations. Which type of tree would you choose for this task?",
+            options: ["Binary Tree", "Binary Search Tree", "AVL Tree", "B Tree"],
+            answer: "AVL Tree",
+        },
+    ],
+
+
 
 
     // Add more concepts...
