@@ -73,15 +73,11 @@ const Visualisation = () => {
 
             for (j = i - 1; j >= 0 && sortedArray[j] > currentValue; j--) {
                 setSwapping(true);
-
                 const temp = sortedArray[j];
                 sortedArray[j] = sortedArray[j + 1];
                 sortedArray[j + 1] = temp;
-
                 setResultArray([...sortedArray]);
-
                 setJ(j);
-
                 await new Promise((resolve) => setTimeout(resolve, 1200));
             }
 
@@ -94,23 +90,9 @@ const Visualisation = () => {
 
     const insertionSortWithoutDelay = async (arr) => {
         const sortedArray = [...arr.map(Number)];
-
-        for (let i = 1; i < sortedArray.length; i++) {
-            let currentValue = sortedArray[i];
-            let j;
-
-            for (j = i - 1; j >= 0 && sortedArray[j] > currentValue; j--) {
-                const temp = sortedArray[j];
-                sortedArray[j] = sortedArray[j + 1];
-                sortedArray[j + 1] = temp;
-
-                setResultArray([...sortedArray]);
-            }
-
-            setResultArray([...sortedArray]);
-        }
-
+        sortedArray.sort();
         return sortedArray;
+
     };
 
     const StepForward = async (arr) => {

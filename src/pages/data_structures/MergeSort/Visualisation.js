@@ -63,20 +63,24 @@ const Visualisation = () => {
     const [inputArray, setInputArray] = useState([]);
     const [displayArray, setDisplayArray] = useState([]);
     const [swapping, setSwapping] = useState(false);
+    const [currentStep, setCurrentStep] = useState(0);
+    const [inputArrlength, setInputArrlength] = useState(0);
+    const [count, setCount] = useState(0);
 
     const mergeSort = async (arr) => {
-        if (arr.length <= 1) {
-            return arr;
+        const sortedArray = [...arr.map(Number)];
+        if (sortedArray.length <= 1) {
+            return sortedArray;
         }
 
-        const middle = Math.floor(arr.length / 2);
-        const left = arr.slice(0, middle);
-        const right = arr.slice(middle);
+        const middle = Math.floor(sortedArray.length / 2);
+        const left = sortedArray.slice(0, middle);
+        const right = sortedArray.slice(middle);
 
         const sortedLeft = await mergeSort(left);
         const sortedRight = await mergeSort(right);
 
-        return merge(sortedLeft, sortedRight, arr);
+        return merge(sortedLeft, sortedRight, sortedArray);
     };
 
     const merge = async (left, right, originalArray) => {
@@ -84,13 +88,12 @@ const Visualisation = () => {
         let rightIndex = 0;
         const sortedArray = [];
 
+
         while (leftIndex < left.length && rightIndex < right.length) {
             if (left[leftIndex] < right[rightIndex]) {
-
                 sortedArray.push(left[leftIndex]);
                 leftIndex++;
             } else {
-
                 sortedArray.push(right[rightIndex]);
                 rightIndex++;
             }
@@ -104,29 +107,137 @@ const Visualisation = () => {
 
         setDisplayArray([...remaining]);
         setSwapping(false);
-        await delay(1000);
 
-        // Return the fully sorted array
+
         return remaining;
     };
 
+    const mergeSortWithoutDelay = async (arr) => {
+        const sortedArray = [...arr.map(Number)];
+
+        sortedArray.sort();
+        return sortedArray;
+
+
+
+
+    };
+
+
+    // const mergeSortStepForward = async (arr) => {
+    //
+    //     const sortedArray = [...arr.map(Number)];
+    //     if (sortedArray.length <= 1) {
+    //         return sortedArray;
+    //     }
+    //
+    //     const middle = Math.floor(sortedArray.length / 2);
+    //     const left = sortedArray.slice(0, middle);
+    //     const right = sortedArray.slice(middle);
+    //
+    //     const sortedLeft = await mergeSort(left);
+    //     const sortedRight = await mergeSort(right);
+    //
+    //     return mergeSortStepForwardr(sortedLeft, sortedRight, sortedArray);
+    // };
+    //
+    // const mergeSortStepForwardr = async (left, right, originalArray) => {
+    //     let leftIndex = 0;
+    //     let rightIndex = 0;
+    //     const sortedArray = [];
+    //
+    //     for (let i = 0; i < currentStep; i++) {
+    //         if (leftIndex < left.length && (rightIndex >= right.length || left[leftIndex] < right[rightIndex])) {
+    //             sortedArray.push(left[leftIndex]);
+    //             leftIndex++;
+    //         } else {
+    //             sortedArray.push(right[rightIndex]);
+    //             rightIndex++;
+    //         }
+    //     }
+    //
+    //     // Update the display and state
+    //     setDisplayArray([...sortedArray]);
+    //     setSwapping(true);
+    //
+    //     return sortedArray;
+    // };
+
+
+            // while (leftIndex < left.length && rightIndex < right.length && currentStep===count) {
+            //     if (left[leftIndex] < right[rightIndex]) {
+            //
+            //         sortedArray.push(left[leftIndex]);
+            //         leftIndex++;
+            //     //   setCurrentStep(currentStep+1)
+            //     //    setCount(count+1)
+            //         console.log(count);
+            //     } else {
+            //         sortedArray.push(right[rightIndex]);
+            //         rightIndex++;
+            //      //   setCurrentStep(currentStep+1)
+            //     }
+
+                // setDisplayArray([...sortedArray, ...left.slice(leftIndex), ...right.slice(rightIndex)]);
+                // setSwapping(true);
+
+    const handleReset = () => {
+        setInputArray([]);
+        setDisplayArray([]);
+       // setCurrentStep(1);
+      //   setJ(0);
+        setSwapping(false);
+        document.getElementById("input-field").value = "";
+    };
+
+
+
+
+    const handleRandomArray = async () => {
+        const randomArr = [];
+
+        for (let i = 0; i < 5; i++) {
+            randomArr.push(Math.floor(Math.random() * 100) + 1);
+        }
+
+        const sortedResult = await mergeSort(randomArr);
+        setDisplayArray(sortedResult);
+    };
     const handleButtonClick = async () => {
         const sortedResult = await mergeSort(inputArray);
         setDisplayArray(sortedResult);
     };
 
+    const handleDirectButtonClick = async () => {
+        const sortedResult = await mergeSortWithoutDelay(inputArray);
+        setDisplayArray(sortedResult);
+      //  setCurrentStep(0);
+    };
+
     useEffect(() => {
-        // Do nothing on initial render
+
     }, []);
+
+    // const handleStepForward = async () => {
+    //     const updatedArray = await mergeSortStepForward(inputArray);
+    //     setDisplayArray(updatedArray);
+    //   //  setCurrentStep(currentStep + 1);
+    // };
 
     return (
         <div>
             <InputContainer>
-                <InputField
+                <InputField id="input-field"
                     placeholder="Enter array (comma-separated)"
                     onChange={(e) => setInputArray(e.target.value.split(","))}
                 />
                 <Button onClick={handleButtonClick}>Go</Button>
+                <Button onClick={handleRandomArray}>Generate</Button>
+                <Button onClick={handleDirectButtonClick}>Sort Directly</Button>
+
+                <Button onClick={handleReset}>Reset Input</Button>
+
+
             </InputContainer>
 
             <SortingComponent>
