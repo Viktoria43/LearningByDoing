@@ -34,13 +34,14 @@ const Button = styled.button`
   &.passed {
     background-color: green;
   }
-
   &.not-passed {
     opacity: 0.7;
     cursor: not-allowed;
   }
-
-
+  &.not-passed {
+    opacity: 0.7;
+    cursor: not-allowed;
+  }
 ` ;
 
 
@@ -54,22 +55,44 @@ export default function DataStructureButtons() {
     console.log(token)
     useEffect(() => {
         const fetchUserLevel = async () => {
-            try {
+            if(token!==null) {
+                try {
 
-                const response = await axios.post('http://localhost:4000/get-level-data', {token:token
-                });
+                    const response = await axios.post('http://localhost:4000/get-level-data', {
+                        token: token
+                    });
 
-                const { success,lastLevel2 } = response.data;
+                    const {success, lastLevel2} = response.data;
 
-                if (success) {
-                    setUserLevel(lastLevel2);
-                    console.log(lastLevel2);
-                } else {
-                    console.error('Failed to fetch user level');
+                    if (success) {
+                        setUserLevel(lastLevel2);
+                        console.log(lastLevel2);
+                    } else {
+                        console.error('Failed to fetch user level');
 
+                    }
+                } catch (error) {
+                    console.error('Error fetching user level:', error);
                 }
-            } catch (error) {
-                console.error('Error fetching user level:', error);
+            }
+            else if (token === null) {
+                const progressString = window.localStorage.getItem('progress2');
+                const progress2 = JSON.parse(progressString);
+                let lastTrueLevel = 6;
+
+                if (!progress2) {
+                    setUserLevel(lastTrueLevel);
+
+                    return;
+                }
+
+                for (let level = 7; level <= 12; level++) {
+                    if (progress2[level]) {
+                        lastTrueLevel = level;
+                    }
+                }
+
+                setUserLevel(lastTrueLevel);
             }
         };
 
@@ -84,7 +107,7 @@ export default function DataStructureButtons() {
         {buttonLabels.map((label, index) => (
           <Link to={'/DataStructures/'+label} className="link">
               <Button
-                  className={`buttons background-inter ${index + 7 <= userLevel ? '' : ''} ${index + 6 <= userLevel ? 'passed' : 'not-passed'}`}
+                  className={`buttons background-inter ${index + 6 <= userLevel ? 'passed' : 'not-passed'}`}
                   disabled={index + 6 > userLevel}
               >
                   {label}

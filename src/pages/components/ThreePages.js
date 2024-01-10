@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import {useNavigate, Link} from "react-router-dom";
 import axios from "axios";
+import { v4 as uuidv4 } from 'uuid';
+
 
 
 
@@ -8,9 +10,8 @@ const ThreePages = ({contentComponent, visualisationComponent, quizComponent,lev
 
   const [step, setStep] = useState(1);
   const [levelPassed, setLevel] = useState(false);
-  const [token, setToken] = useState(() => window.localStorage.getItem('accessToken'));
-
-
+  const [token, setToken] = useState(() => window.localStorage.getItem('accessToken') ?? null);
+  const [progress, setProgress] = useState(() => window.localStorage.getItem('progresss') );
 
 
 
@@ -40,28 +41,35 @@ const ProgressBar = ({ step, onChangeStep, level, token}) => {
   };
   const navigate = useNavigate();
   const handleLevels=async () =>{
-
-    console.log(token);
-
+    let progress2 = JSON.parse(window.localStorage.getItem('progress2')) || {};
 
 
-    try {
 
-      const response = await axios.post('http://localhost:4000/update-level', {token: token, newLevel: level});
+if(token!==null) {
+  try {
 
-      const { success } = response.data;
+    const response = await axios.post('http://localhost:4000/update-level', {token: token, newLevel: level});
 
-      if (success) {
-        console.log(`User's level updated successfully to ${level}`);
-        navigate('/');
-      } else {
+    const {success} = response.data;
 
-      }
-    } catch (error) {
+    if (success) {
+      console.log(`User's level updated successfully to ${level}`);
+      navigate('/');
+    } else  {
 
-     console.error('Error updating level:', error);
+    }
+  } catch (error) {
 
-   }
+    console.error('Error updating level:', error);
+
+  }
+
+}
+else if (token===null){
+  progress2 = { ...progress2, [level]: true };
+  window.localStorage.setItem('progress2', JSON.stringify(progress2));
+  navigate('/');
+}
   };
 
 
