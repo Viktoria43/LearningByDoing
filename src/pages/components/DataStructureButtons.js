@@ -105,7 +105,7 @@ export default function DataStructureButtons() {
       <h3 className="header">Data structures & visualisers:</h3>
       <div className="intermediate-container">
         {buttonLabels.map((label, index) => (
-          <Link to={'/DataStructures/'+label} className="link">
+          <Link to={'/DataStructures/'+label} className="link" >
               <Button
                   className={`buttons background-inter ${index + 6 <= userLevel ? 'passed' : 'not-passed'}`}
                   disabled={index + 6 > userLevel}

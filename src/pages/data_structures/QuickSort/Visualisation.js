@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import styled from "styled-components";
 
 const InputContainer = styled.div`
@@ -29,6 +29,7 @@ const Button = styled.button`
   border-radius: 7px;
   cursor: pointer;
   margin-left: 10px;
+
   &:hover {
     background-color: #559;
   }
@@ -65,40 +66,18 @@ const SortingComponent = styled.div`
   margin-top: 150px;
 `;
 
-let test = {
-    theArray: [],
-    left: {
-        start: undefined,
-        end: undefined,
-    },
-    right: {
-        start: undefined,
-        end: undefined,
-    },
-    hasLeft() {
-        return this.left.start !== undefined && this.left.end !== undefined;
-    },
-    hasRight() {
-        return this.right.start !== undefined && this.right.end !== undefined;
-    }
-};
-
 const Visualisation = () => {
     const [inputArray, setInputArray] = useState([]);
     const [resultArray, setResultArray] = useState([]);
+    const [stepForwardQueue, setStepForwardQueue] = useState([]);
+    const [stepBackQueue, setStepBackQueue] = useState([]);
     const [swapping, setSwapping] = useState(false);
     // const [currentStep, setCurrentStep] = useState(1);
     // const [currentCount, setCount] = useState(1);
-    let theArr = [];
-    const [leftstart, setLeftStart] = useState(-1);
-    const [leftend, setLefTEnd] = useState(-1);
-    const [rightstart, setRightStart] = useState(-1);
-    const [rightend, setRightEnd] = useState(-1);
 
     const [j, setJ] = useState(0);
     const [i, setI] = useState(0);
     const [pivot, setPivot] = useState(0);
-    const animationSteps = [];
 
     const QuickSort = async (arr) => {
         const sortedArray = [...arr.map(Number)];
@@ -163,106 +142,139 @@ const Visualisation = () => {
         return sortedArray;
     };
 
-    const QuickSortStepForward = async (arr, start, end) => {
+    const QuickSortStepForward = async (arr) => {
         const animationDelay = 1000;
         const animationSteps = [];
 
         const performSortStepForward = async (start, end) => {
             if (start >= end) return;
-            const sortedArray = theArr;
 
-            const pivot = sortedArray[start];
+            const pivot = arr[start];
             let left = start + 1;
             let right = end;
 
             while (left <= right) {
-                while (left <= end && sortedArray[left] <= pivot) {
+                while (left <= end && arr[left] <= pivot) {
                     left++;
-                    setJ(sortedArray[left]);
-                    setI(sortedArray[right]);
+                    setJ(arr[left]);
+                    setI(arr[right]);
                     setSwapping(true);
                 }
 
-                while (right > start && sortedArray[right] >= pivot) {
+                while (right > start && arr[right] >= pivot) {
                     right--;
-                    setJ(sortedArray[left]);
-                    setI(sortedArray[right]);
+                    setJ(arr[left]);
+                    setI(arr[right]);
                     setSwapping(true);
                 }
 
                 if (left < right) {
-                    [sortedArray[left], sortedArray[right]] = [sortedArray[right], sortedArray[left]];
-                    setJ(sortedArray[left]);
-                    setI(sortedArray[right]);
+                    [arr[left], arr[right]] = [arr[right], arr[left]];
+                    setJ(arr[left]);
+                    setI(arr[right]);
                     setPivot(start);
 
-                    const stepArray = [...sortedArray];
+                    const stepArray = [...arr];
                     animationSteps.push(stepArray);
                 }
             }
 
-            [sortedArray[start], sortedArray[right]] = [sortedArray[right], sortedArray[start]];
+            [arr[start], arr[right]] = [arr[right], arr[start]];
 
-            const stepArray = [...sortedArray];
+            const stepArray = [...arr];
             animationSteps.push(stepArray);
-            setResultArray(stepArray);
-            await new Promise((resolve) => setTimeout(resolve, animationDelay));
 
-        //     test.left = {
-        //         start,
-        //         end: right - 1,
-        //     };
-        //     test.right = {
-        //         start: right + 1,
-        //         end,
-        //     };
-        // };
-            setLefTEnd(right-1);
-            setRightStart(right+1);
-
-        }
-        // if (!test.theArray.length) {
-        //     test.theArray = [...arr];
-        // }
-        if (theArr.length>0){
-            theArr.push(...arr);
-        }
-        if(leftend!==-1&&leftstart!==-1){
-            await performSortStepForward(leftstart, leftend);
+            setStepForwardQueue((queue) => [
+                ...queue,
+                [start, right - 1],
+                [right + 1, end]
+            ]);
         }
 
-        // if (test.hasLeft()) {
-        //     await performSortStepForward(test.left.start, test.left.end);
-        // }
-
-        // if (test.hasRight()) {
-        //     await performSortStepForward(test.right.start, test.right.end);
-        // }
-        if (rightstart!==-1&&rightend!==-1){
-            await performSortStepForward(rightstart, rightend);
-        }
-
-        if (rightend===-1&&rightstart===-1&&leftstart===-1&&leftend===-1){
+        if (stepForwardQueue.length) {
+            console.log([...stepForwardQueue])
+            const [start, end] = stepForwardQueue.shift();
             await performSortStepForward(start, end);
         }
-        // if (!test.hasLeft() && !test.hasRight()) {
-        //     await performSortStepForward(start, end);
-        // }
 
         // setCurrentStep(currentStep + 1);
         // console.log(currentCount);
-        return theArr;
+        return arr;
     };
+
+
+    const QuickSortStepBack = async (arr) => {
+        const animationDelay = 1000;
+        const animationSteps = [];
+
+        const performSortStepBack = async (start, end) => {
+            if (start >= end) return;
+
+            const pivot = arr[start];
+            let left = start + 1;
+            let right = end;
+
+            while (left <= right) {
+                while (left <= end && arr[left] <= pivot) {
+                    left++;
+                    setJ(arr[left]);
+                    setI(arr[right]);
+                    setSwapping(true);
+                }
+
+                while (right > start && arr[right] >= pivot) {
+                    right--;
+                    setJ(arr[left]);
+                    setI(arr[right]);
+                    setSwapping(true);
+                }
+
+                if (left < right) {
+                    [arr[left], arr[right]] = [arr[right], arr[left]];
+                    setJ(arr[left]);
+                    setI(arr[right]);
+                    setPivot(start);
+
+                    const stepArray = [...arr];
+                    animationSteps.push(stepArray);
+                }
+            }
+
+            [arr[start], arr[right]] = [arr[right], arr[start]];
+
+            const stepArray = [...arr];
+            animationSteps.push(stepArray);
+
+            setStepBackQueue((queue) => [
+                ...queue,
+                [start, right - 1],
+                [right + 1, end]
+            ]);
+        }
+
+        if (stepBackQueue.length) {
+            console.log([...stepBackQueue])
+            const [start, end] = stepBackQueue.unshift();
+            await performSortStepBack(start, end);
+        }
+
+        // setCurrentStep(currentStep + 1);
+        // console.log(currentCount);
+        return arr;
+    };
+
 
     const handleStepForward = async () => {
-        const sortedResult = await QuickSortStepForward(inputArray, 0, inputArray.length - 1);
+        const correctArray = [...(resultArray.length ? resultArray : inputArray)];
+        const sortedResult = await QuickSortStepForward(correctArray);
         setResultArray(sortedResult);
-       // console.log(currentStep);
     };
 
-// ... (other functions)
-
-
+    const handleStepBack = async () => {
+        const correctArray = [...(resultArray.length ? resultArray : inputArray)];
+        const sortedResult = await QuickSortStepBack(correctArray);
+        setResultArray(sortedResult);
+    };
 
 
     const handleReset = () => {
@@ -270,7 +282,7 @@ const Visualisation = () => {
         setResultArray([]);
         setJ(0);
         setSwapping(false);
-      //  setCurrentStep(0);
+        // setCurrentStep(0);
         document.getElementById("input-field").value = "";
     };
 
@@ -301,23 +313,30 @@ const Visualisation = () => {
         setResultArray(sortedResult);
     }
 
+    const onInput = (e) => {
+        const input = e.target.value.split(",").map(Number);
+        setInputArray(input);
+        setStepForwardQueue([[0, input.length - 1]]);
+    }
+
     return (
         <div>
             <InputContainer>
                 <InputField
                     id="input-field"
                     placeholder="Enter array (comma-separated)"
-                    onChange={(e) => setInputArray(e.target.value.split(",").map(Number))}
+                    onChange={onInput}
                 />
                 <Button onClick={handleButtonClick}>Go</Button>
                 <Button onClick={handleRandomArray}>Generate</Button>
                 <Button onClick={handleDirectButtonClick}>Sort Directly</Button>
                 <Button onClick={handleReset}>Reset Input</Button>
                 <Button onClick={handleStepForward}>Step Forward</Button>
+                <Button onClick={handleStepBack}>Step Back</Button>
             </InputContainer>
 
             <SortingComponent>
-                <div style={{ display: "flex" }}>
+                <div style={{display: "flex"}}>
                     {resultArray.map((num, index) => (
                         <Rectangle key={index} value={num} swapping={index === j || index === i}>
                             {num}
@@ -327,8 +346,8 @@ const Visualisation = () => {
             </SortingComponent>
         </div>
     );
-};
 
+}
 export default Visualisation;
 
 
