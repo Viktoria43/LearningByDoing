@@ -36,8 +36,7 @@ const Button = styled.button`
   }
 
   &.not-passed {
-    opacity: 0.5;
-    cursor: not-allowed;
+    
   }
 
   &.disabled {
@@ -51,27 +50,45 @@ const Button = styled.button`
 export default function IntroductionButtons() {
   const buttonLabels = ['Datatypes', 'Conditionals', 'Operations', 'Loops', 'Functions', 'Arrays'];
     const [userLevel, setUserLevel] = useState(1);
-    const [token, setToken] = useState(() => window.localStorage.getItem('accessToken'));
+    const [token, setToken] = useState(() => window.localStorage.getItem(('accessToken')??null));
+
     useEffect(() => {
         const fetchUserLevel = async () => {
-            try {
+            if(token!==null) {
+                try {
+                    const response = await axios.post('http://localhost:4000/get-level-intro', {token: token});
+                    const {success, lastLevel} = response.data;
 
-                const response = await axios.post('http://localhost:4000/get-level-intro', {token:token
-                });
+                    if (success) {
+                        setUserLevel(lastLevel);
+                        console.log(lastLevel - 1);
 
-                const { success,lastLevel } = response.data;
-
-                if (success) {
-                    setUserLevel(lastLevel);
-                    console.log(lastLevel-1);
-                } else {
-                    console.error('Failed to fetch user level');
-
+                    }
+                } catch (error) {
+                    console.error('Error fetching user level:', error);
                 }
-            } catch (error) {
-                console.error('Error fetching user level:', error);
+            }
+            else if (token === null) {
+                const progressString = window.localStorage.getItem('progress');
+                const progress = JSON.parse(progressString);
+                let lastTrueLevel = 0;
+
+                if (!progress) {
+                    setUserLevel(lastTrueLevel);
+
+                    return;
+                }
+
+                for (let level = 1; level <= 6; level++) {
+                    if (progress[level]) {
+                        lastTrueLevel = level;
+                    }
+                }
+
+                setUserLevel(lastTrueLevel);
             }
         };
+
 
 
         fetchUserLevel();
@@ -86,20 +103,15 @@ export default function IntroductionButtons() {
         {buttonLabels.map((label, index) => (
           <Link to={'/Introduction/'+label} className="link">
               <Button
-                  className={`buttons background-basics ${
-                      index === 0
-                          ? index < userLevel
-                              ? ''
-                              : 'disabled'
-                          : index <= userLevel
-                              ? ''
-                              : 'disabled'
-                  }`}
-                  disabled={index === 0 ? index  >= userLevel+1 : index > userLevel}
+                  className={`buttons background-basics ${index <= userLevel ? '' : 'disabled'}`}
+                  disabled={index  > userLevel}
+
               >
                   {label}
-              </Button>
-          </Link>
+
+          </Button>
+
+            </Link>
         ))}
       </div>
     </FullWidthDiv>

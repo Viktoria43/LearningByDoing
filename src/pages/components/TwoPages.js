@@ -16,7 +16,7 @@ const TwoPages = ({contentComponent, quizComponent,level}) =>{
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-        <ProgressBar step={step} onChangeStep={handleStepChange} level={level} token={token}k />
+        <ProgressBar step={step} onChangeStep={handleStepChange} level={level} token={token} />
       </div>
 
       {step === 1 && contentComponent}
@@ -31,26 +31,33 @@ const ProgressBar = ({ step, onChangeStep,level, token }) => {
   };
   const navigate = useNavigate();
   const handleLevels=async () =>{
+    let progress = { 1: true, 2: false, 3: false, 4: false, 5: false, 6: false,7: true, 8: false, 9: false, 10: false, 11: false, 12: false  };
 
 
 
+    if(token!==null) {
+      try {
 
-    try {
+        const response = await axios.post('http://localhost:4000/update-level', {token: token, newLevel: level});
 
-      const response = await axios.post('http://localhost:4000/update-level', {token: token, newLevel: level});
+        const {success} = response.data;
 
-      const { success } = response.data;
+        if (success) {
+          console.log(`User's level updated successfully to ${level}`);
+          navigate('/');
+        } else {
 
-      if (success) {
-        console.log(`User's level updated successfully to ${level}`);
-        navigate('/');
-      } else {
+        }
+      } catch (error) {
+
+        console.error('Error updating level:', error);
 
       }
-    } catch (error) {
-
-      console.error('Error updating level:', error);
-
+    }
+  else if (token===null){
+      progress = { ...progress, [level]: true };
+      window.localStorage.setItem('progress', JSON.stringify(progress));
+      navigate('/');
     }
   };
 

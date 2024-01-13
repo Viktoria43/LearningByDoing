@@ -65,11 +65,35 @@ const SortingComponent = styled.div`
   margin-top: 150px;
 `;
 
+let test = {
+    theArray: [],
+    left: {
+        start: undefined,
+        end: undefined,
+    },
+    right: {
+        start: undefined,
+        end: undefined,
+    },
+    hasLeft() {
+        return this.left.start !== undefined && this.left.end !== undefined;
+    },
+    hasRight() {
+        return this.right.start !== undefined && this.right.end !== undefined;
+    }
+};
+
 const Visualisation = () => {
     const [inputArray, setInputArray] = useState([]);
     const [resultArray, setResultArray] = useState([]);
     const [swapping, setSwapping] = useState(false);
-    const [currentStep, setCurrentStep] = useState(0);
+    // const [currentStep, setCurrentStep] = useState(1);
+    // const [currentCount, setCount] = useState(1);
+    let theArr = [];
+    const [leftstart, setLeftStart] = useState(-1);
+    const [leftend, setLefTEnd] = useState(-1);
+    const [rightstart, setRightStart] = useState(-1);
+    const [rightend, setRightEnd] = useState(-1);
 
     const [j, setJ] = useState(0);
     const [i, setI] = useState(0);
@@ -139,21 +163,114 @@ const Visualisation = () => {
         return sortedArray;
     };
 
-    const handleStepForward = async () => {
-        const sortedArray = [...inputArray.map(Number)];
-        setCurrentStep(currentStep + 1);
-        if (currentStep < sortedArray.length - 1) {
+    const QuickSortStepForward = async (arr, start, end) => {
+        const animationDelay = 1000;
+        const animationSteps = [];
 
-            setResultArray(animationSteps[currentStep + 1]);
+        const performSortStepForward = async (start, end) => {
+            if (start >= end) return;
+            const sortedArray = theArr;
+
+            const pivot = sortedArray[start];
+            let left = start + 1;
+            let right = end;
+
+            while (left <= right) {
+                while (left <= end && sortedArray[left] <= pivot) {
+                    left++;
+                    setJ(sortedArray[left]);
+                    setI(sortedArray[right]);
+                    setSwapping(true);
+                }
+
+                while (right > start && sortedArray[right] >= pivot) {
+                    right--;
+                    setJ(sortedArray[left]);
+                    setI(sortedArray[right]);
+                    setSwapping(true);
+                }
+
+                if (left < right) {
+                    [sortedArray[left], sortedArray[right]] = [sortedArray[right], sortedArray[left]];
+                    setJ(sortedArray[left]);
+                    setI(sortedArray[right]);
+                    setPivot(start);
+
+                    const stepArray = [...sortedArray];
+                    animationSteps.push(stepArray);
+                }
+            }
+
+            [sortedArray[start], sortedArray[right]] = [sortedArray[right], sortedArray[start]];
+
+            const stepArray = [...sortedArray];
+            animationSteps.push(stepArray);
+            setResultArray(stepArray);
+            await new Promise((resolve) => setTimeout(resolve, animationDelay));
+
+        //     test.left = {
+        //         start,
+        //         end: right - 1,
+        //     };
+        //     test.right = {
+        //         start: right + 1,
+        //         end,
+        //     };
+        // };
+            setLefTEnd(right-1);
+            setRightStart(right+1);
+
         }
+        // if (!test.theArray.length) {
+        //     test.theArray = [...arr];
+        // }
+        if (theArr.length>0){
+            theArr.push(...arr);
+        }
+        if(leftend!==-1&&leftstart!==-1){
+            await performSortStepForward(leftstart, leftend);
+        }
+
+        // if (test.hasLeft()) {
+        //     await performSortStepForward(test.left.start, test.left.end);
+        // }
+
+        // if (test.hasRight()) {
+        //     await performSortStepForward(test.right.start, test.right.end);
+        // }
+        if (rightstart!==-1&&rightend!==-1){
+            await performSortStepForward(rightstart, rightend);
+        }
+
+        if (rightend===-1&&rightstart===-1&&leftstart===-1&&leftend===-1){
+            await performSortStepForward(start, end);
+        }
+        // if (!test.hasLeft() && !test.hasRight()) {
+        //     await performSortStepForward(start, end);
+        // }
+
+        // setCurrentStep(currentStep + 1);
+        // console.log(currentCount);
+        return theArr;
     };
+
+    const handleStepForward = async () => {
+        const sortedResult = await QuickSortStepForward(inputArray, 0, inputArray.length - 1);
+        setResultArray(sortedResult);
+       // console.log(currentStep);
+    };
+
+// ... (other functions)
+
+
+
 
     const handleReset = () => {
         setInputArray([]);
         setResultArray([]);
         setJ(0);
         setSwapping(false);
-        setCurrentStep(0);
+      //  setCurrentStep(0);
         document.getElementById("input-field").value = "";
     };
 
@@ -190,7 +307,7 @@ const Visualisation = () => {
                 <InputField
                     id="input-field"
                     placeholder="Enter array (comma-separated)"
-                    onChange={(e) => setInputArray(e.target.value.split(","))}
+                    onChange={(e) => setInputArray(e.target.value.split(",").map(Number))}
                 />
                 <Button onClick={handleButtonClick}>Go</Button>
                 <Button onClick={handleRandomArray}>Generate</Button>
