@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import {useNavigate, Link} from "react-router-dom";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { v4 as uuidv4 } from 'uuid';
-
-
-
+import contentIcon from './images/content-icon.png';
+import visIcon from './images/vis-icon.png';
+import quizIcon from './images/quiz-icon.png';
 
 const ThreePages = ({contentComponent, visualisationComponent, quizComponent,level}) =>{
 
@@ -71,84 +71,72 @@ else if (token===null){
   navigate('/');
 }
   };
-
-
+  
   const containerStyle = {
     width: '100%',
     position: 'relative',
     display: 'flex',
-    height: '36px',
+    height: '40px',
   };
 
   const barStyle = {
     display: 'flex',
-    width: '92%',
+    width: '100%',
     position: 'relative',
-    height: '20px',
+    height: '60px',
     overflow: 'hidden',
-    margin: '10px',
-    marginTop: '12.5px',
     backgroundColor: '#dddddd',
     borderRadius: '5px',
   };
 
-  const prevButtonStyle = {
-    width: '25px',
-    marginLeft: '15px',
-    marginTop: '10px',
-    borderRadius: '10px',
-    cursor: 'pointer'
-  }
-
-  const nextButtonStyle = {
-    width: '25px',
-    marginRight: '5px',
-    marginTop: '10px' ,
-    borderRadius: '10px',
-    cursor: 'pointer'
-  }
-
   const slidingPartStyle = {
     position: 'absolute',
-    margin: '2px',
-    width: '33%',
-    height: '73%',
-    backgroundColor: '#3344dd',
+    width: '33.33%', 
+    height: '100%',
+    backgroundColor: 'rgba(51, 68, 221, 0.5)', 
     transition: 'transform 0.2s ease-in-out',
-    transform: `translateX(${(step - 1) * 101}%)`, // Adjust to use one third of the width
+    transform: `translateX(${(step - 1) * 100}%)`,
     boxSizing: 'border-box',
     pointerEvents: 'none',
     borderRadius: '5px',
   };
 
   const clickablePartStyle = {
-    margin: '3px',
     flex: '1',
     height: '100%',
     cursor: 'pointer',
-    width: '33%', 
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '20px', 
+    justifyContent: 'center',
+  };
+
+  const iconStyle = {
+    width: '25px', 
+    height: '25px', 
+    marginRight: '5px', 
+  };
+
+  const labelStyle = {
+    fontSize: '20px', 
+    marginLeft: '5px', 
+    marginBottom: '3px' ,
   };
 
   const PageTitle = ['Content', 'Visualisation', 'Quiz'];
+  const iconPaths = [contentIcon, visIcon, quizIcon];
 
   return (
     <div style={containerStyle}>
-       <button style={prevButtonStyle} onClick={()=>handleStepClick(step===1?1:step-1)}>{"<"}</button>
-    <div style={barStyle}>
-      <div style={slidingPartStyle} />
-      {[1, 2, 3].map((num) => (
-        <div
-          key={num}
-          onClick={() => handleStepClick(num)}
-          style={clickablePartStyle}
-        >
-        <label>{PageTitle[num-1]}</label>
-        </div>
-      ))}
-      
-    </div>
-      <button style={nextButtonStyle} onClick={() => {handleStepClick(step === 3 ? 3 : step + 1); if (step===3){handleLevels();}}}>{">"}</button>
-
+      <div style={barStyle}>
+        <div style={slidingPartStyle} />
+        {[1, 2, 3].map((num) => (
+          <div key={num} onClick={() => handleStepClick(num)} style={clickablePartStyle}>
+            <img src={iconPaths[num - 1]} alt={`Icon ${PageTitle[num - 1]}`} style={iconStyle} />
+            <label style={labelStyle}>{PageTitle[num - 1]}</label>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
