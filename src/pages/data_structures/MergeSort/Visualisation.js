@@ -234,7 +234,6 @@ const Visualisation = () => {
                 <Button onClick={handleButtonClick}>Go</Button>
                 <Button onClick={handleRandomArray}>Generate</Button>
                 <Button onClick={handleDirectButtonClick}>Sort Directly</Button>
-
                 <Button onClick={handleReset}>Reset Input</Button>
 
 

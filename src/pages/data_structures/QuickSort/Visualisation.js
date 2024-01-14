@@ -44,11 +44,11 @@ const Rectangle = styled.div`
   background-color: ${(props) =>
           props.pivot
                   ? 'red'
-                  : props.swapping
+                  : props.compare
                           ? 'blue'
-                          : props.compare
-                                  ? '#87CEEB'
-                                  : 'black'};
+                          : 'black'};
+
+
 
   margin: 5px;
   text-align: center;
@@ -87,6 +87,7 @@ const Visualisation = () => {
 
         const animationDelay = 1200;
         const animationSteps = [];
+        const iAndJSteps = [];
 
         const performSort = async (arr, start, end) => {
             if (start >= end) return;
@@ -94,37 +95,48 @@ const Visualisation = () => {
             const pivot = arr[start];
             let left = start + 1;
             let right = end;
+             // setJ(arr[right]);
 
             while (left <= right) {
                 while (left <= end && arr[left] <= pivot) {
                     left++;
-                    setJ(arr[left]);
-                    setI(arr[right]);
+
                     setSwapping(true);
                 }
 
                 while (right > start && arr[right] >= pivot) {
                     right--;
-                    setJ(arr[left]);
-                    setI(arr[right]);
+
                     setSwapping(true);
                 }
 
                 if (left < right) {
+                    //;
+
+                    setSwapping(true);
+                    //await new Promise((resolve) => setTimeout(resolve, animationDelay));
                     [arr[left], arr[right]] = [arr[right], arr[left]];
-                    setJ(arr[left]);
-                    setI(arr[right]);
-                    setPivot(start);
+                    // setJ(right)
+                    // setI(left);
 
                     const stepArray = [...arr];
                     animationSteps.push(stepArray);
+                    iAndJSteps.push([left, right]);
                 }
             }
 
             [arr[start], arr[right]] = [arr[right], arr[start]];
 
+            // push left and right to an array
+
+
             const stepArray = [...arr];
             animationSteps.push(stepArray);
+            iAndJSteps.push([left, right]);
+          // setJ(left);
+          // setI(right);
+           //setPivot(start);
+          //  setSwapping(false);
 
             await Promise.all([
                 performSort(arr, start, right - 1),
@@ -134,13 +146,20 @@ const Visualisation = () => {
 
         await performSort(sortedArray, 0, sortedArray.length - 1);
 
-        for (const step of animationSteps) {
+        for (let i = 0; i < animationSteps.length; i++) {
+            const step = animationSteps[i];
+            const [left, right] = iAndJSteps[i];
+
             setResultArray(step);
+            setI(left);
+            setJ(right);
+            // set i and j by popping or using the index of the for loop
             await new Promise((resolve) => setTimeout(resolve, animationDelay));
         }
 
         return sortedArray;
     };
+
 
     const QuickSortStepForward = async (arr) => {
         const animationDelay = 1000;
@@ -156,22 +175,25 @@ const Visualisation = () => {
             while (left <= right) {
                 while (left <= end && arr[left] <= pivot) {
                     left++;
-                    setJ(arr[left]);
-                    setI(arr[right]);
+                   // setJ(arr[left]);
+                  //  setI(arr[right]);
                     setSwapping(true);
+                    debugger;
                 }
 
                 while (right > start && arr[right] >= pivot) {
                     right--;
-                    setJ(arr[left]);
-                    setI(arr[right]);
+                   // setJ(right);
+                   // setJ(arr[left]);
+                 //   setI(arr[right]);
                     setSwapping(true);
+                    debugger;
                 }
 
                 if (left < right) {
                     [arr[left], arr[right]] = [arr[right], arr[left]];
-                    setJ(arr[left]);
-                    setI(arr[right]);
+debugger;
+                   // setI(arr[right]);
                     setPivot(start);
 
                     const stepArray = [...arr];
@@ -338,7 +360,7 @@ const Visualisation = () => {
             <SortingComponent>
                 <div style={{display: "flex"}}>
                     {resultArray.map((num, index) => (
-                        <Rectangle key={index} value={num} swapping={index === j || index === i}>
+                        <Rectangle key={index} value={num} compare={index === j || index===i} pivot={index === pivot} >
                             {num}
                         </Rectangle>
                     ))}
