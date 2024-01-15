@@ -71,9 +71,8 @@ const Visualisation = () => {
     const [resultArray, setResultArray] = useState([]);
     const [stepForwardQueue, setStepForwardQueue] = useState([]);
     const [stepBackQueue, setStepBackQueue] = useState([]);
-    const [swapping, setSwapping] = useState(false);
-    // const [currentStep, setCurrentStep] = useState(1);
-    // const [currentCount, setCount] = useState(1);
+
+
 
     const [j, setJ] = useState(0);
     const [i, setI] = useState(0);
@@ -95,30 +94,20 @@ const Visualisation = () => {
             const pivot = arr[start];
             let left = start + 1;
             let right = end;
-             // setJ(arr[right]);
 
             while (left <= right) {
                 while (left <= end && arr[left] <= pivot) {
                     left++;
 
-                    setSwapping(true);
                 }
 
                 while (right > start && arr[right] >= pivot) {
                     right--;
 
-                    setSwapping(true);
                 }
 
                 if (left < right) {
-                    //;
-
-                    setSwapping(true);
-                    //await new Promise((resolve) => setTimeout(resolve, animationDelay));
                     [arr[left], arr[right]] = [arr[right], arr[left]];
-                    // setJ(right)
-                    // setI(left);
-
                     const stepArray = [...arr];
                     animationSteps.push(stepArray);
                     iAndJSteps.push([left, right]);
@@ -127,16 +116,12 @@ const Visualisation = () => {
 
             [arr[start], arr[right]] = [arr[right], arr[start]];
 
-            // push left and right to an array
+
 
 
             const stepArray = [...arr];
             animationSteps.push(stepArray);
             iAndJSteps.push([left, right]);
-          // setJ(left);
-          // setI(right);
-           //setPivot(start);
-          //  setSwapping(false);
 
             await Promise.all([
                 performSort(arr, start, right - 1),
@@ -153,7 +138,6 @@ const Visualisation = () => {
             setResultArray(step);
             setI(left);
             setJ(right);
-            // set i and j by popping or using the index of the for loop
             await new Promise((resolve) => setTimeout(resolve, animationDelay));
         }
 
@@ -164,6 +148,7 @@ const Visualisation = () => {
     const QuickSortStepForward = async (arr) => {
         const animationDelay = 1000;
         const animationSteps = [];
+        const iAndJSteps = [];
 
         const performSortStepForward = async (start, end) => {
             if (start >= end) return;
@@ -175,25 +160,18 @@ const Visualisation = () => {
             while (left <= right) {
                 while (left <= end && arr[left] <= pivot) {
                     left++;
-                   // setJ(arr[left]);
-                  //  setI(arr[right]);
-                    setSwapping(true);
-                    debugger;
+
                 }
 
                 while (right > start && arr[right] >= pivot) {
                     right--;
-                   // setJ(right);
-                   // setJ(arr[left]);
-                 //   setI(arr[right]);
-                    setSwapping(true);
-                    debugger;
+
+
                 }
 
                 if (left < right) {
                     [arr[left], arr[right]] = [arr[right], arr[left]];
-debugger;
-                   // setI(arr[right]);
+
                     setPivot(start);
 
                     const stepArray = [...arr];
@@ -205,6 +183,8 @@ debugger;
 
             const stepArray = [...arr];
             animationSteps.push(stepArray);
+            iAndJSteps.push([left, right]);
+
 
             setStepForwardQueue((queue) => [
                 ...queue,
@@ -213,14 +193,14 @@ debugger;
             ]);
         }
 
+
         if (stepForwardQueue.length) {
             console.log([...stepForwardQueue])
             const [start, end] = stepForwardQueue.shift();
             await performSortStepForward(start, end);
         }
 
-        // setCurrentStep(currentStep + 1);
-        // console.log(currentCount);
+
         return arr;
     };
 
@@ -241,14 +221,12 @@ debugger;
                     left++;
                     setJ(arr[left]);
                     setI(arr[right]);
-                    setSwapping(true);
                 }
 
                 while (right > start && arr[right] >= pivot) {
                     right--;
                     setJ(arr[left]);
                     setI(arr[right]);
-                    setSwapping(true);
                 }
 
                 if (left < right) {
@@ -279,9 +257,6 @@ debugger;
             const [start, end] = stepBackQueue.unshift();
             await performSortStepBack(start, end);
         }
-
-        // setCurrentStep(currentStep + 1);
-        // console.log(currentCount);
         return arr;
     };
 
@@ -303,8 +278,6 @@ debugger;
         setInputArray([]);
         setResultArray([]);
         setJ(0);
-        setSwapping(false);
-        // setCurrentStep(0);
         document.getElementById("input-field").value = "";
     };
 
