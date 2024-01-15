@@ -1,16 +1,100 @@
 // IntroductionButtons.js
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import './buttons.css';
 import styled from 'styled-components';
 import {Link} from 'react-router-dom';
+import axios from "axios";
 
 const FullWidthDiv = styled.div`
   width: 95%;
   margin: auto;
-  /* Add other styles as needed */
+ 
 `;
+const Button = styled.button`
+  font-family: 'Verdana';
+  font-size: 20px;
+  display: flex;
+  width: 9em;
+  height: 6em;
+  margin-right: 3em;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  font-weight: 600;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  transition: box-shadow 0.3s ease-in-out, text-shadow 0.3s ease-in-out;
+  cursor: pointer;
+
+  &:hover {
+    box-shadow: 0 0 10px 3px #7f7f7f;
+    text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
+  }
+  &.passed {
+    background-color: green;
+  }
+
+  &.not-passed {
+    
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+`;
+
+
+
 export default function IntroductionButtons() {
   const buttonLabels = ['Datatypes', 'Conditionals', 'Operations', 'Loops', 'Functions', 'Arrays'];
+    const [userLevel, setUserLevel] = useState(1);
+    const [token, setToken] = useState(() => window.localStorage.getItem(('accessToken')??null));
+
+    useEffect(() => {
+        const fetchUserLevel = async () => {
+            if(token!==null) {
+                try {
+                    const response = await axios.post('http://localhost:4000/get-level-intro', {token: token});
+                    const {success, lastLevel} = response.data;
+
+                    if (success) {
+                        setUserLevel(lastLevel);
+                        console.log(lastLevel - 1);
+
+                    }
+                } catch (error) {
+                    console.error('Error fetching user level:', error);
+                }
+            }
+            else if (token === null) {
+                const progressString = window.localStorage.getItem('progress');
+                const progress = JSON.parse(progressString);
+                let lastTrueLevel = 0;
+
+                if (!progress) {
+                    setUserLevel(lastTrueLevel);
+
+                    return;
+                }
+
+                for (let level = 1; level <= 6; level++) {
+                    if (progress[level]) {
+                        lastTrueLevel = level;
+                    }
+                }
+
+                setUserLevel(lastTrueLevel);
+            }
+        };
+
+
+
+        fetchUserLevel();
+    }, []);
+
+
 
   return (
     <FullWidthDiv>
@@ -18,10 +102,16 @@ export default function IntroductionButtons() {
       <div className="basics-container">
         {buttonLabels.map((label, index) => (
           <Link to={'/Introduction/'+label} className="link">
-            <button key={index} className="buttons background-basics">
-              {label}
-            </button>
-          </Link>
+              <Button
+                  className={`buttons background-basics ${index <= userLevel ? '' : 'disabled'}`}
+                  disabled={index  > userLevel}
+
+              >
+                  {label}
+
+          </Button>
+
+            </Link>
         ))}
       </div>
     </FullWidthDiv>

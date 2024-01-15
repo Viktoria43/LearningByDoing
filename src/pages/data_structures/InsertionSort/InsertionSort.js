@@ -5,7 +5,10 @@ import Content from "./Content";
 import Visualisation from "./Visualisation";
 import Quiz from "./Quiz";
 
-function InsertionSort(){
+
+const InsertionSort = () => {
+    const level = 10;
+
     return (
         <div className = "page"> 
             <div className = "content">
@@ -13,7 +16,9 @@ function InsertionSort(){
             <ThreePages 
                 contentComponent={<Content />}
                 visualisationComponent={<Visualisation />}
-                quizComponent={<Quiz />}/>
+                quizComponent={<Quiz />}
+                level={level}
+            />
             </div>
             <Footer />
         </div>

@@ -1,4 +1,6 @@
 import React from "react";
+import quizData from "../../QuizApp/quizData";
+import QuizComponent from "../../QuizApp/QuizComponent";
 
 const quizStyle = {
     backgroundColor: '#3344dd',
@@ -8,7 +10,7 @@ const quizStyle = {
 const Quiz = () => {
     return (
         <div style={quizStyle}>
-            / -------- Quiz goes here --------- /
+            <QuizComponent concept="Object Oriented Programming" questions={quizData.oop} />
         </div>
     );
 }

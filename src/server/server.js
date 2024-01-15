@@ -5,6 +5,9 @@ const path = require('path');
 const morgan = require("morgan");
 const {models} = require("mongoose");
 const Schema = mongoose.Schema;
+var jwt = require("jsonwebtoken");
+
+const {config} = require("dotenv");
 require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
 
 const app = express();
@@ -32,6 +35,12 @@ app.get("/login", (req, res) => {
 
 });
 
+// app.get("/update-level", (req, res) => {
+//
+//
+// });
+
+
 app.get("/register", (req, res) => {
 
 
@@ -43,61 +52,77 @@ const userData = new Schema({
     password:{
         type:String
     },
-    datatypes:{
+    1:{
+        type:Boolean,
+        default:true,
+    },
+    2:{
         type:Boolean,
         default:false,
     },
-    conditionals:{
+  3:{
         type:Boolean,
         default:false,
     },
-   operations:{
+    4:{
         type:Boolean,
         default:false,
     },
-    loops:{
+    5:{
         type:Boolean,
         default:false,
     },
-    functions:{
+    6:{
         type:Boolean,
         default:false,
     },
-    arrays:{
+    7:{
+        type:Boolean,
+        default:true,
+    },
+    8:{
         type:Boolean,
         default:false,
     },
-    sorting:{
+    9:{
         type:Boolean,
         default:false,
     },
-    lists:{
+
+    10:{
         type:Boolean,
         default:false,
     },
-    binarytree:{
+    11:{
         type:Boolean,
         default:false,
     },
-    oop:{
-        type:Boolean,
-        default:false,
-    },
-   queues:{
+
+  12:{
         type:Boolean,
         default:false,
     },
 })
+
 const Register = mongoose.model('Register', userData);
-module.exports= Register;
+module.exports={
+    Register,
+    AUTH_SECRET: process.env.AUTH_SECRET
+};
+
+
+
+
 
 
 app.post('/register', (req, res) => {
     const { username, password } = req.body;
 
+
     const newUser = new Register({
         username: username,
         password: password,
+
     });
 
     Register.findOne({ username: username })
@@ -106,8 +131,9 @@ app.post('/register', (req, res) => {
                 newUser.save()
                     .then(savedUser => {
                         res.json({ success: true });
-                        res.json(savedUser);
+                 res.json(savedUser);
                         console.log('User registered successfully:', savedUser);
+
                     })
                     .catch(error => {
                         console.error('Error registering user:', error);
@@ -117,21 +143,34 @@ app.post('/register', (req, res) => {
                 console.log("BUSY")
                 res.json({ success: false });
             }
+
         })
         .catch(error => {
             console.error('Error checking existing user:', error);
             res.status(500).send('Internal Server Error');
         });
+
 });
+
 
 
 app.post('/login', (req, res) => {
     const { username, password } = req.body;
 
+    if (!username || !password) {
+        return res.status(400).json({ success: false, message: 'Username and password are required.' });
+    }
+
     Register.findOne({ username: username })
         .then(user => {
             if (user && user.password === password) {
-                res.json({ success: true });
+                const token = jwt.sign({ id: user._id }, process.env.AUTH_SECRET, {
+                    algorithm: 'HS256',
+                    allowInsecureKeySizes: true,
+                    expiresIn: 86400,
+                });
+
+                res.json({ success: true, token: token });
             } else {
                 res.json({ success: false, message: 'Invalid username or password' });
             }
@@ -140,6 +179,108 @@ app.post('/login', (req, res) => {
             console.error('Error during login:', error);
             res.status(500).json({ success: false, error: 'Internal Server Error' });
         });
+});
+
+app.post('/update-level', (req, res) => {
+    const token = req.body.token;
+    const newLevel = req.body.newLevel;
+
+    jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
+        if (err) {
+            console.error('Error verifying token:', err);
+            return res.status(401).json({ success: false, error: 'Unauthorized' });
+        }
+
+        const userId = decoded.id;
+
+        Register.findByIdAndUpdate(userId, { $set: { [newLevel]: true } }, { new: true })
+            .then(updatedUser => {
+                if (updatedUser) {
+                    console.log(`User ${updatedUser._id} updated to level ${newLevel}`);
+                    res.json({ success: true, newLevel:newLevel });
+                } else {
+                    res.status(404).json({ success: false, message: 'User not found' });
+                }
+            })
+            .catch(error => {
+                console.error('Error updating user level:', error);
+                res.status(500).json({ success: false, error: 'Internal Server Error' });
+            });
+    });
+});
+app.post('/get-level-intro', async (req, res) => {
+    const token = req.body.token;
+
+    jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
+        if (err) {
+            console.error('Error verifying token:', err);
+            return res.status(401).json({ success: false, error: 'Unauthorized' });
+        }
+
+        const userId = decoded.id;
+
+        const findLastTrueKey = (user) => {
+            const keys = Object.keys(user)
+                .filter(key => key !== 'password' && /^[1-6]$/.test(key))
+                .reverse();
+
+            return keys.find(key => user[key]);
+        };
+
+   Register.findOne({ _id: userId })
+            .select('-_id -password')
+            .lean()
+            .then(user => {
+                if (user) {
+                    const lastLevel = findLastTrueKey(user);
+
+                    res.json({ success: true, lastLevel:lastLevel });
+                } else {
+                    res.status(404).json({ success: false, message: 'User not found' });
+                }
+            })
+            .catch(error => {
+                console.error('Error retrieving user data:', error);
+                res.status(500).json({ success: false, error: 'Internal Server Error' });
+            });
+    });
+});
+app.post('/get-level-data', async (req, res) => {
+    const token = req.body.token;
+
+    jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
+        if (err) {
+            console.error('Error verifying token:', err);
+            return res.status(401).json({ success: false, error: 'Unauthorized' });
+        }
+
+        const userId = decoded.id;
+
+        const findLastTrueKey = (user) => {
+            const keys = Object.keys(user)
+                .filter(key => key !== 'password' && /^(?:[7-9]|1[0-2])$/.test(key))
+                .reverse();
+
+            return keys.find(key => user[key]);
+        };
+
+        Register.findOne({ _id: userId })
+            .select('-_id -password')
+            .lean()
+            .then(user => {
+                if (user) {
+                    const lastLevel2 = findLastTrueKey(user);
+
+                    res.json({ success: true, lastLevel2:lastLevel2 });
+                } else {
+                    res.status(404).json({ success: false, message: 'User not found' });
+                }
+            })
+            .catch(error => {
+                console.error('Error retrieving user data:', error);
+                res.status(500).json({ success: false, error: 'Internal Server Error' });
+            });
+    });
 });
 
 app.listen(PORT, () => {

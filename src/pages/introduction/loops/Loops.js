@@ -5,13 +5,14 @@ import Content from "./Content";
 import Quiz from "./Quiz";
 
 function Loops(){
+    const level = 4;
     return (
         <div className = "page"> 
             <div className = "content">
             <Menu />
             <TwoPages 
                 contentComponent={<Content />}
-                quizComponent={<Quiz />}/>
+                quizComponent={<Quiz />}level={level}/>
             </div>
             <Footer />
         </div>

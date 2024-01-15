@@ -5,13 +5,15 @@ import TwoPages from "../../components/TwoPages";
 import Quiz from "./Quiz";
 
 function Functions(){
+    const level = 5;
     return (
         <div className = "page"> 
             <div className = "content">
             <Menu />
             <TwoPages 
                 contentComponent={<Content />}
-                quizComponent={<Quiz />}/>
+                quizComponent={<Quiz />}
+                level={level}/>
             </div>
             <Footer />
         </div>

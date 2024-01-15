@@ -6,13 +6,15 @@ import Quiz from "./Quiz";
 
 
 function DataTypes(){
+    const level = 1;
     return (
         <div className = "page"> 
             <div className = "content">
             <Menu />
             <TwoPages 
                 contentComponent={<Content />}
-                quizComponent={<Quiz />}/>
+                quizComponent={<Quiz />}
+                level={level}/>
             </div>
             <Footer />
         </div>

@@ -1,16 +1,23 @@
 import React, { useState } from 'react';
+import {useNavigate} from "react-router-dom";
+import axios from "axios";
+import contentIcon from './images/content-icon.png';
+import quizIcon from './images/quiz-icon.png';
 
-const TwoPages = ({contentComponent, quizComponent}) =>{
+const TwoPages = ({contentComponent, quizComponent,level}) =>{
   const [step, setStep] = useState(1);
+  const [token, setToken] = useState(() => window.localStorage.getItem('accessToken'));
 
   const handleStepChange = (newStep) => {
     setStep(newStep);
   };
+  const [Intro, setLevelI] = useState(1);
+  const [DataStructures, setLevelD] = useState(1);
 
   return (
     <div>
       <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-        <ProgressBar step={step} onChangeStep={handleStepChange} />
+        <ProgressBar step={step} onChangeStep={handleStepChange} level={level} token={token} />
       </div>
 
       {step === 1 && contentComponent}
@@ -19,86 +26,108 @@ const TwoPages = ({contentComponent, quizComponent}) =>{
   );
 };
 
-const ProgressBar = ({ step, onChangeStep }) => {
+const ProgressBar = ({ step, onChangeStep,level, token }) => {
   const handleStepClick = (newStep) => {
     onChangeStep(newStep);
   };
+  const navigate = useNavigate();
+  const handleLevels=async () =>{
+    let progress = { 1: true, 2: false, 3: false, 4: false, 5: false, 6: false };
+
+
+
+    if(token!==null) {
+      try {
+
+        const response = await axios.post('http://localhost:4000/update-level', {token: token, newLevel: level});
+
+        const {success} = response.data;
+
+        if (success) {
+          console.log(`User's level updated successfully to ${level}`);
+          navigate('/');
+        } else {
+
+        }
+      } catch (error) {
+
+        console.error('Error updating level:', error);
+
+      }
+    }
+  else if (token===null){
+      progress = { ...progress, [level]: true };
+      window.localStorage.setItem('progress', JSON.stringify(progress));
+      navigate('/');
+    }
+  };
+
 
   const containerStyle = {
     width: '100%',
     position: 'relative',
     display: 'flex',
-    height: '36px',
+    height: '40px',
   };
 
   const barStyle = {
     display: 'flex',
-    width: '92%',
+    width: '100%',
     position: 'relative',
-    height: '20px',
+    height: '60px',
     overflow: 'hidden',
-    margin: '10px',
-    marginTop: '12.5px',
     backgroundColor: '#dddddd',
     borderRadius: '5px',
   };
 
-  const prevButtonStyle = {
-    width: '25px',
-    marginLeft: '15px',
-    marginTop: '10px',
-    borderRadius: '10px',
-    cursor: 'pointer'
-  }
-
-  const nextButtonStyle = {
-    width: '25px',
-    marginRight: '5px',
-    marginTop: '10px' ,
-    borderRadius: '10px',
-    cursor: 'pointer'
-  }
-
   const slidingPartStyle = {
     position: 'absolute',
-    margin: '2px',
-    width: '50%',
-    height: '73%',
-    backgroundColor: '#3344dd',
+    width: '50%', 
+    height: '100%',
+    backgroundColor: 'rgba(51, 68, 221, 0.5)', 
     transition: 'transform 0.2s ease-in-out',
-    transform: `translateX(${(step - 1) * 99}%)`, // Adjust to use one third of the width
+    transform: `translateX(${(step - 1) * 100}%)`,
     boxSizing: 'border-box',
     pointerEvents: 'none',
     borderRadius: '5px',
   };
 
   const clickablePartStyle = {
-    margin: '3px',
     flex: '1',
     height: '100%',
     cursor: 'pointer',
-    width: '33%', 
+    display: 'flex',
+    alignItems: 'center',
+    fontSize: '20px', 
+    justifyContent: 'center',
+  };
+
+  const iconStyle = {
+    width: '25px', 
+    height: '25px', 
+    marginRight: '5px', 
+  };
+
+  const labelStyle = {
+    fontSize: '20px', 
+    marginLeft: '5px', 
+    marginBottom: '3px' ,
   };
 
   const PageTitle = ['Content', 'Quiz'];
+  const iconPaths = [contentIcon, quizIcon];
 
   return (
     <div style={containerStyle}>
-       <button style={prevButtonStyle} onClick={()=>handleStepClick(1)}>{"<"}</button>
-    <div style={barStyle}>
-      <div style={slidingPartStyle} />
-      {[1, 2].map((num) => (
-        <div
-          key={num}
-          onClick={() => handleStepClick(num)}
-          style={clickablePartStyle}
-        >
-        <label>{PageTitle[num-1]}</label>
-        </div>
-      ))}
-      
-    </div>
-    <button style={nextButtonStyle} onClick={()=>handleStepClick(2)}>{">"}</button>
+      <div style={barStyle}>
+        <div style={slidingPartStyle} />
+        {[1, 2].map((num) => (
+          <div key={num} onClick={() => handleStepClick(num)} style={clickablePartStyle}>
+            <img src={iconPaths[num - 1]} alt={`Icon ${PageTitle[num - 1]}`} style={iconStyle} />
+            <label style={labelStyle}>{PageTitle[num - 1]}</label>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
