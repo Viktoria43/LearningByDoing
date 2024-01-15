@@ -107,6 +107,7 @@ const Visualisation = () => {
                 }
 
                 if (left < right) {
+                    setPivot(start);
                     [arr[left], arr[right]] = [arr[right], arr[left]];
                     const stepArray = [...arr];
                     animationSteps.push(stepArray);
@@ -192,11 +193,22 @@ const Visualisation = () => {
                 [right + 1, end]
             ]);
         }
+        for (let i = 0; i < animationSteps.length; i++) {
+            const step = animationSteps[i];
+            const [left, right] = iAndJSteps[i];
 
+            setResultArray(step);
+            setI(left);
+            setJ(right);
+            await new Promise((resolve) => setTimeout(resolve, animationDelay));
+        }
 
-        if (stepForwardQueue.length) {
+        for  (let i =0;i<stepForwardQueue.length;i++) {
             console.log([...stepForwardQueue])
+
             const [start, end] = stepForwardQueue.shift();
+            setI(start);
+            setJ(end);
             await performSortStepForward(start, end);
         }
 
