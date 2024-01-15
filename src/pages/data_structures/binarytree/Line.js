@@ -1,15 +1,17 @@
 import React from 'react';
-import './Line.css'; // Import the CSS file
+import './Line.css'; // Import the CSS file for styling
 
-const Line = ({ from, to }) => {
+const Line = ({ length, angle, top, left }) => {
   const lineStyle = {
-    left: `${from.x}px`,
-    top: `${from.y}px`,
-    width: `${to.x - from.x}px`,
-    height: `${to.y - from.y}px`,
+    width: `${length}%`,
+    transform: `rotate(${angle}deg)`,
+    position: 'absolute',
+    top: `${top}%`,
+    left: `${left}%`,
+    border: '1px solid black',
   };
 
-  return <div className="connector-line" style={lineStyle} />;
+  return <div className="line" style={lineStyle}></div>;
 };
 
 export default Line;
