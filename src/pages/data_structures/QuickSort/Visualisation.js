@@ -147,13 +147,10 @@ const Visualisation = () => {
 
 
     const QuickSortStepForward = async (arr) => {
-        const animationDelay = 1000;
-        const animationSteps = [];
-        const iAndJSteps = [];
-
         const performSortStepForward = async (start, end) => {
             if (start >= end) return;
 
+            const beforeModified = [...arr];
             const pivot = arr[start];
             let left = start + 1;
             let right = end;
@@ -174,102 +171,46 @@ const Visualisation = () => {
                     [arr[left], arr[right]] = [arr[right], arr[left]];
 
                     setPivot(start);
-
-                    const stepArray = [...arr];
-                    animationSteps.push(stepArray);
                 }
             }
 
             [arr[start], arr[right]] = [arr[right], arr[start]];
 
-            const stepArray = [...arr];
-            animationSteps.push(stepArray);
-            iAndJSteps.push([left, right]);
-
-
+            setStepBackQueue((queue) => [
+                ...queue,
+                [start, end, beforeModified]
+            ]);
             setStepForwardQueue((queue) => [
                 ...queue,
                 [start, right - 1],
-                [right + 1, end]
+                [right + 1, end],
             ]);
-        }
-        for (let i = 0; i < animationSteps.length; i++) {
-            const step = animationSteps[i];
-            const [left, right] = iAndJSteps[i];
-
-            setResultArray(step);
             setI(left);
             setJ(right);
-            await new Promise((resolve) => setTimeout(resolve, animationDelay));
         }
+
 
         for  (let i =0;i<stepForwardQueue.length;i++) {
-            console.log([...stepForwardQueue])
-
             const [start, end] = stepForwardQueue.shift();
-            setI(start);
-            setJ(end);
             await performSortStepForward(start, end);
         }
-
 
         return arr;
     };
 
 
-    const QuickSortStepBack = async (arr) => {
-        const animationDelay = 1000;
-        const animationSteps = [];
-
-        const performSortStepBack = async (start, end) => {
-            if (start >= end) return;
-
-            const pivot = arr[start];
-            let left = start + 1;
-            let right = end;
-
-            while (left <= right) {
-                while (left <= end && arr[left] <= pivot) {
-                    left++;
-                    setJ(arr[left]);
-                    setI(arr[right]);
-                }
-
-                while (right > start && arr[right] >= pivot) {
-                    right--;
-                    setJ(arr[left]);
-                    setI(arr[right]);
-                }
-
-                if (left < right) {
-                    [arr[left], arr[right]] = [arr[right], arr[left]];
-                    setJ(arr[left]);
-                    setI(arr[right]);
-                    setPivot(start);
-
-                    const stepArray = [...arr];
-                    animationSteps.push(stepArray);
-                }
-            }
-
-            [arr[start], arr[right]] = [arr[right], arr[start]];
-
-            const stepArray = [...arr];
-            animationSteps.push(stepArray);
-
-            setStepBackQueue((queue) => [
-                ...queue,
-                [start, right - 1],
-                [right + 1, end]
-            ]);
+    const QuickSortStepBack = async () => {
+        if (!stepBackQueue.length) {
+            return resultArray;
         }
 
-        if (stepBackQueue.length) {
-            console.log([...stepBackQueue])
-            const [start, end] = stepBackQueue.unshift();
-            await performSortStepBack(start, end);
-        }
-        return arr;
+        const [left, right, snapshot] = stepBackQueue.pop();
+        setStepForwardQueue((queue) => [[left, right]]);
+
+        setI(left);
+        setJ(right);
+
+        return snapshot;
     };
 
 
@@ -280,8 +221,7 @@ const Visualisation = () => {
     };
 
     const handleStepBack = async () => {
-        const correctArray = [...(resultArray.length ? resultArray : inputArray)];
-        const sortedResult = await QuickSortStepBack(correctArray);
+        const sortedResult = await QuickSortStepBack();
         setResultArray(sortedResult);
     };
 
@@ -289,7 +229,10 @@ const Visualisation = () => {
     const handleReset = () => {
         setInputArray([]);
         setResultArray([]);
+        setStepForwardQueue([]);
+        setStepBackQueue([]);
         setJ(0);
+        setI(0);
         document.getElementById("input-field").value = "";
     };
 
