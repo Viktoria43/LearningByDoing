@@ -79,7 +79,22 @@ const ProgressBar = ({ step, onChangeStep,level, token }) => {
     backgroundColor: '#dddddd',
     borderRadius: '5px',
   };
+  const prevButtonStyle = {
 
+   height:'150%',
+
+
+    cursor: 'pointer',
+
+  }
+
+  const nextButtonStyle = {
+
+    height:'150%',
+
+
+    cursor: 'pointer',
+  }
   const slidingPartStyle = {
     position: 'absolute',
     width: '50%', 
@@ -118,17 +133,29 @@ const ProgressBar = ({ step, onChangeStep,level, token }) => {
   const iconPaths = [contentIcon, quizIcon];
 
   return (
-    <div style={containerStyle}>
-      <div style={barStyle}>
-        <div style={slidingPartStyle} />
-        {[1, 2].map((num) => (
-          <div key={num} onClick={() => handleStepClick(num)} style={clickablePartStyle}>
-            <img src={iconPaths[num - 1]} alt={`Icon ${PageTitle[num - 1]}`} style={iconStyle} />
-            <label style={labelStyle}>{PageTitle[num - 1]}</label>
-          </div>
-        ))}
+      <div style={containerStyle}>
+        <button style={prevButtonStyle} onClick={()=>handleStepClick(step===1?1:step-1)}>{"<"}</button>
+        <div style={barStyle}>
+          <div style={slidingPartStyle} />
+          {[1, 2].map((num) => (
+              <div
+                  key={num}
+                  onClick={() => handleStepClick(num)}
+                  style={clickablePartStyle}
+              >
+                <img src={iconPaths[num - 1]} alt={`Icon ${PageTitle[num - 1]}`} style={iconStyle} />
+                <label>{PageTitle[num-1]}</label>
+              </div>
+          ))}
+
+        </div>
+        <button style={nextButtonStyle} onClick={() => {handleStepClick(2 ); if (step===2){handleLevels()}}}>{">"}</button>
+
+
+
+
+
       </div>
-    </div>
   );
 };
 

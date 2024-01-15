@@ -110,6 +110,15 @@ else if (token===null){
     fontSize: '20px', 
     justifyContent: 'center',
   };
+  const prevButtonStyle = {
+    height:'150%',
+    cursor: 'pointer',
+  }
+
+  const nextButtonStyle = {
+    height:'150%',
+    cursor: 'pointer',
+  }
 
   const iconStyle = {
     width: '25px', 
@@ -128,15 +137,27 @@ else if (token===null){
 
   return (
     <div style={containerStyle}>
+      <button style={prevButtonStyle} onClick={()=>handleStepClick(step===1?1:step-1)}>{"<"}</button>
       <div style={barStyle}>
         <div style={slidingPartStyle} />
         {[1, 2, 3].map((num) => (
-          <div key={num} onClick={() => handleStepClick(num)} style={clickablePartStyle}>
-            <img src={iconPaths[num - 1]} alt={`Icon ${PageTitle[num - 1]}`} style={iconStyle} />
-            <label style={labelStyle}>{PageTitle[num - 1]}</label>
-          </div>
+            <div
+                key={num}
+                onClick={() => handleStepClick(num)}
+                style={clickablePartStyle}
+            >
+              <img src={iconPaths[num - 1]} alt={`Icon ${PageTitle[num - 1]}`} style={iconStyle} />
+              <label>{PageTitle[num-1]}</label>
+            </div>
         ))}
+
       </div>
+      <button style={nextButtonStyle} onClick={() => {handleStepClick(step === 3 ? 3 : step + 1); if (step===3){handleLevels();}}}>{">"}</button>
+
+
+
+
+
     </div>
   );
 };
