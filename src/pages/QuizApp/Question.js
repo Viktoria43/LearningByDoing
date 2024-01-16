@@ -1,7 +1,7 @@
 // Question.js
 import React, { useState } from "react";
 
-const Question = ({ question, options, handleAnswer, correctAnswer }) => {
+const Question = ({ question, options, handleAnswer, correctAnswer, prompt }) => {
     const [selectedOption, setSelectedOption] = useState(null);
 
     const handleOptionClick = (option) => {
@@ -35,7 +35,11 @@ const Question = ({ question, options, handleAnswer, correctAnswer }) => {
                 <p>
                     {selectedOption === correctAnswer
                         ? "Correct! "
-                        : "Incorrect. "}
+                        : (
+                            <>
+                            Incorrect. {prompt && <span>{prompt}</span>}
+                            </>
+                        )}
                 </p>
             )}
         </div>

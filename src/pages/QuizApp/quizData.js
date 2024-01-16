@@ -11,6 +11,7 @@ const quizData = {
                 "A function"
             ],
             answer: "A storage location paired with an associated symbolic name",
+            prompt: "Variable is a container for storing data."
         },
         {
             question: "Which of the following is a correct variable declaration in Java?",
@@ -21,6 +22,7 @@ const quizData = {
                 "x = 10;"
             ],
             answer: "int x = 10;",
+            prompt: "Variable declaration in java is hard coded."
         },
         {
             question: "In Java, which keyword is used to declare a variable that cannot be reassigned?",
@@ -31,6 +33,7 @@ const quizData = {
                 "final"
             ],
             answer: "final",
+
         },
         {
             question: "What is the output of the following Java code?" +
@@ -77,6 +80,7 @@ const quizData = {
                 "A function"
             ],
             answer: "A storage location paired with an associated symbolic name",
+            prompt: "Data types need to be allocated differently!"
         },
         {
             question: "Which of the following is a primitive data type in Java?",
@@ -661,6 +665,75 @@ const quizData = {
             options: ["Binary Tree", "Binary Search Tree", "AVL Tree", "B Tree"],
             answer: "AVL Tree",
         },
+    ],
+    arrays: [
+        {
+            question: "What is an array in Java?",
+            options: [
+                "A collection of variables of different data types",
+                "A collection of variables with similar data types",
+                "A method to store only numeric values",
+                "A data structure for storing characters"
+            ],
+            answer: "A collection of variables with similar data types",
+            prompt: "Arrays in Java allow you to store multiple values of the same type under a single variable name."
+        },
+        {
+            question: "How do you declare an array in Java?",
+            options: [
+                "array x[];",
+                "int x = new array[];",
+                "int[] x = new int[];",
+                "int array x[];"
+            ],
+            answer: "int[] x = new int[];",
+            prompt: "To declare an array in Java, you specify the type of elements it will hold, followed by square brackets and the variable name. Use the 'new' keyword to allocate memory for the array."
+        },
+        {
+            question: "What is the default index of the first element in an array?",
+            options: [
+                "1",
+                "0",
+                "-1",
+                "The size of the array"
+            ],
+            answer: "0",
+            prompt: "In Java, array indices start from 0. The first element is accessed using index 0."
+        },
+        {
+            question: "How do you access the length of an array in Java?",
+            options: [
+                "array.size()",
+                "array.length()",
+                "array.size",
+                "array.length"
+            ],
+            answer: "array.length",
+            prompt: "To get the length of an array in Java, use the '.length' property. It returns the number of elements in the array."
+        },
+        {
+            question: "What is the purpose of the 'java.util.Arrays' class?",
+            options: [
+                "To perform basic arithmetic operations on arrays",
+                "To manipulate arrays, such as sorting and searching",
+                "To create arrays dynamically",
+                "To declare arrays with predefined values"
+            ],
+            answer: "To manipulate arrays, such as sorting and searching",
+            prompt: "The 'java.util.Arrays' class provides various utility methods for working with arrays in Java, including sorting and searching."
+        },
+        {
+            question: "How can you initialize an array with values in a single line in Java?",
+            options: [
+                "{1, 2, 3, 4}",
+                "array(1, 2, 3, 4)",
+                "[1, 2, 3, 4]",
+                "(1, 2, 3, 4)"
+            ],
+            answer: "{1, 2, 3, 4}",
+            prompt: "To initialize an array with values in a single line in Java, use curly braces {} and separate the values with commas."
+        },
+        // Add more questions...
     ],
 
 
