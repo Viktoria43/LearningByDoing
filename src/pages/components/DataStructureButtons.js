@@ -50,9 +50,9 @@ const Button = styled.button`
 
 export default function DataStructureButtons() {
   const buttonLabels = ['OOP', 'Lists', 'BinaryTree', 'InsertionSort', 'MergeSort', 'QuickSort'];
-    const [userLevel, setUserLevel] = useState(1);
+    const [userLevel, setUserLevel] = useState(6);
     const [token, setToken] = useState(() => window.localStorage.getItem('accessToken'));
-    console.log(token)
+
     useEffect(() => {
         const fetchUserLevel = async () => {
             if(token!==null) {
@@ -65,8 +65,7 @@ export default function DataStructureButtons() {
                     const {success, lastLevel2} = response.data;
 
                     if (success) {
-                        setUserLevel(lastLevel2);
-                        console.log(lastLevel2);
+                        setUserLevel(lastLevel2 - 1);
                     } else {
                         console.error('Failed to fetch user level');
 
