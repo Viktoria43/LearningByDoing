@@ -49,7 +49,7 @@ const Button = styled.button`
 
 export default function IntroductionButtons() {
   const buttonLabels = ['Datatypes', 'Conditionals', 'Operations', 'Loops', 'Functions', 'Arrays'];
-    const [userLevel, setUserLevel] = useState(1);
+    const [userLevel, setUserLevel] = useState(0);
     const [token, setToken] = useState(() => window.localStorage.getItem(('accessToken')??null));
 
     useEffect(() => {
@@ -59,11 +59,12 @@ export default function IntroductionButtons() {
                     const response = await axios.post('http://localhost:4000/get-level-intro', {token: token});
                     const {success, lastLevel} = response.data;
 
-                    if (success) {
-                        setUserLevel(lastLevel);
-                        console.log(lastLevel - 1);
-
+                    if (!success) {
+                        console.error('Failed to fetch user level');
+                        return;
                     }
+
+                    setUserLevel(lastLevel - 1);
                 } catch (error) {
                     console.error('Error fetching user level:', error);
                 }

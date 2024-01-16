@@ -92,6 +92,7 @@ const Visualisation = () => {
             if (start >= end) return;
 
             const pivot = arr[start];
+            setPivot(pivot);
             let left = start + 1;
             let right = end;
 
@@ -107,7 +108,6 @@ const Visualisation = () => {
                 }
 
                 if (left < right) {
-                    setPivot(start);
                     [arr[left], arr[right]] = [arr[right], arr[left]];
                     const stepArray = [...arr];
                     animationSteps.push(stepArray);
@@ -152,6 +152,8 @@ const Visualisation = () => {
 
             const beforeModified = [...arr];
             const pivot = arr[start];
+            setPivot(pivot);
+
             let left = start + 1;
             let right = end;
 
@@ -170,7 +172,6 @@ const Visualisation = () => {
                 if (left < right) {
                     [arr[left], arr[right]] = [arr[right], arr[left]];
 
-                    setPivot(start);
                 }
             }
 

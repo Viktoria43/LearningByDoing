@@ -238,7 +238,8 @@ const Visualisation = () => {
         if(node.left){
             context.moveTo(centerX, centerY);
             context.lineTo(tree.getNodeX(node.left), tree.getNodeY(node.left)); // ending point
-            
+
+
         }
         if(node.right){
             context.moveTo(centerX, centerY); // starting point
@@ -255,7 +256,7 @@ const Visualisation = () => {
         context.moveTo(centerX, centerY); // starting point
         context.arc(centerX, centerY, radius, 0, 2 * Math.PI);
         context.fill();
-        context.moveTo(centerX, centerY); 
+        context.moveTo(centerX, centerY);
         context.fillStyle = 'black';
         context.font = `${radius/3*2}px Courier`;
         console.log(node.data);
