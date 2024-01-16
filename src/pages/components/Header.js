@@ -3,6 +3,7 @@
 import {Link} from 'react-router-dom';
 import React, {useState} from 'react';
 import styled from 'styled-components';
+import websiteLogo from './images/SP_Logo-removebg.png';
 
 // Styled component for the menu bar
 const StyledMenu = styled.div`
@@ -40,7 +41,7 @@ const MenuContainer = styled.div`
 //Logo (change name?)
 const BrandName = styled(Link)`
   text-decoration: none;
-  color: #aaddff;
+  color: #aaddff; //rgb(170,221,255)
   cursor: pointer;
   font-weight: bold;
   font-size: 1.2em;
@@ -49,6 +50,17 @@ const BrandName = styled(Link)`
   &:hover {
     text-decoration: none;
   }
+`;
+
+const Logo = styled(Link)`
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+`;
+
+const LogoImage = styled.img`
+  width: 50px;
+  height: 50px;
 `;
 
 const LoginLogoutButton = styled(Link)`
@@ -71,7 +83,12 @@ const Header = () => {
     console.log(isLoggedIn)
     return (
         <StyledMenu>
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <Logo to="/">
+              <LogoImage src={websiteLogo} alt="Website Logo" />
+            </Logo>
             <BrandName to="/">LearnByDoing</BrandName>
+          </div>
             <MenuContainer>
               <StyledLink to="/About">About Us</StyledLink>
               <StyledLink to="/Contact">Contact</StyledLink>

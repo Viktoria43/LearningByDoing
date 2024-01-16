@@ -1,5 +1,4 @@
 import Menu from "../../components/Header";
-import Footer from "../../components/Footer";
 import Content from "./Content";
 import TwoPages from "../../components/TwoPages";
 import Quiz from "./Quiz";
@@ -15,7 +14,6 @@ function Functions(){
                 quizComponent={<Quiz />}
                 level={level}/>
             </div>
-            <Footer />
         </div>
     )
 }

@@ -1,5 +1,4 @@
 import Menu from "../../components/Header";
-import Footer from "../../components/Footer";
 import ThreePages from "../../components/ThreePages";
 import Content from "./Content";
 import Visualisation from "./Visualisation";
@@ -20,7 +19,6 @@ const InsertionSort = () => {
                 level={level}
             />
             </div>
-            <Footer />
         </div>
     );
 }
