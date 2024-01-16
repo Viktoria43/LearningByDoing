@@ -31,14 +31,24 @@ const QuizComponent = ({ concept, questions }) => {
         } else {
             // Quiz completed
             setQuizCompleted(true);
+        }
+    };
 
-            // Display correct answers if necessary
-            if (displayAnswers) {
-                console.log("Correct Answers:");
-                questions.forEach((question, index) => {
-                    console.log(`${index + 1}. ${question.answer}`);
-                });
-            }
+    const handleRetryIncorrect = () => {
+        // Find the index of the first incorrect answer
+        const firstIncorrectIndex = userAnswers.findIndex(
+            (userAnswer, index) => userAnswer !== questions[index].answer
+        );
+
+        // If all answers are correct, reset and start again
+        if (firstIncorrectIndex === -1) {
+            setScore(0);
+            setUserAnswers(Array(questions.length).fill(null));
+            setCurrentQuestion(0);
+            setQuizCompleted(false);
+        } else {
+            // Retry incorrect question
+            setCurrentQuestion(firstIncorrectIndex);
         }
     };
 
@@ -51,7 +61,9 @@ const QuizComponent = ({ concept, questions }) => {
                         question={questionData.question}
                         options={questionData.options}
                         handleAnswer={handleAnswer}
-                        correctAnswer={questionData.answer} /* Pass the correct answer here */
+                        correctAnswer={questionData.answer}
+                        prompt={questionData.prompt}
+                        disabled={quizCompleted}
                     />
                     <hr />
                 </div>
@@ -60,6 +72,7 @@ const QuizComponent = ({ concept, questions }) => {
                 <div>
                     <p>Quiz completed! Your score is {score}/{questions.length}</p>
                     <button onClick={() => setDisplayAnswers(true)}>Display Correct Answers</button>
+                    <button onClick={handleRetryIncorrect}>Retry Incorrect Questions</button>
                 </div>
             )}
         </div>

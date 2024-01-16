@@ -3,58 +3,60 @@ import styled from "styled-components";
 
 const InputContainer = styled.div`
   display: flex;
-  flex-direction: row;
   align-items: center;
   justify-content: center;
-  margin-bottom: 15px;
-  margin-top: 15px;
+  margin-bottom: 20px;
 `;
 
 const InputField = styled.input`
   width: 300px;
-  padding: 8px;
-  margin-top: 5px;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
   border-radius: 7px;
+  outline: none;
+
+  &:focus {
+    border-color: #559;
+  }
 `;
 
 const Button = styled.button`
-  text-decoration: none;
-  background-color: black;
-  width: auto;
-  padding: 5px;
+  background-color: #333;
   color: white;
-  font-size: 0.9em;
-  font-family: 'Futura', 'Trebuchet MS', sans-serif;
+  padding: 10px;
+  margin: 0 5px;
   border: none;
   border-radius: 7px;
   cursor: pointer;
-  margin-left: 10px;
+  transition: background-color 0.3s;
+
   &:hover {
-    background-color: #559;
+    background-color: #555;
   }
 `;
 
 const Rectangle = styled.div`
-  display: inline-block;
-  width: 30px;
-  height: ${(props) => (props.value >= 0 ? props.value * 2.5 : 0)}px;
-  max-height: 400px;
-  background-color: ${(props) =>
-          props.swapping ? '#87CEEB' : props.compare ? 'red' : 'black'};
-  margin: 5px;
-  text-align: center;
-  line-height: 30px;
-  color: white;
-  border-radius: 5px;
+display: inline-block;
+width: 40px;  
+height: ${(props) => (props.value >= 0 ? props.value * 4 : 0)}px;  
+max-height: 400px;
+background-color: ${(props) => (props.swapping ? '#87CEEB' : props.compare ? 'red' : '#333')};
+margin: 5px;
+text-align: center;
+line-height: 30px;  
+color: white;
+border-radius: 5px;
+transition: background-color 0.3s;
 `;
 
 const SortingComponent = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 15px;
-  margin-top: 150px;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+margin-bottom: 15px;
+margin-top: 150px;
 `;
 
 const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
