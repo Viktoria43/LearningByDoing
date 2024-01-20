@@ -214,7 +214,7 @@ const Visualisation = () => {
     
    
      // Print the sorted values using in-order traversal
-     const result = tree.inOrderTraversal();
+     const result = tree.postOrderTraversal();
      console.log(result); // Output: [3, 5, 7, 10, 15]
      console.log(tree.getDepth());
 
@@ -225,27 +225,54 @@ const Visualisation = () => {
     const context = canvas.getContext('2d');
     context.clearRect(0, 0, canvas.width, canvas.height);
 
-    const nodes = tree.preOrderTraversal();
+    const nodes = tree.postOrderTraversal();
 
     context.beginPath();
     nodes.forEach((node) =>  {
         const centerX = tree.getNodeX(node);
         const centerY = tree.getNodeY(node);
 
+        console.log("Data: " + node.data + ", X: " + tree.getNodeX(node)+ ", Y: "+tree.getNodeY(node));
+
         context.strokeStyle = 'blue';
         context.lineWidth = 2; // starting point
         context.stroke();
+        context.moveTo(centerX, centerY);
         if(node.left){
-            context.moveTo(centerX, centerY);
+            console.log("Drawing from " + centerX + ", " + centerY + " to " + tree.getNodeX(node.left) + ", " +tree.getNodeY(node.left));
             context.lineTo(tree.getNodeX(node.left), tree.getNodeY(node.left)); // ending point
-
-
+            context.moveTo(centerX, centerY);
+        }
+        else{
+          console.log("Node " + node.data + " has no left node according to condition");
         }
         if(node.right){
-            context.moveTo(centerX, centerY); // starting point
             context.lineTo(tree.getNodeX(node.right), tree.getNodeY(node.right));
         }
     });
+
+    var root = tree.root
+
+    const centerX = tree.getNodeX(root);
+        const centerY = tree.getNodeY(root);
+
+        console.log("Data: " + root.data + ", X: " + tree.getNodeX(root)+ ", Y: "+tree.getNodeY(root));
+
+        context.strokeStyle = 'blue';
+        context.lineWidth = 2; // starting point
+        context.stroke();
+        context.moveTo(centerX, centerY);
+        if(root.left){
+            console.log("Drawing from " + centerX + ", " + centerY + " to " + tree.getNodeX(root.left) + ", " +tree.getNodeY(root.left));
+            context.lineTo(tree.getNodeX(root.left), tree.getNodeY(root.left)); // ending point
+            context.moveTo(centerX, centerY);
+        }
+        else{
+          console.log("Node " + root.data + " has no left node according to condition");
+        }
+        if(root.right){
+            context.lineTo(tree.getNodeX(root.right), tree.getNodeY(root.right));
+        }
 
     nodes.forEach((node) =>  {
         const centerX = tree.getNodeX(node);
@@ -260,9 +287,15 @@ const Visualisation = () => {
         context.fillStyle = 'black';
         context.font = `${radius/3*2}px Courier`;
         console.log(node.data);
-        context.fillText(node.data.toString(), centerX-radius/6*(Math.log10(Math.abs(node.data))+1), centerY+radius/4);
-    }
-    );
+        });
+
+    nodes.forEach((node) =>  {
+      const centerX = tree.getNodeX(node);
+      const centerY = tree.getNodeY(node);
+      const radius = tree.nodeSize/2;
+
+      context.fillText(node.data.toString(), centerX-radius/6*(Math.log10(Math.abs(node.data))+1), centerY+radius/4);
+  });
 
 
     // Draw a filled text
