@@ -1,7 +1,7 @@
 import React from "react";
 
 const visualisationStyle = {
-    backgroundColor: '#44dd33',
+    backgroundColor: '#FFFFFF',
     height: '500px',
 };
 

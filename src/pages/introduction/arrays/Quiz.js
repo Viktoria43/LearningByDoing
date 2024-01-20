@@ -3,7 +3,7 @@ import QuizComponent from "../../QuizApp/QuizComponent";
 import quizData from "../../QuizApp/quizData";
 
 const quizStyle = {
-    backgroundColor: '#3344dd',
+    backgroundColor: '#FFFFFF',
     height: '500px',
 };
 

@@ -4,24 +4,24 @@ import {Link} from 'react-router-dom';
 import React, {useState} from 'react';
 import styled from 'styled-components';
 import websiteLogo from './images/SP_Logo-removebg.png';
+import websiteLogoHover from './images/SP-Logo-removebgwhite.png'
 
 // Styled component for the menu bar
 const StyledMenu = styled.div`
-  background-color: rgba(255, 0, 100, 0.3);
-  box-shadow: 0 0 5px 3px #440000;
-  font-family:'sans-serif',Verdana;
+  background-color: rgba(8, 24, 168, 0.5); 
+  box-shadow: 0 0 3px 3px ;
+  font-family: 'sans-serif', Verdana;
   font-size: 25px;
   color: grey;
   padding: 10px 20px;
   display: flex;
-  justify-content: space-between; /* to push items to both ends */
-  align-items: center; /* Center items vertically */
+  justify-content: space-between; 
+  align-items: center; 
 `;
-
 // Styled component for individual menu items
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: white;
+  color: black;
   margin-top: 3%;
   font-size: 0.6em;
   cursor: pointer;
@@ -29,6 +29,7 @@ const StyledLink = styled(Link)`
   margin-left: 5px; /* Add spacing between menu items */
   &:hover {
     text-decoration: none;
+    color: white;
   }
 `;
 
@@ -39,18 +40,6 @@ const MenuContainer = styled.div`
 `;
 
 //Logo (change name?)
-const BrandName = styled(Link)`
-  text-decoration: none;
-  color: #aaddff; //rgb(170,221,255)
-  cursor: pointer;
-  font-weight: bold;
-  font-size: 1.2em;
-  font-family: 'Futura', 'Trebuchet MS', sans-serif;
-  margin-right: 70px;
-  &:hover {
-    text-decoration: none;
-  }
-`;
 
 const Logo = styled(Link)`
   display: flex;
@@ -59,8 +48,11 @@ const Logo = styled(Link)`
 `;
 
 const LogoImage = styled.img`
-  width: 50px;
+  width: 300px;
   height: 50px;
+  &:hover {
+    content: url(${websiteLogoHover});
+  }
 `;
 
 const LoginLogoutButton = styled(Link)`
@@ -87,7 +79,7 @@ const Header = () => {
             <Logo to="/">
               <LogoImage src={websiteLogo} alt="Website Logo" />
             </Logo>
-            <BrandName to="/">LearnByDoing</BrandName>
+            
           </div>
             <MenuContainer>
               <StyledLink to="/About">About Us</StyledLink>

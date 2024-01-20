@@ -3,7 +3,7 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const contentStyle = {
-    backgroundColor: '#dd3344',
+    backgroundColor: '#FFFFFF',
     height: '2600px',
     padding: '20px',
 };

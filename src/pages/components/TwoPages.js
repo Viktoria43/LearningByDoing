@@ -80,21 +80,15 @@ const ProgressBar = ({ step, onChangeStep,level, token }) => {
     borderRadius: '5px',
   };
   const prevButtonStyle = {
-
-   height:'150%',
-
-
+    height:'150%',
     cursor: 'pointer',
-
   }
 
   const nextButtonStyle = {
-
     height:'150%',
-
-
     cursor: 'pointer',
   }
+  
   const slidingPartStyle = {
     position: 'absolute',
     width: '50%', 

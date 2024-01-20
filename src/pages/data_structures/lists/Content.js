@@ -1,7 +1,7 @@
 import React from "react";
 
 const contentStyle = {
-    backgroundColor: '#dd3344',
+    backgroundColor: '#FFFFFF',
     height: '900px',
     padding: '20px',
 };

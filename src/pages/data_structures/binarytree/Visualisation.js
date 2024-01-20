@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import styled from "styled-components";
 
 const visualisationStyle = {
-    backgroundColor: '#cccccc',
+    backgroundColor: '#FFFFFF',
     height: '2000px',
     position: 'relative',
     border: '1px solid #ccc' /* Just for visualization purposes */

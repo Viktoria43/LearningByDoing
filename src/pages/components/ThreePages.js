@@ -111,13 +111,11 @@ const ProgressBar = ({step, onChangeStep, level, token}) => {
     const prevButtonStyle = {
         height: '150%',
         cursor: 'pointer',
-        borderRadius: '5px',
     }
 
     const nextButtonStyle = {
         height: '150%',
         cursor: 'pointer',
-        borderRadius: '5px',
     }
 
     const iconStyle = {
