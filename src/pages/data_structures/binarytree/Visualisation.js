@@ -61,6 +61,9 @@ class BinarySearchTree {
       this.depth = 0;
       this.nodeSize = 40;
     }
+    getRoot(){
+      return this.root;
+    }
 
     getNodeX(node){
         var offset;
@@ -196,7 +199,7 @@ class BinarySearchTree {
 
 const Visualisation = () => {
 
-    const [tree, setTree] = useState(new BinarySearchTree());
+    var [tree, setTree] = useState(new BinarySearchTree());
     const [insert, setInsert] = useState('');
     const [count, setCount] = useState(0);
 
@@ -210,6 +213,12 @@ const Visualisation = () => {
       const handleClick = () => {
         // Increment the count and trigger a re-render
         setCount(count + 1);
+      };
+
+      const clearTree = () => {
+        tree = new BinarySearchTree();
+        setTree(tree);
+        handleClick();
       };
     
    
@@ -251,10 +260,12 @@ const Visualisation = () => {
         }
     });
 
-    var root = tree.root
+    var root = tree.getRoot();
 
-    const centerX = tree.getNodeX(root);
-        const centerY = tree.getNodeY(root);
+    if(root){
+
+        const centerX = 600;
+        const centerY = 50;
 
         console.log("Data: " + root.data + ", X: " + tree.getNodeX(root)+ ", Y: "+tree.getNodeY(root));
 
@@ -273,6 +284,7 @@ const Visualisation = () => {
         if(root.right){
             context.lineTo(tree.getNodeX(root.right), tree.getNodeY(root.right));
         }
+      }
 
     nodes.forEach((node) =>  {
         const centerX = tree.getNodeX(node);
@@ -335,6 +347,8 @@ const Visualisation = () => {
             </InputContainer>
 
             <Button onClick={insertValue}>Insert</Button>
+
+            <Button onClick={clearTree}>Clear</Button>
 
             <canvas ref={canvasRef} width={1200} height={(tree.getDepth()+1)*100} style={{backgroundColor: '#ededed', margin: 'auto', display: 'block', border: '1px solid black' }}>
 
