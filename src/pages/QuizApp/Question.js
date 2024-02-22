@@ -1,13 +1,19 @@
 // Question.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-const Question = ({ question, options, handleAnswer, correctAnswer, prompt }) => {
+const Question = ({ key, question, options, handleAnswer, correctAnswer, prompt, disabled, displayCorrectAnswers, reset }) => {
     const [selectedOption, setSelectedOption] = useState(null);
 
     const handleOptionClick = (option) => {
         setSelectedOption(option);
         handleAnswer(option);
     };
+
+    useEffect(() => {
+        if (reset) {
+            setSelectedOption(null);
+        }
+    }, [reset]);
 
     return (
         <div>
@@ -20,12 +26,14 @@ const Question = ({ question, options, handleAnswer, correctAnswer, prompt }) =>
                             backgroundColor:
                                 selectedOption === option
                                     ? selectedOption === correctAnswer
-                                        ? "green" // green for correct answer
-                                        : "red" // red for incorrect answer
-                                    : "black", // black for unchosen options
-                            color: "white", // white text for visibility
+                                        ? "green"
+                                        : "red"
+                                    : displayCorrectAnswers && option === correctAnswer
+                                        ? "green"
+                                        : "black",
+                            color: "white",
                         }}
-                        disabled={selectedOption}
+                        disabled={disabled || displayCorrectAnswers || selectedOption}
                     >
                         {option}
                     </button>
@@ -35,11 +43,8 @@ const Question = ({ question, options, handleAnswer, correctAnswer, prompt }) =>
                 <p>
                     {selectedOption === correctAnswer
                         ? "Correct! "
-                        : (
-                            <>
-                            Incorrect. {prompt && <span>{prompt}</span>}
-                            </>
-                        )}
+                        : `Incorrect. `}
+                    {prompt && <span>{prompt}</span>}
                 </p>
             )}
         </div>

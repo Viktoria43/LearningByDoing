@@ -10,7 +10,7 @@ const quizStyle = {
 const Quiz = () => {
     return (
         <div style={quizStyle}>
-            <QuizComponent concept="Quick Sort" questions={quizData.quicksort} />
+            <QuizComponent concept="QuickSort" questions={quizData.QuickSort} />
         </div>
     );
 }

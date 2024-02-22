@@ -10,7 +10,7 @@ const quizStyle = {
 const Quiz = () => {
     return (
         <div style={quizStyle}>
-            <QuizComponent concept="Merge Sort" questions={quizData.mergesort} />
+            <QuizComponent concept="MergeSort" questions={quizData.MergeSort} />
         </div>
     );
 }

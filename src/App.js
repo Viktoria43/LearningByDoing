@@ -1,5 +1,6 @@
 import './App.css';
 import {BrowserRouter as Router, Route, Routes} from 'react-router-dom';
+import { CumulativePointsProvider } from "./pages/QuizApp/CumulativePointsContext";
 import Home from './pages/Home';
 import About from './pages/About';
 import Contact from './pages/Contact';
@@ -55,6 +56,7 @@ function App() {
 
 
     return (
+        <CumulativePointsProvider>
 
         <Router>
 
@@ -70,6 +72,7 @@ function App() {
                 </Routes>
             </div>
         </Router>
+            </CumulativePointsProvider>
     );
 }
 

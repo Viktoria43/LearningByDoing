@@ -10,7 +10,7 @@ const quizStyle = {
 const Quiz = () => {
     return (
         <div style={quizStyle}>
-            <QuizComponent concept="Binary Trees" questions={quizData.binarytree} />
+            <QuizComponent concept="BinaryTree" questions={quizData.BinaryTree} />
         </div>
     );
 }
