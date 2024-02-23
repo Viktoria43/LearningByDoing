@@ -287,5 +287,32 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
+app.post('/update-module', (req, res) => {
+    const { username, moduleNumber } = req.body;
+
+    Register.findOne({ username: username })
+        .then(user => {
+            if (user) {
+                // Update the status of the module
+                user[moduleNumber] = true;
+
+                // Save the updated user data
+                user.save()
+                    .then(() => {
+                        res.json({ success: true });
+                    })
+                    .catch(error => {
+                        console.error('Error updating module status:', error);
+                        res.status(500).send('Internal Server Error');
+                    });
+            } else {
+                res.json({ success: false, message: 'User not found' });
+            }
+        })
+        .catch(error => {
+            console.error('Error finding user:', error);
+            res.status(500).send('Internal Server Error');
+        });
+});
 
 

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useCumulativePoints } from "./CumulativePointsContext";
 import Question from "./Question";
 import quizData from "./quizData";
 
@@ -11,7 +10,6 @@ const QuizComponent = ({ concept, unlockThreshold }) => {
     const [displayCorrectAnswers, setDisplayCorrectAnswers] = useState(false);
     const [retryCount, setRetryCount] = useState(0); // Add this state variable
 
-    const { cumulativePoints, incrementCumulativePoints } = useCumulativePoints();
 
     useEffect(() => {
         resetState();
@@ -45,7 +43,7 @@ const QuizComponent = ({ concept, unlockThreshold }) => {
             setCurrentQuestion(currentQuestion + 1);
         } else {
             setQuizCompleted(true);
-            incrementCumulativePoints(score);
+
         }
     };
 
@@ -87,9 +85,7 @@ const QuizComponent = ({ concept, unlockThreshold }) => {
                     <button onClick={handleRetry}>Retry</button>
                 </div>
             )}
-            {cumulativePoints >= unlockThreshold && (
-                <p>Concept {concept} unlocked!</p>
-            )}
+
         </div>
     );
 };
