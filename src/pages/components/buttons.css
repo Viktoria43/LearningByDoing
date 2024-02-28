@@ -54,11 +54,11 @@
 
 
 .background-inter {
-    background-image: url("images/gradient-inter.png");
+    background-image: url("images/Purple-Line.jpg");
 }
 
 .background-basics {
-    background-image: url("images/background-basics.png");
+    background-image: url("images/Blue-Line.jpg");
 }
 
 @media screen and(max-width: 480px) {

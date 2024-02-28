@@ -20,7 +20,7 @@ const Button = styled.button`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  font-weight: 600;
+  font-weight: 300;
   color: white;
   border-radius: 15px;
   border: none;
@@ -43,6 +43,8 @@ const Button = styled.button`
     opacity: 0.5;
     cursor: not-allowed;
   }
+  
+  
 `;
 
 
@@ -99,7 +101,7 @@ export default function IntroductionButtons() {
 
   return (
     <FullWidthDiv>
-      <h3 className="header">Introduction:</h3>
+      <h3 className="header">Introduction</h3>
       <div className="basics-container">
         {buttonLabels.map((label, index) => (
           <Link to={'/Introduction/'+label} className="link">

@@ -1,7 +1,7 @@
 body {
   display: flex;
   min-height: 100vh;
-  background-color: white;
+  background: linear-gradient(to bottom, gray, black);
   background-size: 400% 400%;
 }
 

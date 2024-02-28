@@ -19,7 +19,7 @@ const Button = styled.button`
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
-  font-weight: 600;
+  font-weight: 300;
   color: white;
   border-radius: 15px;
   border: none;
@@ -43,6 +43,7 @@ const Button = styled.button`
     cursor: not-allowed;
   }
 ` ;
+
 
 
 
@@ -101,7 +102,7 @@ export default function DataStructureButtons() {
 
   return (
     <FullWidthDiv>
-      <h3 className="header">Data structures & visualisers:</h3>
+      <h3 className="header">Data structures & visualisers</h3>
       <div className="intermediate-container">
         {buttonLabels.map((label, index) => (
           <Link to={'/DataStructures/'+label} className="link" >

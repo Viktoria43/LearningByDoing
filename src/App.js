@@ -55,7 +55,7 @@ function App() {
 
 
     return (
-        <CumulativePointsProvider>
+        
 
         <Router>
 
@@ -71,7 +71,7 @@ function App() {
                 </Routes>
             </div>
         </Router>
-            </CumulativePointsProvider>
+            
     );
 }
 

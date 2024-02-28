@@ -3,13 +3,13 @@
 import {Link} from 'react-router-dom';
 import React, {useState} from 'react';
 import styled from 'styled-components';
-import websiteLogo from './images/SP_Logo-removebg.png';
-import websiteLogoHover from './images/SP-Logo-removebgwhite.png'
+import websiteLogo from './images/SP-LOGO.png';
+import websiteLogoHover from './images/SP-LOGO-HOVER.png'
 
 // Styled component for the menu bar
 const StyledMenu = styled.div`
-  background-color: rgba(8, 24, 168, 0.5); 
-  box-shadow: 0 0 3px 3px ;
+  background-color: rgb(44, 42, 42); 
+  box-shadow: 0 0 0px 0px ;
   font-family: 'sans-serif', Verdana;
   font-size: 25px;
   color: grey;
@@ -21,22 +21,22 @@ const StyledMenu = styled.div`
 // Styled component for individual menu items
 const StyledLink = styled(Link)`
   text-decoration: none;
-  color: black;
+  color: white;
   margin-top: 3%;
   font-size: 0.6em;
   cursor: pointer;
   font-family: 'Futura', 'Trebuchet MS', sans-serif;
-  margin-left: 5px; /* Add spacing between menu items */
+  margin-left: 5px;
   &:hover {
     text-decoration: none;
-    color: white;
+    color: rgb(54, 168, 255);
   }
 `;
 
 //push the items except Logo in a corner
 const MenuContainer = styled.div`
   display: flex;
-  gap: 2em; // Adjust the gap between the right items as needed
+  gap: 2em; 
 `;
 
 //Logo (change name?)
@@ -66,7 +66,7 @@ const LoginLogoutButton = styled(Link)`
   border-radius: 7px;
   cursor: pointer;
   &:hover {
-    background-color: #559;
+    background-color: rgb(54, 168, 255);
   }
 `;
 
