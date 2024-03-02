@@ -44,7 +44,7 @@ const ProgressBar = ({step, onChangeStep, level, token}) => {
         if (token !== null) {
             try {
 
-                const response = await axios.post(`${process.env.REACT_APP_API_URL}/update-level`, {
+                const response = await axios.post(`${process.env.REACT_APP_API_URL || '/api'}/update-level`, {
                     token: token,
                     newLevel: level + 1
                 });

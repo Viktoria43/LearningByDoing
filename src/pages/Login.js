@@ -58,7 +58,7 @@ const [loginSuccess, setloginSuccess] = useState(true);
 
     const handleLogin = async () => {
         try {
-            const response = await axios.post(`${process.env.REACT_APP_API_URL}/login`, { username, password });
+            const response = await axios.post(`${process.env.REACT_APP_API_URL || '/api'}/login`, { username, password });
             const { success,token } = response.data;
 console.log('bxijs')
 

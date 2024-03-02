@@ -58,7 +58,7 @@ export default function IntroductionButtons() {
         const fetchUserLevel = async () => {
             if(token!==null) {
                 try {
-                    const response = await axios.post(`${process.env.REACT_APP_API_URL}/get-level-intro`, {token: token});
+                    const response = await axios.post(`${process.env.REACT_APP_API_URL || '/api'}/get-level-intro`, {token: token});
                     const {success, lastLevel} = response.data;
 
                     if (!success) {

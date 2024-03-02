@@ -59,7 +59,7 @@ export default function Register() {
     const handleReg = async () => {
 
         try {
-            const response = await axios.post(`${process.env.REACT_API_URL}/register`, {username, password})
+            const response = await axios.post(`${process.env.REACT_APP_API_URL || '/api'}/register`, {username, password})
             const {success} = response.data;
 
             if (username.length >= 8 && password.length >= 8 && success) {
