@@ -35,11 +35,11 @@ const Button = styled.button`
     background-color: green;
   }
   &.not-passed {
-    opacity: 0.7;
+    opacity: 1;
     cursor: not-allowed;
   }
   &.not-passed {
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: not-allowed;
   }
 ` ;

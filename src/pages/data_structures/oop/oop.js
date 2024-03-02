@@ -12,7 +12,7 @@ function oop(){
             <Menu />
             <ThreePages 
                 contentComponent={<Content />}
-                visualisationComponent={<Visualisation />}
+              visualisationComponent={<Visualisation />}
                 quizComponent={<Quiz />}
                 level={level}/>
             </div>
