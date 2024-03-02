@@ -59,7 +59,7 @@ export default function DataStructureButtons() {
             if(token!==null) {
                 try {
 
-                    const response = await axios.post('http://localhost:4000/get-level-data', {
+                    const response = await axios.post(`${process.env.REACT_APP_API_URL}/get-level-data`, {
                         token: token
                     });
 
