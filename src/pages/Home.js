@@ -1,5 +1,4 @@
 import Buttons from "./components/ButtonsContainer";
-import Footer from "./components/Footer";
 import Header from "./components/Header";
 import {useState} from "react";
 function Home(){
@@ -11,7 +10,6 @@ function Home(){
                 <Header  />
                 <Buttons />
             </div>
-            <Footer />
         </div>
     );
 }
