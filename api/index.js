@@ -3,15 +3,13 @@ const mongoose = require("mongoose");
 const cors = require('cors');
 const path = require('path');
 const morgan = require("morgan");
-const {models} = require("mongoose");
 const Schema = mongoose.Schema;
-var jwt = require("jsonwebtoken");
+const jwt = require("jsonwebtoken");
 
-const {config} = require("dotenv");
 require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
 
 const app = express();
-const PORT = 4000;
+const PORT = process.env.PORT || 4000;
 
 app.use(cors())
 app.use(express.json());
@@ -29,22 +27,7 @@ mongoose.connect(db, { useUnifiedTopology: true, useNewUrlParser: true })
         console.log(err)
     });
 
-// Define your routes
-app.get("/login", (req, res) => {
 
-
-});
-
-// app.get("/update-level", (req, res) => {
-//
-//
-// });
-
-
-app.get("/register", (req, res) => {
-
-
-});
 const userData = new Schema({
     username: {
         type: String,
@@ -105,17 +88,8 @@ const userData = new Schema({
 })
 
 const Register = mongoose.model('Register', userData);
-module.exports={
-    Register,
-    AUTH_SECRET: process.env.AUTH_SECRET
-};
 
-
-
-
-
-
-app.post('/register', (req, res) => {
+app.post('/api/register', (req, res) => {
     const { username, password } = req.body;
 
 
@@ -131,7 +105,6 @@ app.post('/register', (req, res) => {
                 newUser.save()
                     .then(savedUser => {
                         res.json({ success: true });
-                 res.json(savedUser);
                         console.log('User registered successfully:', savedUser);
 
                     })
@@ -154,7 +127,7 @@ app.post('/register', (req, res) => {
 
 
 
-app.post('/login', (req, res) => {
+app.post('/api/login', (req, res) => {
     const { username, password } = req.body;
 
     if (!username || !password) {
@@ -181,7 +154,7 @@ app.post('/login', (req, res) => {
         });
 });
 
-app.post('/update-level', (req, res) => {
+app.post('/api/update-level', (req, res) => {
     const token = req.body.token;
     const newLevel = req.body.newLevel;
 
@@ -208,7 +181,7 @@ app.post('/update-level', (req, res) => {
             });
     });
 });
-app.post('/get-level-intro', async (req, res) => {
+app.post('/api/get-level-intro', async (req, res) => {
     const token = req.body.token;
 
     jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
@@ -245,7 +218,7 @@ app.post('/get-level-intro', async (req, res) => {
             });
     });
 });
-app.post('/get-level-data', async (req, res) => {
+app.post('/api/get-level-data', async (req, res) => {
     const token = req.body.token;
 
     jwt.verify(token, process.env.AUTH_SECRET, (err, decoded) => {
@@ -287,7 +260,7 @@ app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
 
-app.post('/update-module', (req, res) => {
+app.post('/api/update-module', (req, res) => {
     const { username, moduleNumber } = req.body;
 
     Register.findOne({ username: username })
@@ -315,4 +288,4 @@ app.post('/update-module', (req, res) => {
         });
 });
 
-
+module.exports = app;

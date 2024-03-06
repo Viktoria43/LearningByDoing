@@ -35,11 +35,11 @@ const Button = styled.button`
     background-color: green;
   }
   &.not-passed {
-    opacity: 0.7;
+    opacity: 1;
     cursor: not-allowed;
   }
   &.not-passed {
-    opacity: 0.7;
+    opacity: 0.5;
     cursor: not-allowed;
   }
 ` ;
@@ -59,7 +59,7 @@ export default function DataStructureButtons() {
             if(token!==null) {
                 try {
 
-                    const response = await axios.post('http://localhost:4000/get-level-data', {
+                    const response = await axios.post(`${process.env.REACT_APP_API_URL || '/api'}/get-level-data`, {
                         token: token
                     });
 
