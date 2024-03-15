@@ -11,27 +11,32 @@ const ThreePages = ({contentComponent, visualisationComponent, quizComponent, le
     const [levelPassed, setLevel] = useState(false);
     const [token, setToken] = useState(() => window.localStorage.getItem('accessToken') ?? null);
     const [progress, setProgress] = useState(() => window.localStorage.getItem('progresss'));
-
+    const [quizScore, setQuizScore] = useState(0);
 
     const handleStepChange = (newStep) => {
         setStep(newStep);
     };
 
+    const updateQuizScore = (newScore) => {
+        setQuizScore(newScore);
+    };
 
     return (
         <div>
             <div style={{display: 'flex', justifyContent: 'center', marginBottom: '20px'}}>
-                <ProgressBar step={step} onChangeStep={handleStepChange} level={level} token={token}/>
+                <ProgressBar step={step} onChangeStep={handleStepChange} level={level} token={token} quizScore={quizScore}/>
             </div>
 
             {step === 1 && contentComponent}
             {step === 2 && visualisationComponent}
-            {step === 3 && quizComponent}
+            {step === 3 && React.cloneElement(quizComponent, { updateQuizScore })}
         </div>
     );
 };
 
-const ProgressBar = ({step, onChangeStep, level, token}) => {
+const ProgressBar = ({step, onChangeStep, level, token, quizScore}) => {
+
+    const thresholdScore = 3;
 
     const handleStepClick = (newStep) => {
         onChangeStep(newStep);
@@ -151,9 +156,11 @@ const ProgressBar = ({step, onChangeStep, level, token}) => {
 
             </div>
             <button style={nextButtonStyle} onClick={() => {
-                handleStepClick(step === 3 ? 3 : step + 1);
-                if (step === 3) {
-                    handleLevels();
+                if (step !== 3 || (step === 3)) {
+                    handleStepClick(step === 3 ? 3 : step + 1);
+                    if (step === 3 && quizScore >= thresholdScore) {
+                        handleLevels();
+                    }
                 }
             }}>{">"}</button>
 

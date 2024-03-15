@@ -7,26 +7,33 @@ import quizIcon from './images/quiz-icon.png';
 const TwoPages = ({contentComponent, quizComponent,level}) =>{
   const [step, setStep] = useState(1);
   const [token, setToken] = useState(() => window.localStorage.getItem('accessToken'));
+  const [quizScore, setQuizScore] = useState(0);
 
   const handleStepChange = (newStep) => {
     setStep(newStep);
+  };
+  const updateQuizScore = (newScore) => {
+    setQuizScore(newScore);
   };
   const [Intro, setLevelI] = useState(1);
   const [DataStructures, setLevelD] = useState(1);
 
   return (
-    <div>
-      <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
-        <ProgressBar step={step} onChangeStep={handleStepChange} level={level} token={token} />
-      </div>
+      <div>
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '20px' }}>
+          <ProgressBar step={step} onChangeStep={handleStepChange} level={level} token={token} quizScore={quizScore} />
+        </div>
 
-      {step === 1 && contentComponent}
-      {step === 2 && quizComponent}
-    </div>
+        {step === 1 && contentComponent}
+        {step === 2 && React.cloneElement(quizComponent, { updateQuizScore })}
+      </div>
   );
 };
 
-const ProgressBar = ({ step, onChangeStep,level, token }) => {
+
+const ProgressBar = ({ step, onChangeStep,level, token, quizScore }) => {
+
+  const thresholdScore = 3;
   const handleStepClick = (newStep) => {
     onChangeStep(newStep);
   };
@@ -143,7 +150,7 @@ const ProgressBar = ({ step, onChangeStep,level, token }) => {
           ))}
 
         </div>
-        <button style={nextButtonStyle} onClick={() => {handleStepClick(2 ); if (step===2){handleLevels()}}}>{">"}</button>
+        <button style={nextButtonStyle} onClick={() => {handleStepClick(2 ); if (step===2 && quizScore >= thresholdScore){handleLevels()}}}>{">"}</button>
 
 
 

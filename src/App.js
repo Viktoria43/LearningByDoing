@@ -55,7 +55,6 @@ function App() {
 
 
     return (
-        
 
         <Router>
 
@@ -71,7 +70,6 @@ function App() {
                 </Routes>
             </div>
         </Router>
-            
     );
 }
 
