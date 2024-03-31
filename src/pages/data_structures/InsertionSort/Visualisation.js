@@ -51,12 +51,14 @@ transition: background-color 0.3s;
 `;
 
 const SortingComponent = styled.div`
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-margin-bottom: 15px;
-margin-top: 150px;
+  background-color: #ededed; 
+  margin: auto; 
+  display: flex; 
+  justify-content: center; 
+  align-items: center; 
+  border: 1px solid black; 
+  padding: 20px; 
+  max-width: 900px;
 `;
 
 const Visualisation = () => {
@@ -197,7 +199,7 @@ const Visualisation = () => {
     };
 
     return (
-        <div>
+        <div style={{ backgroundColor: "white", height: "100vh" }}>
             <InputContainer>
                 <InputField
                     id="input-field"
@@ -213,6 +215,7 @@ const Visualisation = () => {
                 <Button onClick={handleResetArray}>Reset Array</Button>
             </InputContainer>
 
+            
             <SortingComponent>
                 <div style={{ display: 'flex' }}>
                     {resultArray.map((num, index) => (

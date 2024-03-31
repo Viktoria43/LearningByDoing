@@ -4,7 +4,7 @@ import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const contentStyle = {
     backgroundColor: '#FFFFFF',
-    height: '700px',
+    height: '850px',
     padding: '10px',
 };
 
