@@ -4,7 +4,7 @@ import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const contentStyle = {
     backgroundColor: '#FFFFFF',
-    height: '6500px',
+    height: 'auto', 
     padding: '20px',
 };
 
@@ -12,7 +12,23 @@ const codeBlockStyle = {
     borderRadius: '15px',
     overflowX: 'auto',
     backgroundColor: '#2d2d2d',
-  };
+    margin: '20px auto', 
+    maxWidth: '80%', 
+};
+
+const baseTextStyle = {
+    textAlign: 'left',
+    display: 'block',
+    maxWidth: '80%',
+    margin: '20px auto', 
+    paddingLeft: '20px',
+};
+
+const headingStyle = {
+    textAlign: 'center',
+    maxWidth: '80%',
+    margin: '40px auto', 
+};
 
 
 const Content = () => {
@@ -217,103 +233,103 @@ public class MethodOverloadingExample {
 
     return (
         <div style={contentStyle}>
-            <p>Object-Oriented Programming (OOP) is a fundamental concept in Java. Here are the key fundamentals of OOP in Java:</p>
+            <p style={baseTextStyle}>Object-Oriented Programming (OOP) is a fundamental concept in Java. Here are the key fundamentals of OOP in Java:</p>
             
-            <h1>Classes and Objects:</h1>
-            <p><b>Class:</b>In Java, a class is a blueprint or a template for creating objects. It defines the properties (attributes) and behaviors (methods) that objects created from the class will have.</p>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <h1 style={headingStyle}>Classes and Objects:</h1>
+            <p style={baseTextStyle}><b>Class:</b>In Java, a class is a blueprint or a template for creating objects. It defines the properties (attributes) and behaviors (methods) that objects created from the class will have.</p>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet}
             </SyntaxHighlighter>
             </div>
-            <p><b>Object:</b>An object is an instance of a class. It represents a real-world entity and encapsulates data (attributes) and behavior (methods). Objects are created from classes using the new keyword.</p>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <p style={baseTextStyle}><b>Object:</b>An object is an instance of a class. It represents a real-world entity and encapsulates data (attributes) and behavior (methods). Objects are created from classes using the new keyword.</p>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet2}
             </SyntaxHighlighter>
             </div>
-            <p>Here is the whole example: </p>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <p style={baseTextStyle}>Here is the whole example: </p>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet3}
             </SyntaxHighlighter>
             </div>
-            <p>In this example:</p>
-            <ul>
+            <p style={baseTextStyle}>In this example:</p>
+            <ul style={{ ...baseTextStyle, listStylePosition: 'inside', padding: 0 }}>
             <li>We define a class named Student that has attributes name and age, and a method study that prints a message about the student studying.</li>
             <li>In the main method, we create two objects, student1 and student2, from the Student class using the new keyword</li>
             <li>We set the attributes for each object, and then call the study method on each object.</li>
             </ul>
-            <p>Now let’s practice! Lets create a class, called Dog with the attributes: name, size, age and the ability (method) to bark:</p>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <p style={baseTextStyle}>Now let’s practice! Lets create a class, called Dog with the attributes: name, size, age and the ability (method) to bark:</p>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet4}
             </SyntaxHighlighter>
             </div>
-            <p>Great! Now we can define an object called dog1 of the Dog class with these properties and methods. You have a dog that barks a lot, and you want to output that. Your dog’s name is Ricky, age: 7, and he is small.</p>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <p style={baseTextStyle}>Great! Now we can define an object called dog1 of the Dog class with these properties and methods. You have a dog that barks a lot, and you want to output that. Your dog’s name is Ricky, age: 7, and he is small.</p>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet5}
             </SyntaxHighlighter>
             </div>
 
-            <h2>Encapsulation:</h2>
-            <p>Encapsulation is the concept of bundling data (attributes) and the methods (functions) that operate on that data into a single unit called a class. It helps in hiding the internal details of how a class works and provides a public interface for interaction with the class. Summary: Another object can’t access the attributes and methods of another’s object.</p>
+            <h2 style={headingStyle}>Encapsulation:</h2>
+            <p style={baseTextStyle}>Encapsulation is the concept of bundling data (attributes) and the methods (functions) that operate on that data into a single unit called a class. It helps in hiding the internal details of how a class works and provides a public interface for interaction with the class. Summary: Another object can’t access the attributes and methods of another’s object.</p>
 
-            <h2>Inheritance:</h2>
-            <p>Inheritance allows a new class (the subclass or derived class) to inherit the properties and behaviors of an existing class (the super class or base class). It promotes code reusability and hierarchy in class relationships.</p>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <h2 style={headingStyle}>Inheritance:</h2>
+            <p style={baseTextStyle}>Inheritance allows a new class (the subclass or derived class) to inherit the properties and behaviors of an existing class (the super class or base class). It promotes code reusability and hierarchy in class relationships.</p>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet6}
             </SyntaxHighlighter>
             </div>
 
-            <h2>Polymorphism:</h2>
-            <p>Polymorphism means that objects of different classes can be treated as objects of a common super class. It allows a single interface (method or function) to represent different behaviors based on the actual object type. In Java, this is achieved through method overriding and interfaces.</p>
+            <h2 style={headingStyle}>Polymorphism:</h2>
+            <p style={baseTextStyle}>Polymorphism means that objects of different classes can be treated as objects of a common super class. It allows a single interface (method or function) to represent different behaviors based on the actual object type. In Java, this is achieved through method overriding and interfaces.</p>
 
-            <h2>Abstraction:</h2>
-            <p>Abstraction is the process of simplifying complex reality by modeling classes based on the essential properties and behaviors, while hiding the irrelevant details. Abstract classes and interfaces are used to create abstract data types.</p>
+            <h2 style={headingStyle}>Abstraction:</h2>
+            <p style={baseTextStyle}>Abstraction is the process of simplifying complex reality by modeling classes based on the essential properties and behaviors, while hiding the irrelevant details. Abstract classes and interfaces are used to create abstract data types.</p>
 
-            <h2>Method Overloading:</h2>
-            <p>Method overloading is the ability to define multiple methods in a class with the same name but different parameters. The correct method to call is determined based on the number and types of arguments passed.</p>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <h2 style={headingStyle}>Method Overloading:</h2>
+            <p style={baseTextStyle}>Method overloading is the ability to define multiple methods in a class with the same name but different parameters. The correct method to call is determined based on the number and types of arguments passed.</p>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet7}
             </SyntaxHighlighter>
             </div>
 
-            <h2>Method Overriding: </h2>
-            <p>Method overriding is the ability to provide a specific implementation of a method in a subclass that is already defined in its superclass. This allows customization of behavior in the subclass.</p>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <h2 style={headingStyle}>Method Overriding: </h2>
+            <p style={baseTextStyle}>Method overriding is the ability to provide a specific implementation of a method in a subclass that is already defined in its superclass. This allows customization of behavior in the subclass.</p>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet8}
             </SyntaxHighlighter>
             </div>
 
-            <h2>Access Modifiers:</h2>
-            <p>Java provides access modifiers such as public, private, protected, and package-private (default) to control the visibility and accessibility of classes, fields, and methods.</p>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <h2 style={headingStyle}>Access Modifiers:</h2>
+            <p style={baseTextStyle}>Java provides access modifiers such as public, private, protected, and package-private (default) to control the visibility and accessibility of classes, fields, and methods.</p>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet9}
             </SyntaxHighlighter>
             </div>
 
-            <h2>Packages:</h2>
-            <p>Java uses packages to organize classes and interfaces into namespaces. Packages help manage large codebases and avoid naming conflicts.</p>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <h2 style={headingStyle}>Packages:</h2>
+            <p style={baseTextStyle}>Java uses packages to organize classes and interfaces into namespaces. Packages help manage large codebases and avoid naming conflicts.</p>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet10}
             </SyntaxHighlighter>
             </div>
 
-            <h2>Interfaces:</h2>
-            <p>Interfaces define a contract for classes to implement. They contain abstract method declarations that must be defined in any class that implements the interface. Multiple inheritance is achieved through interfaces in Java.</p>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <h2 style={headingStyle}>Interfaces:</h2>
+            <p style={baseTextStyle}>Interfaces define a contract for classes to implement. They contain abstract method declarations that must be defined in any class that implements the interface. Multiple inheritance is achieved through interfaces in Java.</p>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet11}
             </SyntaxHighlighter>
             </div>
-            <p>These are the fundamental concepts of Object-Oriented Programming in Java. By understanding and using these principles, you can create well-structured and maintainable Java applications. OOP promotes code reusability, modularity, and a clear organization of code.</p>
+            <p style={baseTextStyle}>These are the fundamental concepts of Object-Oriented Programming in Java. By understanding and using these principles, you can create well-structured and maintainable Java applications. OOP promotes code reusability, modularity, and a clear organization of code.</p>
         </div>
     );
 }

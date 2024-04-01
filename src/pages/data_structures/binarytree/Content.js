@@ -4,15 +4,31 @@ import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const contentStyle = {
     backgroundColor: '#FFFFFF',
-    height: '850px',
-    padding: '10px',
+    height: '850px', 
+    padding: '20px',
 };
 
 const codeBlockStyle = {
     borderRadius: '15px',
     overflowX: 'auto',
     backgroundColor: '#2d2d2d',
-  };
+    margin: '20px auto', 
+    maxWidth: '80%', 
+};
+
+const baseTextStyle = {
+    textAlign: 'left',
+    display: 'block',
+    maxWidth: '80%',
+    margin: '20px auto', 
+    paddingLeft: '20px',
+};
+
+const headingStyle = {
+    textAlign: 'center',
+    maxWidth: '80%',
+    margin: '40px auto', 
+};
 
 
 

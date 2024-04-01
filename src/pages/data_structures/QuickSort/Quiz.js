@@ -4,7 +4,7 @@ import QuizComponent from "../../QuizApp/QuizComponent";
 
 const quizStyle = {
     backgroundColor: '#FFFFFF',
-    height: '1400px',
+    height: 'auto',
 };
 
 const Quiz = () => {
