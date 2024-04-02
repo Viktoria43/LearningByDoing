@@ -62,7 +62,7 @@ const ProgressBar = ({ step, onChangeStep,level, token, quizScore }) => {
 
       }
     }
-  else if (token===null){
+    else if (token===null){
       progress = { ...progress, [level]: true };
       window.localStorage.setItem('progress', JSON.stringify(progress));
       navigate('/');
@@ -95,12 +95,12 @@ const ProgressBar = ({ step, onChangeStep,level, token, quizScore }) => {
     height:'150%',
     cursor: 'pointer',
   }
-  
+
   const slidingPartStyle = {
     position: 'absolute',
-    width: '50%', 
+    width: '50%',
     height: '100%',
-    backgroundColor: 'rgba(51, 68, 221, 0.5)', 
+    backgroundColor: 'rgba(51, 68, 221, 0.5)',
     transition: 'transform 0.2s ease-in-out',
     transform: `translateX(${(step - 1) * 100}%)`,
     boxSizing: 'border-box',
@@ -114,19 +114,19 @@ const ProgressBar = ({ step, onChangeStep,level, token, quizScore }) => {
     cursor: 'pointer',
     display: 'flex',
     alignItems: 'center',
-    fontSize: '20px', 
+    fontSize: '20px',
     justifyContent: 'center',
   };
 
   const iconStyle = {
-    width: '25px', 
-    height: '25px', 
-    marginRight: '5px', 
+    width: '25px',
+    height: '25px',
+    marginRight: '5px',
   };
 
   const labelStyle = {
-    fontSize: '20px', 
-    marginLeft: '5px', 
+    fontSize: '20px',
+    marginLeft: '5px',
     marginBottom: '3px' ,
   };
 
