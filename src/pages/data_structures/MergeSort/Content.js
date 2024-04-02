@@ -4,7 +4,7 @@ import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const contentStyle = {
     backgroundColor: '#FFFFFF',
-    height: '2600px',
+    height: 'auto', 
     padding: '20px',
 };
 
@@ -12,7 +12,23 @@ const codeBlockStyle = {
     borderRadius: '15px',
     overflowX: 'auto',
     backgroundColor: '#2d2d2d',
-  };
+    margin: '20px auto', 
+    maxWidth: '80%', 
+};
+
+const baseTextStyle = {
+    textAlign: 'left',
+    display: 'block',
+    maxWidth: '80%',
+    margin: '20px auto', 
+    paddingLeft: '20px',
+};
+
+const headingStyle = {
+    textAlign: 'center',
+    maxWidth: '80%',
+    margin: '40px auto', 
+};
 
 const Content = () => {
     const codeSnippet = `public class MergeSort {
@@ -108,23 +124,23 @@ const Content = () => {
 
     return (
         <div style={contentStyle}>
-            <p>Merge Sort is a popular sorting algorithm that follows the divide-and-conquer approach. It divides the unsorted array into two halves, recursively sorts the halves, and then merges them to produce a sorted array. Here's an explanation of how Merge Sort works and how to implement it in Java:</p>
+            <p style={baseTextStyle}>Merge Sort is a popular sorting algorithm that follows the divide-and-conquer approach. It divides the unsorted array into two halves, recursively sorts the halves, and then merges them to produce a sorted array. Here's an explanation of how Merge Sort works and how to implement it in Java:</p>
 
-            <h2>Merge Sort Algorithm:</h2>
-            <ul>
+            <h2 style={headingStyle}>Merge Sort Algorithm:</h2>
+            <ul style={{ ...baseTextStyle, listStylePosition: 'inside', padding: 0 }}>
                 <li><b>Divide:</b> The unsorted array is divided into two equal halves (or nearly equal if the number of elements is odd).</li>
                 <li><b>Conquer:</b> Each half is recursively sorted using the merge sort algorithm.</li>
                 <li><b>Merge:</b> The two sorted halves are combined by merging them back into a single sorted array. This is done by comparing elements from both halves and selecting the smaller element to add to the sorted array.</li>
                 <li>Repeat the process recursively until the entire array is sorted.</li>
             </ul>
             
-            <h2>Java Implementation of Merge Sort:</h2>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <h2 style={headingStyle}>Java Implementation of Merge Sort:</h2>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet}
             </SyntaxHighlighter>
             </div>
-            <p>In this Java implementation, the mergeSort function recursively splits the array into halves, sorts them, and then merges them. The merge function is responsible for merging two sorted arrays. The example shows how to use the mergeSort function to sort an array of integers.</p>
+            <p style={baseTextStyle}>In this Java implementation, the mergeSort function recursively splits the array into halves, sorts them, and then merges them. The merge function is responsible for merging two sorted arrays. The example shows how to use the mergeSort function to sort an array of integers.</p>
 
         </div>
     );

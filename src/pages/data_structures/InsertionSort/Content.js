@@ -4,7 +4,7 @@ import { materialDark } from 'react-syntax-highlighter/dist/esm/styles/prism';
 
 const contentStyle = {
     backgroundColor: '#FFFFFF',
-    height: '1300px',
+    height: 'auto', 
     padding: '20px',
 };
 
@@ -12,7 +12,23 @@ const codeBlockStyle = {
     borderRadius: '15px',
     overflowX: 'auto',
     backgroundColor: '#2d2d2d',
-  };
+    margin: '20px auto', 
+    maxWidth: '80%', 
+};
+
+const baseTextStyle = {
+    textAlign: 'left',
+    display: 'block',
+    maxWidth: '80%',
+    margin: '20px auto', 
+    paddingLeft: '20px',
+};
+
+const headingStyle = {
+    textAlign: 'center',
+    maxWidth: '80%',
+    margin: '40px auto', 
+};
 
 const Content = () => {
     const codeSnippet = 
@@ -55,16 +71,16 @@ const Content = () => {
 
     return (
         <div style={contentStyle}>
-            <p>Insertion Sort is a simple sorting algorithm that builds the final sorted array one item at a time. It is much less efficient on large lists than more advanced algorithms such as Merge Sort or Quick Sort, but it works well for small lists or lists that are mostly sorted. Here's an explanation of how Insertion Sort works in Java</p>
-            <h2>Insertion Sort Algorithm:</h2>
-            <ul>
+            <p style={baseTextStyle}>Insertion Sort is a simple sorting algorithm that builds the final sorted array one item at a time. It is much less efficient on large lists than more advanced algorithms such as Merge Sort or Quick Sort, but it works well for small lists or lists that are mostly sorted. Here's an explanation of how Insertion Sort works in Java</p>
+            <h2 style={headingStyle}>Insertion Sort Algorithm:</h2>
+            <ul style={{ ...baseTextStyle, listStylePosition: 'inside', padding: 0 }}>
             <li>Start with the first element (assumed to be sorted).</li>
             <li>For each subsequent element, compare it to the elements before it and insert it into its correct position in the sorted portion of the array.</li>  
             <li>Repeat this process until the entire array is sorted.</li>    
             </ul>
 
-            <h2>Java Implementation of Insertion Sort:</h2>
-            <div style={{ ...codeBlockStyle, maxWidth: '700px' }}>
+            <h2 style={headingStyle}>Java Implementation of Insertion Sort:</h2>
+            <div style={codeBlockStyle}>
             <SyntaxHighlighter language="java" style={materialDark}>
             {codeSnippet}
             </SyntaxHighlighter>

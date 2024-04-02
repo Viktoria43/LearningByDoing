@@ -4,13 +4,13 @@ import QuizComponent from "../../QuizApp/QuizComponent";
 
 const quizStyle = {
     backgroundColor: '#FFFFFF',
-    height: '500px',
+    height: 'auto',
 };
 
 const Quiz = () => {
     return (
         <div style={quizStyle}>
-            <QuizComponent concept="Datatypes" />
+            <QuizComponent concept="Datatypes" questions={quizData.Datatypes} />
         </div>
     );
 }

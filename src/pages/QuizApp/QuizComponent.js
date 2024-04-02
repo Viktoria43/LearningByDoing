@@ -11,7 +11,6 @@ const QuizComponent = ({ concept, unlockThreshold, updateQuizScore }) => {
     const [displayCorrectAnswers, setDisplayCorrectAnswers] = useState(false);
     const [retryCount, setRetryCount] = useState(0); // Add this state variable
 
-
     useEffect(() => {
         resetState();
     }, [concept]);
@@ -36,40 +35,46 @@ const QuizComponent = ({ concept, unlockThreshold, updateQuizScore }) => {
         updatedUserAnswers[currentQuestion] = selectedOption;
         setUserAnswers(updatedUserAnswers);
 
-        if (selectedOption === quizData[concept][currentQuestion].answer) {
-            setScore((prevScore) => prevScore + 1);
-        }
-
         if (currentQuestion < quizData[concept].length - 1) {
             setCurrentQuestion(currentQuestion + 1);
         } else {
             setQuizCompleted(true);
-            handleQuizCompletion(updatedUserAnswers);
         }
     };
 
     const handleDisplayAnswers = () => {
         setDisplayCorrectAnswers((prev) => !prev); // Toggle the displayCorrectAnswers state
     };
+
     const handleRetry = () => {
-        setCurrentQuestion(0);
-        setScore(0);
-        setUserAnswers(Array(quizData[concept].length).fill(null)); // Reset user's answers to null for each question
-        setQuizCompleted(false);
-        setDisplayCorrectAnswers(false);
+        resetState();
         setRetryCount((prev) => prev + 1); // Increment retryCount every time the "Retry" button is clicked
     };
 
     const handleQuizCompletion = () => {
         // Calculate the score based on the user's answers
-        const newScore = userAnswers.reduce((score, answer, index) => {
-            return score + (answer === quizData[concept][index].answer ? 1 : 0);
-        }, 0);
-        setScore(newScore); // Update the score state
-        updateQuizScore(newScore); // Update the score in the parent component
+        const newScore = userAnswers.reduce((score, userAnswer, index) => {
+            // Retrieve the correct answer for the current question
+            const correctAnswer = quizData[concept][index].answer;
 
-        if (newScore >= unlockThreshold) { // Use newScore instead of score
-            // Replace 'http://localhost:4000' with server URL
+            // Check if the user's answer matches the correct answer
+            if (userAnswer === correctAnswer) {
+                return score + 1; // Increment score if the answer is correct
+            } else {
+                return score; // Otherwise, keep the score unchanged
+            }
+        }, 0);
+
+        setScore(newScore); // Update the score state
+
+        if (typeof updateQuizScore === 'function') {
+            updateQuizScore(newScore);
+        } else {
+            console.error("updateQuizScore is not a function. Make sure it's passed down as a prop.");
+        } // Update the score in the parent component, troubleshoot error
+
+        // If the quiz is completed and the score meets the unlock threshold, update module access
+        if (quizCompleted && newScore >= unlockThreshold) {
             axios.post('http://localhost:4000/update-module', {
                 username: 'user', // 'user' -> the actual username
                 moduleNumber: concept + 1 // concept is the current module number
@@ -85,10 +90,14 @@ const QuizComponent = ({ concept, unlockThreshold, updateQuizScore }) => {
                     console.error('Error unlocking module:', error);
                 });
         }
+    };
 
-
-};
-
+    // Call handleQuizCompletion when quiz is completed
+    useEffect(() => {
+        if (quizCompleted) {
+            handleQuizCompletion();
+        }
+    }, [quizCompleted]);
 
     return (
         <div>
@@ -115,7 +124,6 @@ const QuizComponent = ({ concept, unlockThreshold, updateQuizScore }) => {
                     <button onClick={handleRetry}>Retry</button>
                 </div>
             )}
-
         </div>
     );
 };

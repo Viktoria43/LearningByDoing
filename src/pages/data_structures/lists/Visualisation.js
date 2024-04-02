@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 const visualisationStyle = {
     backgroundColor: '#FFFFFF',
-    height: '500px',
+    height: '1000px',
 };
 
 const InputContainer = styled.div`
