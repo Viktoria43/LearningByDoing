@@ -25,7 +25,7 @@ const TwoPages = ({contentComponent, quizComponent,level}) =>{
         </div>
 
         {step === 1 && contentComponent}
-        {step === 2 && React.cloneElement(quizComponent, { updateQuizScore })}
+        {step === 2 && quizComponent}
       </div>
   );
 };
@@ -150,7 +150,7 @@ const ProgressBar = ({ step, onChangeStep,level, token, quizScore }) => {
           ))}
 
         </div>
-        <button style={nextButtonStyle} onClick={() => {handleStepClick(2 ); if (step===2 && quizScore >= thresholdScore){handleLevels()}}}>{">"}</button>
+        <button style={nextButtonStyle} onClick={() => {handleStepClick(2 ); if (step===2){handleLevels()}}}>{">"}</button>
 
 
 

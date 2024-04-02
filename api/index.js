@@ -6,8 +6,8 @@ const morgan = require("morgan");
 const Schema = mongoose.Schema;
 const jwt = require("jsonwebtoken");
 
-require('dotenv').config({ path: path.resolve(__dirname, '..', '..', '.env') });
-
+require('dotenv').config({ path: path.resolve(__dirname, '..', '.env') });
+console.log(path.resolve(__dirname, '..', '..', '.env'))
 const app = express();
 const PORT = process.env.PORT || 4000;
 

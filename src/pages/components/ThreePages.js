@@ -29,7 +29,7 @@ const ThreePages = ({contentComponent, visualisationComponent, quizComponent, le
 
             {step === 1 && contentComponent}
             {step === 2 && visualisationComponent}
-            {step === 3 && React.cloneElement(quizComponent, { updateQuizScore })}
+            {step === 3 && quizComponent}
         </div>
     );
 };
@@ -158,7 +158,7 @@ const ProgressBar = ({step, onChangeStep, level, token, quizScore}) => {
             <button style={nextButtonStyle} onClick={() => {
                 if (step !== 3 || (step === 3)) {
                     handleStepClick(step === 3 ? 3 : step + 1);
-                    if (step === 3 && quizScore >= thresholdScore) {
+                    if (step === 3) {
                         handleLevels();
                     }
                 }

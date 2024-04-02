@@ -8,7 +8,10 @@
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.2",
     "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
     "emailjs-com": "^3.2.0",
+    "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.3.0",
     "mongoose": "^8.2.4",
     "morgan": "^1.10.0",
@@ -19,6 +22,7 @@
     "react-syntax-highlighter": "^15.5.0",
     "styled-components": "^6.1.1",
     "uuid": "^9.0.1",
+    "vercel": "^33.6.2",
     "web-vitals": "^2.1.4"
   },
   "scripts": {

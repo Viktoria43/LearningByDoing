@@ -16,8 +16,8 @@ const Question = ({ question, options, handleAnswer, correctAnswer, prompt, disa
     }, [reset]);
 
     return (
-        <div>
-            <p style={{ fontWeight: 'bold', marginBottom: '10px', color:"darkblue", fontSize: '25px', marginLeft:'7px' }}>{question}</p>
+        <div style={{ textAlign: "center" }}> {/* Added style to center-align questions */}
+            <p style={{ fontWeight: 'bold', marginBottom: '10px', color:"darkblue", fontSize: '25px' }}>{question}</p>
             {options.map((option, index) => (
                 <div key={index} style={{ marginBottom: '5px' }}>
                     <button
@@ -27,24 +27,26 @@ const Question = ({ question, options, handleAnswer, correctAnswer, prompt, disa
                                 selectedOption === option
                                     ? selectedOption === correctAnswer
                                         ? "lightgreen"
-                                        : "red"
+                                        : "#bf6770"
                                     : displayCorrectAnswers && option === correctAnswer
                                         ? "lightgreen"
-                                        : "lightblue",
+                                        : "#82b0cf",
                             color: "black",
                             fontSize:"15px",
-                            padding: '5px 10px',
+                            width: 'calc(100% - 14px)', // Adjusted width to cover the entire row, considering padding
+                            padding: '8px 0', // Removed padding
                             border: 'none',
                             borderRadius: '5px',
                             cursor: 'pointer',
                             outline: 'none',
-                            marginRight: '5px',
-                            marginLeft:'7px'// Adjust as per your design
+                            marginLeft: '7px',
+                            marginBottom: '5px'
                         }}
                         disabled={disabled || displayCorrectAnswers || selectedOption}
                     >
                         {option}
                     </button>
+
                 </div>
             ))}
             {selectedOption && (
