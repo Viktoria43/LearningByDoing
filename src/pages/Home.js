@@ -1,17 +1,18 @@
-import Buttons from "./components/ButtonsContainer";
+import React from 'react';
 import Header from "./components/Header";
-import {useState} from "react";
-function Home(){
+import ButtonsContainer from "./components/ButtonsContainer";
+import Disclaimer from "./components/Disclaimer.js"; // Import the Disclaimer component
 
-
-    return(
-        <div className = "page">
-            <div className = "content">
-                <Header  />
-                <Buttons />
-            </div>
-        </div>
-    );
+function Home() {
+  return (
+    <div className="page">
+      <Header />
+      <Disclaimer /> {}
+      <div className="content">
+        <ButtonsContainer />
+      </div>
+    </div>
+  );
 }
 
 export default Home;
