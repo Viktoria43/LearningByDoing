@@ -80,7 +80,7 @@ console.log('bxijs')
 
 
     return (
-        <div>
+        <div style={{ backgroundColor: '#FFFFFF' }}>
             <Header isLoggedIn={isLoggedIn} />
 
         <CenteredContainer>

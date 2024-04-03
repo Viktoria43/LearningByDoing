@@ -88,7 +88,7 @@ function Contact(){
 
     return (
 
-      <div>
+      <div style={{ backgroundColor: '#FFFFFF' , minHeight: '100vh' }}>
       <Header />
       <CenteredContainer className="form-container">
       <FormContainer>
