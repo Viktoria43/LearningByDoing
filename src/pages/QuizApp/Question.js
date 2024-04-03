@@ -16,10 +16,10 @@ const Question = ({ question, options, handleAnswer, correctAnswer, prompt, disa
     }, [reset]);
 
     return (
-        <div style={{ textAlign: "center" }}> {/* Added style to center-align questions */}
-            <p style={{ fontWeight: 'bold', marginBottom: '10px', color:"darkblue", fontSize: '25px' }}>{question}</p>
+        <div>
+            <p style={{ fontWeight: 'bold', marginBottom: '10px', color:"darkblue", fontSize: '25px', marginLeft:'70px', textAlign:"center" }}>{question}</p>
             {options.map((option, index) => (
-                <div key={index} style={{ marginBottom: '5px' }}>
+                <div key={index} style={{ marginBottom: '5px', textAlign:"center"}}>
                     <button
                         onClick={() => handleOptionClick(option)}
                         style={{
@@ -27,30 +27,29 @@ const Question = ({ question, options, handleAnswer, correctAnswer, prompt, disa
                                 selectedOption === option
                                     ? selectedOption === correctAnswer
                                         ? "lightgreen"
-                                        : "#bf6770"
+                                        : "red"
                                     : displayCorrectAnswers && option === correctAnswer
                                         ? "lightgreen"
-                                        : "#82b0cf",
+                                        : "lightblue",
                             color: "black",
                             fontSize:"15px",
-                            width: 'calc(100% - 14px)', // Adjusted width to cover the entire row, considering padding
-                            padding: '8px 0', // Removed padding
+                            padding: '5px 10px',
                             border: 'none',
                             borderRadius: '5px',
                             cursor: 'pointer',
                             outline: 'none',
-                            marginLeft: '7px',
-                            marginBottom: '5px'
+                            marginRight: '5px',
+                            marginLeft:'80px',
+                            textAlign:"center"// Adjust as per your design
                         }}
                         disabled={disabled || displayCorrectAnswers || selectedOption}
                     >
                         {option}
                     </button>
-
                 </div>
             ))}
             {selectedOption && (
-                <p style={{ color: selectedOption === correctAnswer ? 'green' : 'red' }}>
+                <p style={{ color: selectedOption === correctAnswer ? 'green' : 'red', marginLeft:"80px", textAlign:"center"}}>
                     {selectedOption === correctAnswer
                         ? "Correct! "
                         : `Incorrect. `}
@@ -62,3 +61,4 @@ const Question = ({ question, options, handleAnswer, correctAnswer, prompt, disa
 };
 
 export default Question;
+

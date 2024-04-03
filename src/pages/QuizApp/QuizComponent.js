@@ -101,7 +101,7 @@ const QuizComponent = ({ concept, unlockThreshold, updateQuizScore }) => {
 
     return (
         <div>
-            <h2>{concept} Quiz</h2>
+            <h1 style={{marginLeft:"20px", marginTop:"20px", paddingTop:"20px", textAlign:"center"}}> Test yourself! </h1>
             {quizData[concept].map((questionData, index) => (
                 <div key={index}>
                     <Question
