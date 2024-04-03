@@ -32,7 +32,7 @@ const Button = styled.button`
   }
 
   &.passed {
-    background-color: green;
+    
   }
   &.not-passed {
     opacity: 1;

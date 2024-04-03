@@ -32,7 +32,7 @@ const Button = styled.button`
     text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
   }
   &.passed {
-    background-color: green;
+    
   }
 
   &.not-passed {

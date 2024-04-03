@@ -17,9 +17,9 @@ const Question = ({ question, options, handleAnswer, correctAnswer, prompt, disa
 
     return (
         <div>
-            <p style={{ fontWeight: 'bold', marginBottom: '10px', color:"darkblue", fontSize: '25px', marginLeft:'70px', textAlign:"center" }}>{question}</p>
+            <p style={{ fontWeight: 'bold', marginBottom: '10px', color:"darkblue", fontSize: '25px', marginLeft:'50px' }}>{question}</p>
             {options.map((option, index) => (
-                <div key={index} style={{ marginBottom: '5px', textAlign:"center"}}>
+                <div key={index} style={{ marginBottom: '5px' }}>
                     <button
                         onClick={() => handleOptionClick(option)}
                         style={{
@@ -39,8 +39,7 @@ const Question = ({ question, options, handleAnswer, correctAnswer, prompt, disa
                             cursor: 'pointer',
                             outline: 'none',
                             marginRight: '5px',
-                            marginLeft:'80px',
-                            textAlign:"center"// Adjust as per your design
+                            marginLeft:'60px'// Adjust as per your design
                         }}
                         disabled={disabled || displayCorrectAnswers || selectedOption}
                     >
@@ -49,7 +48,7 @@ const Question = ({ question, options, handleAnswer, correctAnswer, prompt, disa
                 </div>
             ))}
             {selectedOption && (
-                <p style={{ color: selectedOption === correctAnswer ? 'green' : 'red', marginLeft:"80px", textAlign:"center"}}>
+                <p style={{ color: selectedOption === correctAnswer ? 'green' : 'red' }}>
                     {selectedOption === correctAnswer
                         ? "Correct! "
                         : `Incorrect. `}
