@@ -1,7 +1,7 @@
 import React from 'react';
 import Header from "./components/Header";
 import ButtonsContainer from "./components/ButtonsContainer";
-import Disclaimer from "./components/Disclaimer.js"; // Import the Disclaimer component
+import Disclaimer from "./components/Disclaimer.js"; 
 
 function Home() {
   return (

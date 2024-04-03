@@ -6,7 +6,7 @@ import styled from 'styled-components';
 import websiteLogo from './images/SP-LOGO.png';
 import websiteLogoHover from './images/SP-LOGO-HOVER.png'
 
-// Styled component for the menu bar
+
 const StyledMenu = styled.div`
   background-color: rgb(44, 42, 42); 
   box-shadow: 0 0 0px 0px ;
@@ -18,7 +18,7 @@ const StyledMenu = styled.div`
   justify-content: space-between; 
   align-items: center; 
 `;
-// Styled component for individual menu items
+
 const StyledLink = styled(Link)`
   text-decoration: none;
   color: white;
@@ -33,13 +33,13 @@ const StyledLink = styled(Link)`
   }
 `;
 
-//push the items except Logo in a corner
+
 const MenuContainer = styled.div`
   display: flex;
   gap: 2em; 
 `;
 
-//Logo (change name?)
+
 
 const Logo = styled(Link)`
   display: flex;

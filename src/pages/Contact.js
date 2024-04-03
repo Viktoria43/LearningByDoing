@@ -34,12 +34,7 @@ const Button = styled.button`
     background-color: #559;
 `;
 
-// const Label = styled.label`
-//   margin-bottom: 8px;
-//   font-size: 1em;
-//   color: #000000;
-//   font-family: 'Montserrat', sans-serif;
-// `;
+
 
 const Input = styled.input`
   width: 94%;

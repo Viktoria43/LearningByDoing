@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 
 const Disclaimer = () => {
   const [isVisible, setIsVisible] = useState(false);
-  const [isFadingOut, setIsFadingOut] = useState(false); // State to control fade-out
+  const [isFadingOut, setIsFadingOut] = useState(false); 
 
   useEffect(() => {
     const fadeInTimer = setTimeout(() => {
       setIsVisible(true);
     }, 100);
 
-    // Set up a timer to start the fade-out effect after 60 seconds
+    
     const fadeOutTimer = setTimeout(() => {
-      setIsFadingOut(true); // Start fade-out
-      setTimeout(() => setIsVisible(false), 1000); // Wait for fade-out to finish before hiding
-    }, 10000);
+      setIsFadingOut(true); 
+      setTimeout(() => setIsVisible(false), 1000); 
+    }, 20000);
 
     return () => {
       clearTimeout(fadeInTimer);
@@ -26,12 +26,12 @@ const Disclaimer = () => {
       backgroundColor: '#fff3cd',
       color: '#856404',
       padding: '10px',
-      borderRadius: '8px',
+      borderRadius: '9px',
       fontSize: '12px',
       fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       display: isVisible ? 'inline-block' : 'none',
       position: 'absolute',
-      top: '60px',
+      top: '59px',
       right: '25px',
       maxWidth: '180px',
       boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
@@ -60,8 +60,8 @@ const Disclaimer = () => {
   };
 
   const handleClose = () => {
-    setIsFadingOut(true); // Start fade-out
-    setTimeout(() => setIsVisible(false), 1000); // Wait for fade-out to finish before hiding
+    setIsFadingOut(true); 
+    setTimeout(() => setIsVisible(false), 1000); 
   };
 
   return isVisible ? (
