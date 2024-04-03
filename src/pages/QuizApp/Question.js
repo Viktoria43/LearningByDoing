@@ -48,7 +48,7 @@ const Question = ({ question, options, handleAnswer, correctAnswer, prompt, disa
                 </div>
             ))}
             {selectedOption && (
-                <p style={{ color: selectedOption === correctAnswer ? 'green' : 'red' }}>
+                <p style={{ color: selectedOption === correctAnswer ? 'green' : 'red', marginLeft:"60px" }}>
                     {selectedOption === correctAnswer
                         ? "Correct! "
                         : `Incorrect. `}
