@@ -1,3 +1,29 @@
+
+This platform is designed with the aim of providing an invaluable resource for students embarking on their journey into the realms of computer science, offering a structured and interactive learning experience. It is particularly useful for beginners looking to grasp basic concepts like variables, data types, and loops, etc. as well as more experienced learners who want to delve into complex topics such as sorting algorithms and data structures. Through a carefully curated blend of content, vivid and interactive visualizations, and engaging quizzes, the website fosters an environment where learners can actively engage with the material, thereby deepening their understanding and retention of these complex concepts. It stands as an educational tool, inviting students to not only learn but to truly comprehend and apply their knowledge in practical scenarios.
+
+
+Installation instructions:
+
+
+Please clone the repository, information about this is available here: https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository.
+
+
+Create a .nvm file and in it define three variables: 
+
+
+MONGODB_URI, information about this variable, you can find in here: https://www.mongodb.com/docs/cloud-manager/tutorial/connect-to-mongodb/#connect-to-a-deployment-using-a-mongodb-driver.
+
+
+AUTH_SECRET is used for the encoding of thecret token each user has. You can write a random string. Example: AUTH_SECRET='random-secret-for-the-token'.
+
+
+The third variable is used for the final deployment, REACT_APP_API_URL="/api". You can just copy paste it.
+
+
+Don't forget to add the .nvm file to the .gitignore, as it has the credentials for your database and secret token in it!
+
+
+If you want to use the website without the server (database or user authentication), you can clone the git repository:  https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository, and the run the npm install command to install any eventually missing dependencies. After that you can run npm start.
 # LearningByDoing
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
